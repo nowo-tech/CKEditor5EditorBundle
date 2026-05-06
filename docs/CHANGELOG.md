@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- CI: before installing Symfony **8.0** in the PHPUnit matrix, remove the Composer `platform` override so packages requiring PHP **≥8.4** resolve on **8.4/8.5** runners (the pin stays in `composer.json` for normal `composer install`).
+- CI: for PHPUnit matrix cells with Symfony **8.0**, override Composer `platform.php` to match the job PHP version (e.g. **8.5.99** on PHP 8.5) before `composer require`/`update`, so Symfony 8 (`php >=8.4`) resolves correctly while the committed `composer.json` keeps the **8.2.x** platform pin for default installs.
 
 ## [1.0.1] - 2026-05-06
 
