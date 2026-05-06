@@ -1,0 +1,27 @@
+{
+  "name": "@nowo-tech/ckeditor5-editor-bundle",
+  "version": "1.0.0",
+  "description": "Vite + CKEditor 5 build for Ckeditor5 Editor Bundle (TypeScript)",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "watch": "vite build --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "ckeditor5": "^48.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.39",
+    "@vitest/coverage-v8": "^2.1.9",
+    "happy-dom": "^15.11.7",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.9"
+  },
+  "author": "Héctor Franco Aceituno <hectorfranco@nowo.tech>",
+  "license": "MIT"
+}

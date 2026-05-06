@@ -1,0 +1,13 @@
+# CSRF: required so FrameworkBundle registers security.csrf.token_manager (Ckeditor5EditorType + upload demo).
+framework:
+    form:
+        csrf_protection:
+            token_id: submit
+
+    csrf_protection:
+        enabled: true
+        stateless_token_ids:
+            - submit
+            - authenticate
+            - logout
+            - ckeditor_upload

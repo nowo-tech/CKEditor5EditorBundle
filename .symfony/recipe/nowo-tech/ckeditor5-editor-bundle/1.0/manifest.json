@@ -1,0 +1,11 @@
+{
+    "bundles": {
+        "Nowo\\Ckeditor5EditorBundle\\NowoCkeditor5EditorBundle": ["all"]
+    },
+    "copy-from-recipe": {
+        "config/": "%CONFIG_DIR%/"
+    },
+    "env": {
+        "APP_ENV": "dev"
+    }
+}

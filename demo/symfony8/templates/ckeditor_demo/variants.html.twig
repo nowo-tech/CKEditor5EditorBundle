@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'demo.variants_page_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <h1>{{ 'demo.variants_page_title'|trans({}, 'messages') }}</h1>
+    <p class="lead text-muted">{{ 'demo.variants_page_lead'|trans({}, 'messages') }}</p>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+
+    <div class="alert alert-secondary small mb-4" role="note">
+        <strong>{{ 'demo.variants_yaml_note_title'|trans({}, 'messages') }}</strong>
+        <pre class="mb-0 mt-2 small bg-white border rounded p-3 overflow-auto">{{ 'demo.variants_yaml_snippet'|trans({}, 'messages') }}</pre>
+    </div>
+
+    {{ form_start(form) }}
+
+    <h2 class="h5 mt-4">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
+    <p class="small text-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
+    {{ form_row(form.content_compact) }}
+    {{ form_row(form.content_folio) }}
+    {{ form_row(form.content_folio_env) }}
+
+    <h2 class="h5 mt-4">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
+    <p class="small text-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
+    {{ form_row(form.content_dark) }}
+    {{ form_row(form.content_auto) }}
+
+    <h2 class="h5 mt-4">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
+    <p class="small text-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
+    {{ form_row(form.content_reading) }}
+
+    <button type="submit" class="btn btn-primary mt-3">{{ 'demo.submit_all'|trans({}, 'messages') }}</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

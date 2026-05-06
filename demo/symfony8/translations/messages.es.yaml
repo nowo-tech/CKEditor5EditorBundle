@@ -1,0 +1,139 @@
+demo:
+  title: 'Demo CKEditor 5'
+  menu_toggle_aria: 'Abrir o cerrar el menú'
+  menu_home: 'Inicio'
+  menu_demo: 'Editor'
+  menu_configs: 'Perfiles'
+  menu_inline_config: 'YAML en PHP'
+  menu_variants: 'Variantes'
+  menu_emoji: 'Emoji'
+  menu_typography: 'Fuentes'
+  menu_variables: 'Variables'
+  menu_upload_images: 'Subir imágenes'
+  theme_toggle_title: 'Alternar modo oscuro'
+  theme_dark: 'Oscuro'
+  theme_light: 'Claro'
+  page_home_title: 'Texto enriquecido con CKEditor 5'
+  page_home_lead: 'Campo de formulario Symfony con <a href="https://ckeditor.com/ckeditor-5/">CKEditor 5</a> (build GPL con Vite), en la línea de integraciones tipo FriendsofSymfony.'
+  body_label: 'Contenido'
+  saved: 'Contenido guardado.'
+  saved_configs: 'Todos los editores guardados.'
+  saved_variants: 'Todos los editores (variantes) guardados.'
+  submit: 'Guardar'
+  submit_all: 'Guardar todo'
+  saved_preview: 'HTML enviado (vista escapada):'
+  configs_page_title: 'Perfiles YAML'
+  configs_page_lead: 'Perfiles full → standard, simple, minimal — ver config/packages/nowo_ckeditor5_editor.yaml. Más alturas, temas y variables en Variantes.'
+  inline_config_page_title: 'Fusión del perfil en PHP (`editor_config`)'
+  inline_config_page_lead: 'Esta página usa el perfil YAML **minimal** y luego sobrescribe **preset** y **min_height** con la opción de formulario `editor_config` (mismas claves que en nowo_ckeditor5_editor). Las opciones explícitas `toolbar`, `min_height`, `height`, `theme` del campo siguen teniendo prioridad sobre el resultado fusionado.'
+  inline_config_field_label: 'Editor (minimal → sobrescrito)'
+  inline_config_field_help: '`config: minimal` más `editor_config` con preset standard y min-height responsive.'
+  inline_config_sample_html: 'Deberías ver la barra «standard» (tablas, etc.) y un área más alta — no el preset minimal puro.'
+  inline_config_note_title: 'Mismo fragmento que en CkeditorDemoController'
+  inline_config_note_snippet: |
+    ->add('content', Ckeditor5EditorType::class, [
+        'config' => 'minimal',
+        'editor_config' => [
+            'preset' => 'standard',
+            'min_height' => 'min(32vh, 480px)',
+        ],
+    ]);
+  variants_page_title: 'Alturas, temas y variables'
+  variants_page_lead: 'compact y folio (parámetros), folio desde .env, chrome oscuro y automático, modo lectura sin barra.'
+  variants_yaml_note_title: 'Dónde se configura'
+  variants_yaml_snippet: |
+    # config/packages/demo_ckeditor_parameters.yaml
+    parameters:
+        demo.ckeditor.height.compact: '112px'
+        demo.ckeditor.height.folio: 'min(72vh, 720px)'
+
+    # config/packages/nowo_ckeditor5_editor.yaml — folio_env usa:
+    # min_height: '%env(DEMO_CKEDITOR_FOLIO_MIN_HEIGHT)%'
+
+    # .env
+    # DEMO_CKEDITOR_FOLIO_MIN_HEIGHT=min(68vh, 620px)
+  section_standard: 'preset standard (tablas, imagen por URL, alineación…)'
+  section_standard_hint: 'Perfil «full» → preset standard.'
+  section_simple: 'preset simple'
+  section_simple_hint: 'Perfil «simple» → encabezados, listas, cita, código — sin tablas/imagen.'
+  section_minimal: 'preset minimal'
+  section_minimal_hint: 'Perfil «minimal» → negrita, cursiva, enlace, listas.'
+  section_heights: 'Altura mínima: compact, folio, folio por entorno'
+  section_heights_hint: 'compact usa %demo.ckeditor.height.compact%; folio usa %demo.ckeditor.height.folio%; folio_env usa DEMO_CKEDITOR_FOLIO_MIN_HEIGHT.'
+  section_themes: 'Tema del chrome: oscuro y automático'
+  section_themes_hint: 'dark_note fuerza wrapper oscuro; auto_panel usa prefers-color-scheme con theme auto.'
+  section_misc: 'Modo lectura (sin barra)'
+  section_misc_hint: 'toolbar: false — solo zona editable, preset simple.'
+  profile_standard_label: 'Build standard'
+  profile_standard_help: 'Tablas, imagen por URL, alineación, listas de tareas — solo plugins OSS.'
+  profile_simple_label: 'Simple'
+  profile_simple_help: 'Barra media sin tablas ni imágenes.'
+  profile_minimal_label: 'Minimal'
+  profile_minimal_help: 'Negrita, cursiva, enlace, listas.'
+  variant_compact_label: 'Altura compacta'
+  variant_compact_help: 'Perfil compact — min-height ~112px vía parámetro.'
+  variant_folio_label: 'Folio / documento largo'
+  variant_folio_help: 'Perfil folio — área alta min(72vh, 720px) para contratos o textos largos.'
+  variant_folio_env_label: 'Folio por variable de entorno'
+  variant_folio_env_help: 'Perfil folio_env — min_height desde DEMO_CKEDITOR_FOLIO_MIN_HEIGHT en .env.'
+  variant_dark_label: 'Chrome oscuro'
+  variant_dark_help: 'Perfil dark_note — theme: dark en el wrapper del widget.'
+  variant_auto_label: 'Chrome automático'
+  variant_auto_help: 'Perfil auto_panel — theme: auto (respeta claro/oscuro del sistema).'
+  variant_reading_label: 'Modo lectura'
+  variant_reading_help: 'Perfil reading_mode — sin barra de herramientas, preset simple, min-height amplio.'
+  sample_standard: 'Preset standard — barra completa con tablas e insertar imagen (URL).'
+  sample_simple: 'Preset simple — encabezados, listas, cita, código.'
+  sample_minimal: 'Preset minimal — barra ligera.'
+  sample_compact: 'Compact — editor bajo para pies de foto o notas breves.'
+  sample_folio: 'Folio — altura cómoda para textos legales o largos.'
+  sample_folio_env: 'Igual que folio; la altura la define DEMO_CKEDITOR_FOLIO_MIN_HEIGHT.'
+  sample_dark: 'Wrapper oscuro — útil en páginas oscuras o junto a UI oscura.'
+  sample_auto: 'Tema auto — sigue el modo claro/oscuro del sistema.'
+  sample_reading: 'Modo lectura — foco en el texto sin barra de herramientas.'
+  emoji_page_title: 'Selector de emoji'
+  emoji_page_lead: 'El botón de emoji abre la tabla; tras un espacio, escribe : y letras para sugerencias. Los datos se cargan desde la CDN de CKEditor — requiere red y CSP adecuado.'
+  emoji_field_label: 'Mensaje enriquecido'
+  emoji_field_help: 'Perfil with_emoji con preset emoji (herramientas tipo simple + Emoji + Mention para autocompletar con “:”).'
+  emoji_sample_html: "Prueba el botón emoji o escribe :sm tras un espacio para ver sugerencias."
+  emoji_config_note_title: 'YAML (preset: emoji)'
+  emoji_config_snippet: |
+    with_emoji:
+        preset: emoji
+        toolbar: true
+        min_height: 260px
+  typography_page_title: 'Fuentes y tamaños'
+  typography_page_lead: 'Desplegables de familia y tamaño de fuente (estilos en línea). Las listas están en el bundle Vite para el preset typography.'
+  typography_field_label: 'Contenido con estilos'
+  typography_field_help: 'Perfil typography_styled con preset typography (FontFamily + FontSize + quitar formato).'
+  typography_sample_html: "Selecciona texto y cambia fuente o tamaño desde la barra."
+  typography_config_note_title: 'YAML (preset: typography)'
+  typography_config_snippet: |
+    typography_styled:
+        preset: typography
+        toolbar: true
+        min_height: 280px
+  variables_page_title: 'Variables de plantilla (@)'
+  variables_page_lead: 'Escribe @ en el texto para ver una lista de marcadores tipo «merge» (nombre, email, número de póliza…). Se guardan en el HTML como marcado «mention» de CKEditor — sustitúyelos o resuélvelos en tu aplicación al generar correos o PDFs. La lista está definida en el build Vite del bundle (ckeditor5-editor.ts); haz fork para añadir tus claves.'
+  variables_field_label: 'Cuerpo con variables'
+  variables_field_help: 'Perfil with_variables con preset variables (Mention con lista @).'
+  variables_sample_html: 'Escribe @ — elige una variable de la lista y guarda para inspeccionar el HTML debajo.'
+  variables_config_note_title: 'YAML (preset: variables)'
+  variables_config_snippet: |
+    with_variables:
+        preset: variables
+        toolbar: true
+        min_height: 280px
+  upload_images_page_title: 'Subida y recuperación de imágenes'
+  upload_images_page_lead: 'Inserta imágenes desde la barra; los ficheros se envían por POST a /upload/ckeditor con cabecera CSRF. El endpoint guarda en public/uploads/ckeditor y devuelve una URL absoluta. Tras guardar, el HTML muestra esas URLs — recarga y vuelve a enviar para comprobar que las imágenes siguen cargando.'
+  upload_images_field_label: 'Contenido con subidas'
+  upload_images_field_help: 'Perfil with_image_upload con preset standard y upload_url para SimpleUploadAdapter.'
+  upload_images_sample_html: 'Insertar imagen → Subir, elige JPEG/PNG/WebP/GIF (máx. 5 MB). Guarda para ver el HTML escapado y una vista previa renderizada.'
+  upload_images_rendered_preview: 'Vista previa renderizada (el mismo HTML del formulario):'
+  upload_images_config_note_title: 'YAML (preset standard + upload_url)'
+  upload_images_config_snippet: |
+    with_image_upload:
+        preset: standard
+        toolbar: true
+        min_height: 360px
+        upload_url: '/upload/ckeditor'

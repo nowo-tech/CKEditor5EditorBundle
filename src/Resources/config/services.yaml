@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Nowo\Ckeditor5EditorBundle\Twig\NowoCkeditor5EditorTwigExtension:
+        tags: ['twig.extension']
+
+    Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType:
+        arguments:
+            $configs: '%nowo_ckeditor5_editor.configs%'
+            $defaultConfigName: '%nowo_ckeditor5_editor.default_config%'
+            $csrfTokenManager: '@security.csrf.token_manager'
+        tags:
+            - { name: form.type }

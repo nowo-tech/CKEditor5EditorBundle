@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'demo.page_home_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <h1>{{ 'demo.page_home_title'|trans({}, 'messages') }}</h1>
+    <p class="lead">{{ 'demo.page_home_lead'|trans({}, 'messages')|raw }}</p>
+    <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary" href="{{ path('app_demo', { _locale: app.request.locale }) }}">{{ 'demo.menu_demo'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-primary" href="{{ path('app_demo_configs', { _locale: app.request.locale }) }}">{{ 'demo.menu_configs'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_inline_config', { _locale: app.request.locale }) }}">{{ 'demo.menu_inline_config'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_variants', { _locale: app.request.locale }) }}">{{ 'demo.menu_variants'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_emoji', { _locale: app.request.locale }) }}">{{ 'demo.menu_emoji'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_typography', { _locale: app.request.locale }) }}">{{ 'demo.menu_typography'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_variables', { _locale: app.request.locale }) }}">{{ 'demo.menu_variables'|trans({}, 'messages') }}</a>
+        <a class="btn btn-outline-secondary" href="{{ path('app_demo_upload_images', { _locale: app.request.locale }) }}">{{ 'demo.menu_upload_images'|trans({}, 'messages') }}</a>
+    </div>
+</div>
+{% endblock %}

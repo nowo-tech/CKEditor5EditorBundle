@@ -1,0 +1,4 @@
+# CSRF: required so FrameworkBundle registers security.csrf.token_manager (Ckeditor5EditorType + upload demo).
+framework:
+    csrf_protection:
+        enabled: true

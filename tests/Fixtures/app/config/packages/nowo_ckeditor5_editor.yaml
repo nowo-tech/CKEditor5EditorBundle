@@ -1,0 +1,10 @@
+nowo_ckeditor5_editor:
+    default_config: simple
+    configs:
+        simple:
+            preset: simple
+            toolbar: true
+            min_height: 240px
+            form_theme: form_div_layout.html.twig
+            debug: false
+            theme: light

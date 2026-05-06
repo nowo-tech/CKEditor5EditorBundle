@@ -1,0 +1,129 @@
+{#
+  CKEditor 5 classic widget (form_div): hidden textarea + mount; HTML synced on change (FOS-style textarea mapping).
+  Presets (ckeditor5_preset): standard | simple | minimal | emoji | typography | variables — plugins + toolbar in the built bundle script.
+#}
+{% use "form_div_layout.html.twig" %}
+
+{% block ckeditor5_editor_widget %}
+{% set trans_domain = translation_domain|default('NowoCkeditor5EditorBundle') %}
+{% set ph_key = ckeditor5_placeholder_key ?? null %}
+{% set placeholder_text = ph_key is not null and ph_key is not same as(false) and ph_key != '' ? ph_key|trans({}, trans_domain == false ? 'messages' : trans_domain) : '' %}
+{% set preset = ckeditor5_preset|default('standard') %}
+{% set theme = ckeditor5_theme|default('light') %}
+<div class="ckeditor5-editor-widget ckeditor5-preset-{{ preset|e('html_attr') }} {% if theme == 'auto' %}ckeditor5-theme-auto{% elseif theme == 'dark' %}ckeditor5-theme-dark{% else %}ckeditor5-theme-light{% endif %}"
+     style="--ckeditor5-min-height: {{ ckeditor5_min_height|default('240px')|e('html_attr') }};"
+     data-ckeditor5-root="1"
+     data-controller="{{ ('nowo-ckeditor5-editor ' ~ (attr['data-controller']|default('')))|trim }}"
+     data-ckeditor5-preset-value="{{ preset|e('html_attr') }}"
+     data-ckeditor5-toolbar-value="{{ ckeditor5_toolbar ? '1' : '0' }}"
+     data-ckeditor5-min-height-value="{{ ckeditor5_min_height|default('240px')|e('html_attr') }}"
+     data-ckeditor5-debug-value="{{ ckeditor5_debug ? '1' : '0' }}"
+     data-ckeditor5-theme-value="{{ theme|e('html_attr') }}"
+     {% if placeholder_text != '' %}data-ckeditor5-placeholder-value="{{ placeholder_text|e('html_attr') }}"{% endif %}
+     {% if ckeditor5_upload_url is defined and ckeditor5_upload_url %}data-ckeditor5-upload-url-value="{{ ckeditor5_upload_url|e('html_attr') }}" data-ckeditor5-upload-csrf-value="{{ ckeditor5_upload_csrf|default('')|e('html_attr') }}"{% endif %}>
+    {% set attr = attr|merge({
+        'class': (attr.class|default('') ~ ' ckeditor5-editor-hidden-input')|trim,
+        'style': 'display:none!important',
+        'tabindex': '-1',
+        'aria-hidden': 'true',
+    }) %}
+    {{- block('textarea_widget') -}}
+    <div class="ckeditor5-editor-chrome border rounded bg-white shadow-sm">
+        <div class="ckeditor5-editor-mount p-1" data-ckeditor5-mount="1"></div>
+    </div>
+</div>
+<style>
+/* ClassicEditor (GPL build): main typing surface — min_height from YAML via --ckeditor5-min-height + TS inline fix */
+.ckeditor5-editor-widget .ckeditor5-editor-mount .ck.ck-editor {
+    max-width: 100%;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-mount .ck.ck-editor > .ck-editor__main {
+    min-height: var(--ckeditor5-min-height, 240px) !important;
+    box-sizing: border-box;
+}
+/* .ck-content and .ck-editor__editable are the same node in ClassicEditor; nested table cells use other classes */
+.ckeditor5-editor-widget .ckeditor5-editor-mount .ck-editor__main > .ck.ck-content.ck-editor__editable {
+    min-height: var(--ckeditor5-min-height, 240px) !important;
+    box-sizing: border-box;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-mount .ck.ck-editor .ck-editor__main .ck-editor__editable:not(.ck-editor__nested-editable),
+.ckeditor5-editor-widget .ckeditor5-editor-mount .ck.ck-editor__editable_inline {
+    min-height: var(--ckeditor5-min-height, 240px) !important;
+    box-sizing: border-box;
+}
+/* Theme tokens for dark chrome — CKEditor SVG/icons follow --ck-color-* (see CK theme customization docs) */
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    --ck-color-base-text: #f1f5f9;
+    --ck-color-text: #f1f5f9;
+    --ck-color-icon: #f1f5f9;
+    --ck-color-focus-border: #94a3b8;
+    --ck-color-toolbar-background: #1e293b;
+    --ck-color-base-background: #0f172a;
+    --ck-color-button-default-background: transparent;
+    --ck-color-button-on-background: #334155;
+    --ck-color-button-on-color: #f8fafc;
+    --ck-color-dropdown-panel-background: #1e293b;
+    --ck-color-dropdown-panel-border: #334155;
+    --ck-color-input-background: #0f172a;
+    --ck-color-input-text: #f1f5f9;
+    --ck-color-input-border: #475569;
+    --ck-color-shadow-drop: rgba(0, 0, 0, 0.45);
+    --ck-color-shadow-inner: rgba(0, 0, 0, 0.25);
+}
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar {
+    background: var(--ck-color-toolbar-background);
+    border-color: #334155;
+    color: #f1f5f9;
+}
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-button,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-button .ck-button__label {
+    color: #f1f5f9;
+}
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar .ck-icon,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar svg {
+    color: #f1f5f9;
+    fill: currentColor;
+}
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor > .ck-editor__main,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck-editor__main > .ck.ck-content.ck-editor__editable,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__main .ck-editor__editable:not(.ck-editor__nested-editable),
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__editable_inline {
+    min-height: var(--ckeditor5-min-height, 240px) !important;
+}
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__main .ck-editor__editable,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__editable_inline {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #334155;
+}
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ckeditor5-editor-chrome {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    --ck-color-base-text: #f1f5f9;
+    --ck-color-text: #f1f5f9;
+    --ck-color-icon: #f1f5f9;
+    --ck-color-toolbar-background: #1e293b;
+}
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ckeditor5-editor-chrome .ck.ck-toolbar {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ckeditor5-editor-chrome .ck.ck-toolbar .ck-icon,
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ckeditor5-editor-chrome .ck.ck-toolbar svg {
+    color: #f1f5f9;
+    fill: currentColor;
+}
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck.ck-editor > .ck-editor__main,
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck-editor__main > .ck.ck-content.ck-editor__editable,
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck.ck-editor .ck-editor__main .ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: var(--ckeditor5-min-height, 240px) !important;
+}
+body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck.ck-editor .ck-editor__main .ck-editor__editable {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+</style>
+{% endblock %}
