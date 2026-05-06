@@ -14,6 +14,14 @@
 
 No bundle API breaks are introduced solely by tagging; see [`CHANGELOG.md`](CHANGELOG.md) for the full 1.0.0 notes.
 
+## To 1.0.1 from 1.0.0
+
+Patch release: CI and contributor installs on **PHP 8.2** using the repository lock file. No bundle API or YAML changes.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` if you pin `1.0.0` exactly; with `^1.0` you get 1.0.1 automatically on update.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.1**) for details.
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
