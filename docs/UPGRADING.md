@@ -6,6 +6,14 @@
 - Pin versions in `composer.json` (e.g. `^1.0`) instead of relying only on `dev-main` for production apps.
 - After upgrading, run `php bin/console cache:clear` and `php bin/console assets:install public` so Twig and published bundle assets stay in sync.
 
+## To 1.0.0 (first Git / Packagist semver tag)
+
+`v1.0.0` is the first annotated release tag. If you were tracking `dev-main` or a commit hash, switch to a semver constraint so upgrades are predictable:
+
+- **Composer**: `composer require nowo-tech/ckeditor5-editor-bundle:^1.0`
+
+No bundle API breaks are introduced solely by tagging; see [`CHANGELOG.md`](CHANGELOG.md) for the full 1.0.0 notes.
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
