@@ -52,6 +52,10 @@ jobs:
 
       - name: Install dependencies with Symfony ${{ matrix.symfony }}
         run: |
+          # Symfony 8 requires PHP >=8.4; root composer.json pins platform.php to 8.2.x for the lock file / PHP 8.2 jobs — drop platform for this step so Symfony 8 resolves against the runner PHP.
+          if [ "${{ matrix.symfony }}" = "8.0" ]; then
+            composer config --unset platform
+          fi
           composer require symfony/config:^${{ matrix.symfony }} symfony/dependency-injection:^${{ matrix.symfony }} symfony/form:^${{ matrix.symfony }} symfony/framework-bundle:^${{ matrix.symfony }} symfony/http-foundation:^${{ matrix.symfony }} symfony/http-kernel:^${{ matrix.symfony }} symfony/routing:^${{ matrix.symfony }} symfony/twig-bundle:^${{ matrix.symfony }} symfony/web-profiler-bundle:^${{ matrix.symfony }} --no-interaction --no-update
           composer update symfony/* --with-all-dependencies --no-interaction --prefer-dist --no-progress
 
