@@ -22,6 +22,14 @@ Patch release: CI and contributor installs on **PHP 8.2** using the repository l
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.1**) for details.
 
+## To 1.0.2 from 1.0.1
+
+Patch release: CI (Symfony **8** matrix + Composer platform) and **PHPStan** config only. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.0.1`); with `^1.0`, **1.0.2** is included on update.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.2**) for details.
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
