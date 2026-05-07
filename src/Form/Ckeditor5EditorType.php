@@ -97,9 +97,7 @@ final class Ckeditor5EditorType extends AbstractType
         $resolver->setAllowedTypes('placeholder', ['null', 'string', 'bool']);
         $resolver->setAllowedTypes('theme', ['string']);
 
-        $resolver->setNormalizer('theme', function (Options $options, string $value): string {
-            return $this->normalizeTheme($value);
-        });
+        $resolver->setNormalizer('theme', fn(Options $options, string $value): string => $this->normalizeTheme($value));
 
         $resolver->setNormalizer('min_height', function (Options $options, string $value): string {
             $t = trim($value);
