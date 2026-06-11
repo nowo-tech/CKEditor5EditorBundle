@@ -27,7 +27,9 @@ Open an issue describing the use case, expected behaviour, and optional implemen
 - `src/` — Bundle code (DI extension, form type, Twig extension, compiler passes).
 - `src/Resources/` — Twig themes, translations, Vite sources, published `public/` JS.
 - `tests/` — PHPUnit (`Unit`, `Integration`).
-- `demo/` — Symfony 7 & 8 FrankenPHP demos (not shipped in the Composer package).
+- `demo/` — FrankenPHP demos: **`symfony7`** (Symfony **7.4**, port **8020**) and **`symfony8`** (Symfony **8.1**, port **8021**); not shipped in the Composer package.
+
+CI runs PHPUnit on **PHP 8.2–8.5** × **Symfony 7.0 / 7.4 / 8.0 / 8.1** (Symfony **8.x** jobs use PHP **≥8.4**).
 
 ## Code style
 

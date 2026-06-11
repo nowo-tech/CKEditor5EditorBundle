@@ -1,6 +1,6 @@
 {
     "name": "nowo-tech/ckeditor5-editor-demo-symfony7",
-    "description": "Demo for CKEditor 5 Editor Bundle - Symfony 7",
+    "description": "Demo for CKEditor 5 Editor Bundle - Symfony 7.4",
     "type": "project",
     "license": "MIT",
     "require": {
@@ -46,7 +46,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "7.0.*"
+            "require": "7.4.*"
         }
     },
     "repositories": [

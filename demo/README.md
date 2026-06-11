@@ -1,13 +1,13 @@
 # CKEditor 5 Editor Bundle — demos
 
-Two Symfony apps (7.x and 8.x) served with **FrankenPHP**. Each mounts this repository at `/var/ckeditor5-editor-bundle` so Composer can install `nowo-tech/ckeditor5-editor-bundle` from the path repository.
+Two Symfony apps served with **FrankenPHP** — one on **Symfony 7.4**, one on **Symfony 8.1**. Each mounts this repository at `/var/ckeditor5-editor-bundle` so Composer can install `nowo-tech/ckeditor5-editor-bundle` from the path repository.
 
 ## Ports
 
-| Demo    | Default URL            |
-|---------|------------------------|
-| Symfony 7 | http://localhost:8020 |
-| Symfony 8 | http://localhost:8021 |
+| Demo | Symfony | Default URL |
+| ---- | ------- | ----------- |
+| `demo/symfony7` | **7.4.*** | http://localhost:8020 |
+| `demo/symfony8` | **8.1.*** | http://localhost:8021 |
 
 Override with `PORT` in each demo’s `.env`.
 

@@ -2,6 +2,8 @@
 
 ## General
 
+**Supported platforms:** Symfony **6.4**, **7.x** (incl. **7.4**) on PHP **8.2+**; Symfony **8.0** and **8.1** on PHP **8.4+**. See [`INSTALLATION.md`](INSTALLATION.md#requirements).
+
 - Follow [`CHANGELOG.md`](CHANGELOG.md) for each release.
 - Pin versions in `composer.json` (e.g. `^1.0`) instead of relying only on `dev-main` for production apps.
 - After upgrading, run `php bin/console cache:clear` and `php bin/console assets:install public` so Twig and published bundle assets stay in sync.
@@ -29,6 +31,14 @@ Patch release: CI (Symfony **8** matrix + Composer platform) and **PHPStan** con
 - **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.0.1`); with `^1.0`, **1.0.2** is included on update.
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.2**) for details.
+
+## To 1.0.3 from 1.0.2
+
+Patch release: documentation, CI matrix (**Symfony 7.4** / **8.1**), demo pins, and Makefile `update-deps` targets only. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.0.2`); with `^1.0`, **1.0.3** is included on update.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.3**) for details.
 
 ## To 1.x (first documented stable line)
 

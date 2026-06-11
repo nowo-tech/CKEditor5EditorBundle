@@ -22,7 +22,7 @@ Each demo uses:
 - **`Caddyfile`** (production-oriented, worker) and **`Caddyfile.dev`** (development, classic `php_server`).
 - An **entrypoint** that, when running in dev, activates `Caddyfile.dev` so Twig and bundle changes are visible without restarting workers.
 
-There are two demos: **`demo/symfony7`** (default HTTP port **8020**) and **`demo/symfony8`** (default **8021**). From the bundle root:
+There are two demos: **`demo/symfony7`** (Symfony **7.4.***, default HTTP port **8020**) and **`demo/symfony8`** (Symfony **8.1.***, default **8021**). From the bundle root:
 
 ```bash
 make -C demo up-symfony8
@@ -64,10 +64,10 @@ Compare **`Caddyfile`** vs **`Caddyfile.dev`** in `demo/symfony*/docker/frankenp
 
 ## Ports and URLs
 
-| Demo     | Default `PORT` | URL                    |
-| -------- | -------------- | ---------------------- |
-| symfony7 | 8020           | http://localhost:8020 |
-| symfony8 | 8021           | http://localhost:8021 |
+| Demo     | Symfony | Default `PORT` | URL                    |
+| -------- | ------- | -------------- | ---------------------- |
+| symfony7 | 7.4.*   | 8020           | http://localhost:8020 |
+| symfony8 | 8.1.*   | 8021           | http://localhost:8021 |
 
 Override `PORT` in the demo `.env` (from `.env.example`) if ports clash.
 

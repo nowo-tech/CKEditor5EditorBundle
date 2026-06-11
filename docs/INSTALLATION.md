@@ -1,5 +1,14 @@
 # Installation
 
+## Requirements
+
+| Symfony | PHP (minimum) | Composer constraint |
+| ------- | ------------- | ------------------- |
+| **6.4**, **7.x** (incl. **7.4**) | **8.2+** | `^6.4 \|\| ^7.0` on Symfony components |
+| **8.0**, **8.1** | **8.4+** | `^8.0` on Symfony components |
+
+The bundle declares `^6.4 \|\| ^7.0 \|\| ^8.0` on required Symfony packages. Symfony **8** needs PHP **≥8.4** (upstream requirement). CI verifies **7.0**, **7.4**, **8.0**, and **8.1** — see [`.github/workflows/ci.yml`](../.github/workflows/ci.yml).
+
 ```bash
 composer require nowo-tech/ckeditor5-editor-bundle:^1.0
 ```

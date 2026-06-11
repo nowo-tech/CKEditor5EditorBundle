@@ -79,3 +79,6 @@ update-bundle: ensure-up
 	docker-compose exec php composer update nowo-tech/ckeditor5-editor-bundle --no-interaction
 	docker-compose exec php php bin/console cache:clear --env=dev
 	@echo "Bundle updated. Reload the page in the browser."
+
+# REQ-MAKE-008: update-deps (REQ-MAKE-008)
+include $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../../../.scripts/Makefile.demo-update-deps.mk

@@ -16,12 +16,16 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.2', '8.3', '8.4', '8.5']
-        symfony: ['7.0', '8.0']
+        symfony: ['7.0', '7.4', '8.0', '8.1']
         exclude:
           - php: '8.2'
             symfony: '8.0'
+          - php: '8.2'
+            symfony: '8.1'
           - php: '8.3'
             symfony: '8.0'
+          - php: '8.3'
+            symfony: '8.1'
 
     steps:
       - name: Checkout code
@@ -53,9 +57,11 @@ jobs:
       - name: Install dependencies with Symfony ${{ matrix.symfony }}
         run: |
           # Symfony 8 requires PHP >=8.4; composer.json pins platform to 8.2.x for lock/PHP 8.2 jobs — override platform for Symfony 8 cells so resolution sees PHP >=8.4 (unset alone can still leave Composer on 8.2.x in some setups).
-          if [ "${{ matrix.symfony }}" = "8.0" ]; then
-            composer config platform.php "${{ matrix.php }}.99"
-          fi
+          case "${{ matrix.symfony }}" in
+            8.*)
+              composer config platform.php "${{ matrix.php }}.99"
+              ;;
+          esac
           composer require symfony/config:^${{ matrix.symfony }} symfony/dependency-injection:^${{ matrix.symfony }} symfony/form:^${{ matrix.symfony }} symfony/framework-bundle:^${{ matrix.symfony }} symfony/http-foundation:^${{ matrix.symfony }} symfony/http-kernel:^${{ matrix.symfony }} symfony/routing:^${{ matrix.symfony }} symfony/twig-bundle:^${{ matrix.symfony }} symfony/web-profiler-bundle:^${{ matrix.symfony }} --no-interaction --no-update
           composer update symfony/* --with-all-dependencies --no-interaction --prefer-dist --no-progress
 
