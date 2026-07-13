@@ -54,6 +54,18 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
 
     public function prepend(ContainerBuilder $container): void
     {
+        if ($container->hasExtension('framework')) {
+            $container->prependExtensionConfig('framework', [
+                'assets' => [
+                    'packages' => [
+                        Configuration::ALIAS => [
+                            'base_path' => '/bundles/nowockeditor5editor',
+                        ],
+                    ],
+                ],
+            ]);
+        }
+
         if (!$container->hasExtension('twig')) {
             return;
         }

@@ -65,7 +65,7 @@
     </nav>
     {% block body %}{% endblock %}
     {# CKEditor 5 IIFE: monta editores en [data-ckeditor5-root]; requiere `bin/console assets:install public` en la app #}
-    <script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+    <script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 (function () {

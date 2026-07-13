@@ -12,7 +12,7 @@ Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEd
 
 - Named YAML profiles (`toolbar`, `min_height`, `form_theme`, `preset`, `theme`, optional `upload_url`).
 - Twig themes for common layouts (Bootstrap 3–5, Foundation, Tailwind 2, table layout).
-- `nowo_ckeditor5_editor_asset_path()` Twig helper for published assets.
+- `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
 - **pnpm + Vite** frontend; **Vitest** coverage on shared utilities (`logger.ts`).
 - **Dockerfile + Makefile** aligned with other Nowo bundles.
 - **Demos**: Symfony **7.4** and **8.1** FrankenPHP apps under `demo/` (ports **8020** / **8021**).
@@ -56,7 +56,7 @@ $builder->add('body', Ckeditor5EditorType::class, [
 ```
 
 ```twig
-<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
 ```
 
 ## Documentation

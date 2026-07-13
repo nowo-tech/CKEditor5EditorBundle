@@ -22,7 +22,7 @@ Submitted data is an **HTML string** (store in `TEXT` / `LONGTEXT` / similar).
 Include the compiled widget **once** per page (after your layout base):
 
 ```twig
-<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
 ```
 
 The script mounts CKEditor 5 on fields rendered by the bundle form theme.
