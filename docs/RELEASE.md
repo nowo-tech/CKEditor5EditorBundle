@@ -38,3 +38,5 @@ If the package is registered on [Packagist](https://packagist.org/), a new tag i
 ## Automated sync
 
 [`sync-releases.yml`](../.github/workflows/sync-releases.yml) can create or backfill releases from existing tags (scheduled or manual).
+
+After creating the release commit and tag, run `make check-no-cursor-coauthor` again **before** `git push` (REQ-GIT-001). The release commit itself is not covered by an earlier `release-check` run.
