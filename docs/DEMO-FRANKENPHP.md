@@ -22,7 +22,7 @@ Each demo uses:
 - **`Caddyfile`** (production-oriented, worker) and **`Caddyfile.dev`** (development, classic `php_server`).
 - An **entrypoint** that, when running in dev, activates `Caddyfile.dev` so Twig and bundle changes are visible without restarting workers.
 
-There are two demos: **`demo/symfony7`** (Symfony **7.4.***, default HTTP port **8020**) and **`demo/symfony8`** (Symfony **8.1.***, default **8021**). From the bundle root:
+There is one demo: **`demo/symfony8`** (Symfony **8.1.***, default HTTP port **8021**). From the bundle root:
 
 ```bash
 make -C demo up-symfony8
@@ -51,7 +51,7 @@ Goal: edit PHP, Twig, YAML, or bundle sources and see changes after a browser re
 - **`APP_ENV=dev`**, **`APP_DEBUG=1`** in Compose (see each demo’s `docker-compose.yml`).
 - **DNS**: Compose sets **`dns: 8.8.8.8` / `8.8.4.4`** so Composer can resolve Packagist inside Docker/WSL.
 
-Start from **`demo/symfony7`** or **`demo/symfony8`** with `make up` (see **`demo/README.md`**).
+Start from **`demo/symfony8`** with `make up` (see **`demo/README.md`**).
 
 ## Production / worker mode
 
@@ -60,13 +60,12 @@ For production-like behaviour:
 - Use **`APP_ENV=prod`**, **`APP_DEBUG=0`**, and the **`Caddyfile`** that enables FrankenPHP workers.
 - Warm Symfony cache and follow deployment hardening for `var/` and secrets.
 
-Compare **`Caddyfile`** vs **`Caddyfile.dev`** in `demo/symfony*/docker/frankenphp/`.
+Compare **`Caddyfile`** vs **`Caddyfile.dev`** in `demo/symfony8/docker/frankenphp/`.
 
 ## Ports and URLs
 
 | Demo     | Symfony | Default `PORT` | URL                    |
 | -------- | ------- | -------------- | ---------------------- |
-| symfony7 | 7.4.*   | 8020           | http://localhost:8020 |
 | symfony8 | 8.1.*   | 8021           | http://localhost:8021 |
 
 Override `PORT` in the demo `.env` (from `.env.example`) if ports clash.

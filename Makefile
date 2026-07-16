@@ -9,7 +9,7 @@ help:
 	@echo "CKEditor 5 Editor Bundle - Development"
 	@echo "  up / down / build / shell / install"
 	@echo "  assets (pnpm install + build)  |  test-ts  |  test  |  test-coverage"
-	@echo "  qa  |  release-check  |  make -C demo (symfony7|symfony8) — /demo/variants for heights & themes"
+	@echo "  qa  |  release-check  |  make -C demo (symfony8) — /demo/variants for heights & themes"
 	@echo "  Demos: make -C demo (see demo/README.md)"
 
 build:

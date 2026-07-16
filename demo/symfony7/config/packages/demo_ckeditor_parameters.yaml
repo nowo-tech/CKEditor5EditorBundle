@@ -1,4 +1,0 @@
-# Demo-only: shared heights for nowo_ckeditor5_editor (override in config/packages/parameters.local.yaml if needed)
-parameters:
-    demo.ckeditor.height.compact: '112px'
-    demo.ckeditor.height.folio: 'min(72vh, 720px)'

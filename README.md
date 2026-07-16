@@ -15,7 +15,7 @@ Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEd
 - `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
 - **pnpm + Vite** frontend; **Vitest** coverage on shared utilities (`logger.ts`).
 - **Dockerfile + Makefile** aligned with other Nowo bundles.
-- **Demos**: Symfony **7.4** and **8.1** FrankenPHP apps under `demo/` (ports **8020** / **8021**).
+- **Demos**: Symfony **8.1** FrankenPHP app under `demo/symfony8` (port **8021**).
 
 ## Requirements
 
@@ -61,16 +61,20 @@ $builder->add('body', Ckeditor5EditorType::class, [
 
 ## Documentation
 
+
+- [GitHub Actions CI requirements](docs/GITHUB_CI.md)
 - [Installation](docs/INSTALLATION.md)
 - [Configuration](docs/CONFIGURATION.md)
 - [Usage](docs/USAGE.md)
 - [Contributing](docs/CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Changelog](docs/CHANGELOG.md)
 - [Upgrading](docs/UPGRADING.md)
 - [Release](docs/RELEASE.md)
 - [Security](docs/SECURITY.md)
 - [Engram](docs/ENGRAM.md)
 - [Spec-driven development](docs/SPEC-DRIVEN-DEVELOPMENT.md)
+- [GitHub Spec Kit](docs/SPEC-KIT.md)
 
 ### Additional documentation
 

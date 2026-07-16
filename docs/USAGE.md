@@ -29,7 +29,7 @@ The script mounts CKEditor 5 on fields rendered by the bundle form theme.
 
 ## Presets
 
-YAML **`preset`** selects which OSS CKEditor build variant is used (`standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, …). See bundle demos under `demo/` for live examples (themes, heights, upload URL).
+YAML **`preset`** selects which OSS CKEditor build variant is used (`standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, …). See the FrankenPHP demo under `demo/symfony8` for live examples (themes, heights, upload URL).
 
 ## Uploads (optional)
 

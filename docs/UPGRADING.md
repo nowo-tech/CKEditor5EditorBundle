@@ -60,6 +60,15 @@ Minor release: **Symfony asset package** registration and Twig helper changes. *
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.0**) for details.
 
+## To 1.1.1 from 1.1.0
+
+Patch release: repository demo cleanup and docs only. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Contributors / local demos**: **`demo/symfony7`** was removed. Use **`demo/symfony8`** (default port **8021**). Symfony **7.x** remains covered by the CI PHPUnit matrix.
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.1.0`); with `^1.0` or `^1.1`, **1.1.1** is included on update.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.1**) and [`DEMO-FRANKENPHP.md`](DEMO-FRANKENPHP.md).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:

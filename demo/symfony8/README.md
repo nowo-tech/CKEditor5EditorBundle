@@ -2,7 +2,7 @@
 
 This demo runs with **FrankenPHP** (Caddy, HTTP on port 80 inside the container). In **dev** (`APP_ENV=dev`), worker mode is disabled so each request runs in a new PHP process and **code/template changes are visible on refresh** without restarting the container.
 
-The app pins **Symfony 8.1.*** via `extra.symfony.require` in `composer.json`. **Symfony 8** requires **PHP ≥8.4** (see the demo Dockerfile / Compose PHP image). Symfony **6.4** / **7.4** is covered by the sibling demo in `demo/symfony7`.
+The app pins **Symfony 8.1.*** via `extra.symfony.require` in `composer.json`. **Symfony 8** requires **PHP ≥8.4** (see the demo Dockerfile / Compose PHP image). Symfony **6.4** / **7.x** compatibility is covered by the CI PHPUnit matrix.
 
 ## Quick start
 
