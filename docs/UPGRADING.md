@@ -87,6 +87,15 @@ Patch release: declare **`symfony/asset`** as a hard dependency (needed since th
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.3**) and [`INSTALLATION.md`](INSTALLATION.md).
 
+## To 1.1.4 from 1.1.3
+
+Patch release: repository tooling (CodeRabbit, Spec Kit, Cursor rules), CI **`git-hygiene`** (REQ-GIT-001), and Makefile / docs only. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.1.3`); with `^1.0` or `^1.1`, **1.1.4** is included on update.
+- **Contributors**: run `make setup-hooks` once per clone; see [`GITHUB_CI.md`](GITHUB_CI.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.4**).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:

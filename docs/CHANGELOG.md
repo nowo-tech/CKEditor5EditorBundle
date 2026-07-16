@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.4] - 2026-07-16
+
+### Added
+
+- CI: **`git-hygiene`** job enforcing **REQ-GIT-001** (no Cursor co-author trailers) with full-history checkout.
+- CodeRabbit: [`.coderabbit.yaml`](../.coderabbit.yaml) and [`.github/workflows/coderabbit.yml`](../.github/workflows/coderabbit.yml).
+- Maintainer tooling: Spec Kit (`.specify/`), Cursor skills/rules, `.githooks/commit-msg`, and `.scripts/check-no-cursor-coauthor.sh` / `strip-cursor-coauthor-from-history.sh`.
+- Makefile targets: **`check-no-cursor-coauthor`**, **`strip-cursor-coauthor-from-history`**, **`setup-hooks`** (wired into **`release-check`**).
+
+### Changed
+
+- [`RELEASE.md`](RELEASE.md): re-run the co-author check after the release commit and before `git push`.
+- `.gitignore`: ignore Cursor local sandbox (`.cursor/sandbox.json`).
+
 ## [1.1.3] - 2026-07-16
 
 ### Fixed
@@ -84,7 +98,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.0...v1.1.1
