@@ -78,6 +78,15 @@ Patch release: additional locales for the editor placeholder, documentation file
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.2**).
 
+## To 1.1.3 from 1.1.2
+
+Patch release: declare **`symfony/asset`** as a hard dependency (needed since the **1.1.0** asset package registration). Fixes kernel boot / CI when Asset is not already installed transitively.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` (pulls `symfony/asset` if missing). With `^1.0` or `^1.1`, **1.1.3** is included on update.
+- No Twig, YAML, or form API changes. Apps that already have `symfony/asset` (typical Flex apps) need no further steps beyond update + `cache:clear` if desired.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.3**) and [`INSTALLATION.md`](INSTALLATION.md).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:

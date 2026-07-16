@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-07-16
+
+### Fixed
+
+- Composer: require **`symfony/asset`** so registering the `nowo_ckeditor5_editor` asset package (since **1.1.0**) does not fail when FrameworkBundle enables assets during kernel boot / integration tests.
+
 ## [1.1.2] - 2026-07-16
 
 ### Added
@@ -78,7 +84,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.3...v1.1.0
