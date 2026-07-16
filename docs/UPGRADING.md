@@ -40,6 +40,26 @@ Patch release: documentation, CI matrix (**Symfony 7.4** / **8.1**), demo pins, 
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.0.3**) for details.
 
+## To 1.1.0 from 1.0.3
+
+Minor release: **Symfony asset package** registration and Twig helper changes. **Update your layout** if you load the editor script with the old one-argument `asset()` call.
+
+**Before (≤ 1.0.3):**
+
+```twig
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+```
+
+**After (1.1.0+):**
+
+```twig
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
+```
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` (with `^1.0` or `^1.1`); then `php bin/console cache:clear` and `php bin/console assets:install public`.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.0**) for details.
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
@@ -49,5 +69,5 @@ When upgrading from snapshots without semver tags in your project:
 - **Bootstrap**: ensure your layout loads the bundle script once per page:
 
   ```twig
-  <script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+  <script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
   ```

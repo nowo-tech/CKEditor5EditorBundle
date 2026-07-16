@@ -52,9 +52,13 @@ php bin/console assets:install public
 In your base layout, load the bundle script **once** per page (see [USAGE.md](USAGE.md)):
 
 ```twig
-<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js')) }}"></script>
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
 ```
 
 When developing the bundle from a git clone, rebuild the JS with `pnpm run build` in the bundle root, then re-run `assets:install` in the app.
+
+### AssetMapper
+
+If your app uses [Symfony AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html), the bundle registers the `nowo_ckeditor5_editor` asset package. Run `assets:install` once so `ckeditor5-editor.js` is published to `public/bundles/nowockeditor5editor/`, or copy the built file into your own asset pipeline. The layout loads it via `asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package())`.
 
 Persisted HTML may require sanitization — see [SECURITY.md](SECURITY.md). To override Twig themes or translations, see [CONFIGURATION.md](CONFIGURATION.md#overriding-bundle-twig-templates).

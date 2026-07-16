@@ -113,4 +113,13 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
         $extension->prepend($container);
         self::assertFalse($container->hasExtension('twig'));
     }
+
+    public function testPrependConfiguresAssets(): void
+    {
+        $container = new ContainerBuilder();
+        $container->registerExtension(new \Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension());
+        (new NowoCkeditor5EditorExtension())->prepend($container);
+        $configs = $container->getExtensionConfig('framework');
+        self::assertSame('/bundles/nowockeditor5editor', $configs[0]['assets']['packages']['nowo_ckeditor5_editor']['base_path']);
+    }
 }
