@@ -91,4 +91,5 @@ return (new Config())
             ->in(__DIR__)
             ->exclude(['vendor', 'var', 'coverage', '.phpunit.cache', 'tests/Fixtures/app/var'])
             ->notPath('#tests/Fixtures/app/config/reference\\.php$#')
+            ->notPath('#demo/symfony8/config/reference\\.php$#')
     );

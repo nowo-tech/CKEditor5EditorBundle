@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`RELEASE.md`](RELEASE.md): re-run the co-author check after the release commit and before `git push`.
 - `.gitignore`: ignore Cursor local sandbox (`.cursor/sandbox.json`).
 
+### Fixed
+
+- PHP-CS-Fixer: exclude auto-generated `demo/symfony8/config/reference.php` (same approach as the integration fixture).
+
 ## [1.1.3] - 2026-07-16
 
 ### Fixed
