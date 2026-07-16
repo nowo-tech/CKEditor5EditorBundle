@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-07-16
+
+### Added
+
+- Translations: placeholder string for **de**, **fr**, **it**, **nl**, and **pt** (`NowoCkeditor5EditorBundle.*.yaml`).
+- Documentation: [`GITHUB_CI.md`](GITHUB_CI.md), [`SPEC-KIT.md`](SPEC-KIT.md), and root [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md) (linked from the README).
+
+### Changed
+
+- Demo Symfony 8 Docker image: enable PHP **`intl`** extension (alongside `zip`).
+
 ## [1.1.1] - 2026-07-16
 
 ### Removed
@@ -67,7 +78,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.2...v1.0.3

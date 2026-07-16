@@ -80,5 +80,8 @@ update-bundle: ensure-up
 	docker-compose exec php php bin/console cache:clear --env=dev
 	@echo "Bundle updated. Reload the page in the browser."
 
+
 # REQ-MAKE-008: update-deps (REQ-MAKE-008)
-include $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../../../.scripts/Makefile.demo-update-deps.mk)
+BUNDLE_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../..)
+SERVICE_PHP := php
+include $(BUNDLE_ROOT)/../.scripts/Makefile.demo-update-deps.mk

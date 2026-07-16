@@ -69,6 +69,15 @@ Patch release: repository demo cleanup and docs only. No bundle API, YAML, or ru
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.1**) and [`DEMO-FRANKENPHP.md`](DEMO-FRANKENPHP.md).
 
+## To 1.1.2 from 1.1.1
+
+Patch release: additional locales for the editor placeholder, documentation files linked from the README, and demo Docker `intl`. No bundle API or YAML configuration changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.1.1`); with `^1.0` or `^1.1`, **1.1.2** is included on update.
+- **i18n**: if you override `ckeditor5_placeholder`, no change required; new locale files are additive (**de**, **fr**, **it**, **nl**, **pt**).
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.2**).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
