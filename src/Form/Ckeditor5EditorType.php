@@ -38,11 +38,11 @@ final class Ckeditor5EditorType extends AbstractType
     public const CSRF_UPLOAD_TOKEN_ID = 'ckeditor_upload';
 
     /**
-     * @param array<string, array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}> $configs
+     * @param array<string, array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}> $profiles
      */
     public function __construct(
-        private readonly array $configs,
-        private readonly string $defaultConfigName,
+        private readonly array $profiles,
+        private readonly string $defaultProfileName,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
     ) {
     }
@@ -120,8 +120,8 @@ final class Ckeditor5EditorType extends AbstractType
             if ($value === null || $value === '') {
                 return null;
             }
-            if (!isset($this->configs[$value])) {
-                throw new InvalidOptionsException(sprintf('Unknown CKEditor5 config profile "%s". Available profiles: %s.', $value, implode(', ', array_keys($this->configs))));
+            if (!isset($this->profiles[$value])) {
+                throw new InvalidOptionsException(sprintf('Unknown CKEditor5 config profile "%s". Available profiles: %s.', $value, implode(', ', array_keys($this->profiles))));
             }
 
             return $value;
@@ -144,12 +144,12 @@ final class Ckeditor5EditorType extends AbstractType
      */
     private function mergeYamlProfileWithEditorConfig(array $options): array
     {
-        $name = $options['config'] ?? $this->defaultConfigName;
-        if (!isset($this->configs[$name])) {
-            throw new InvalidOptionsException(sprintf('Unknown CKEditor5 config profile "%s". Available profiles: %s.', $name, implode(', ', array_keys($this->configs))));
+        $name = $options['config'] ?? $this->defaultProfileName;
+        if (!isset($this->profiles[$name])) {
+            throw new InvalidOptionsException(sprintf('Unknown CKEditor5 config profile "%s". Available profiles: %s.', $name, implode(', ', array_keys($this->profiles))));
         }
 
-        $base = $this->configs[$name];
+        $base = $this->profiles[$name];
         $over = $options['editor_config'] ?? [];
         if (!is_array($over) || $over === []) {
             return $base;

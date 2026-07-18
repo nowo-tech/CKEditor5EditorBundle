@@ -749,8 +749,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     excluded_ajax_paths?: scalar|Param|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
  * }
  * @psalm-type NowoCkeditor5EditorConfig = array{
- *     default_config?: scalar|Param|null, // Profile name used when the form field omits the "config" option. // Default: "default"
- *     configs?: array<string, array{ // Default: []
+ *     default_profile?: scalar|Param|null, // Profile name used when the form field omits the "config" option. // Default: "default"
+ *     profiles?: array<string, array{ // Default: []
  *         toolbar?: bool|Param, // When true, CKEditor shows its toolbar (preset still controls which buttons are available). // Default: true
  *         min_height?: scalar|Param|null, // Default CSS min-height for the editable region wrapper (e.g. 240px, 12rem). // Default: "240px"
  *         form_theme?: scalar|Param|null, // Base Symfony form layout (must match twig.form_themes in your app). // Default: "form_div_layout.html.twig"

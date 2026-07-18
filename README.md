@@ -36,8 +36,8 @@ php bin/console assets:install public
 ```yaml
 # config/packages/nowo_ckeditor5_editor.yaml
 nowo_ckeditor5_editor:
-    default_config: simple
-    configs:
+    default_profile: simple
+    profiles:
         simple:
             preset: simple
             toolbar: true

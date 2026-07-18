@@ -27,6 +27,18 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
         $extension = new NowoCkeditor5EditorExtension();
         $extension->load([[]], $container);
 
+        self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.default_profile'));
+        self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.profiles'));
+        self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.default_config'));
+        self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.configs'));
+        self::assertSame(
+            $container->getParameter('nowo_ckeditor5_editor.default_profile'),
+            $container->getParameter('nowo_ckeditor5_editor.default_config'),
+        );
+        self::assertSame(
+            $container->getParameter('nowo_ckeditor5_editor.profiles'),
+            $container->getParameter('nowo_ckeditor5_editor.configs'),
+        );
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.toolbar'));
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.min_height'));
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.form_theme'));

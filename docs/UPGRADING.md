@@ -96,12 +96,43 @@ Patch release: repository tooling (CodeRabbit, Spec Kit, Cursor rules), CI **`gi
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.1.4**).
 
+## To 1.2.0 from 1.1.4
+
+Minor release: YAML keys **`default_config`** / **`configs`** renamed to **`default_profile`** / **`profiles`** (AuditKit-style). Prefer the new names in app config.
+
+**Before (≤ 1.1.4):**
+
+```yaml
+nowo_ckeditor5_editor:
+    default_config: simple
+    configs:
+        simple:
+            preset: simple
+```
+
+**After (1.2.0+):**
+
+```yaml
+nowo_ckeditor5_editor:
+    default_profile: simple
+    profiles:
+        simple:
+            preset: simple
+```
+
+- Legacy keys are still accepted via `beforeNormalization` when the new keys are absent.
+- Container parameters `nowo_ckeditor5_editor.default_config` / `nowo_ckeditor5_editor.configs` remain as aliases of the new parameters.
+- Form option key **`config`** is unchanged.
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` (with `^1.0` or `^1.2`); then `php bin/console cache:clear`.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.0**) and [`CONFIGURATION.md`](CONFIGURATION.md).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:
 
 - **Composer**: `composer require nowo-tech/ckeditor5-editor-bundle:^1.0`
-- **Configuration**: prefer explicit **`configs`** + **`default_config`** (see [`CONFIGURATION.md`](CONFIGURATION.md)). Legacy flat YAML under `nowo_ckeditor5_editor` is still accepted and normalized.
+- **Configuration**: prefer explicit **`profiles`** + **`default_profile`** (see [`CONFIGURATION.md`](CONFIGURATION.md)). Legacy keys `default_config` / `configs` and flat YAML under `nowo_ckeditor5_editor` are still accepted and normalized.
 - **Bootstrap**: ensure your layout loads the bundle script once per page:
 
   ```twig

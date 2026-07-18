@@ -4,12 +4,12 @@ Root key: `nowo_ckeditor5_editor`
 
 ## Top-level
 
-| Option           | Type   | Default   | Description |
-| ---------------- | ------ | --------- | ----------- |
-| `default_config` | string | `default` | Profile name when a form field omits the `config` option. **Must** exist under `configs`. |
-| `configs`        | map    | —         | Named profiles. At least one profile is required (or use [legacy flat](#legacy-flat-yaml) input). |
+| Option            | Type   | Default   | Description |
+| ----------------- | ------ | --------- | ----------- |
+| `default_profile` | string | `default` | Profile name when a form field omits the `config` option. **Must** exist under `profiles`. |
+| `profiles`        | map    | —         | Named profiles. At least one profile is required (or use [legacy keys and flat YAML](#legacy-keys-and-flat-yaml) input). |
 
-## Per profile (`configs.<name>`)
+## Per profile (`profiles.<name>`)
 
 | Option        | Type   | Default                     | Description |
 | ------------- | ------ | --------------------------- | ----------- |
@@ -21,9 +21,10 @@ Root key: `nowo_ckeditor5_editor`
 | `theme`       | string | `light`                     | Chrome palette: `light`, `dark`, or `auto`. |
 | `upload_url`  | string | `null`                      | Optional URL for Simple Upload Adapter (demo/apps provide POST endpoints). |
 
-## Legacy flat YAML
+## Legacy keys and flat YAML
 
-If the root has no `configs` key, the extension maps flat keys into a single profile under `configs` using `default_config` (default `default`):
+- **Renamed keys:** `default_config` / `configs` were renamed to `default_profile` / `profiles`. Legacy keys are still accepted via normalization (mapped when the new keys are absent).
+- **Flat layout:** If the root has no `profiles` (nor legacy `configs`) key, the extension maps flat keys into a single profile under `profiles` using `default_profile` (default `default`):
 
 - `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`
 
@@ -31,7 +32,7 @@ If the root has no `configs` key, the extension maps flat keys into a single pro
 
 | Option          | Type | Description |
 | --------------- | ---- | ----------- |
-| `config`        | `string\|null` | Profile name under `nowo_ckeditor5_editor.configs`. `null`/empty uses `default_config`. |
+| `config`        | `string\|null` | Profile name under `nowo_ckeditor5_editor.profiles`. `null`/empty uses `default_profile`. (Form option key remains `config` for BC.) |
 | `editor_config` | `array` | Keys merged over the YAML profile: `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`. |
 | `toolbar`       | bool | Field-level override. |
 | `min_height`    | string | Field-level override. |
@@ -59,4 +60,4 @@ Translations use the domain **`NowoCkeditor5EditorBundle`** (`src/Resources/tran
 
 ## Parameters exposed to the container
 
-The DI extension sets parameters from configuration (including backward-compatible scalars for the **default** profile). Prefer resolving behaviour through `Ckeditor5EditorType` and YAML profiles.
+The DI extension sets `nowo_ckeditor5_editor.default_profile` and `nowo_ckeditor5_editor.profiles`, plus legacy aliases `nowo_ckeditor5_editor.default_config` / `nowo_ckeditor5_editor.configs` (same values), and backward-compatible scalars for the **default** profile. Prefer resolving behaviour through `Ckeditor5EditorType` and YAML profiles.

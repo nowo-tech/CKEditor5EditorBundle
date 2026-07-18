@@ -9,8 +9,8 @@ services:
 
     Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType:
         arguments:
-            $configs: '%nowo_ckeditor5_editor.configs%'
-            $defaultConfigName: '%nowo_ckeditor5_editor.default_config%'
+            $profiles: '%nowo_ckeditor5_editor.profiles%'
+            $defaultProfileName: '%nowo_ckeditor5_editor.default_profile%'
             $csrfTokenManager: '@security.csrf.token_manager'
         tags:
             - { name: form.type }

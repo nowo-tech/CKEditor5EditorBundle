@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-18
+
+### Changed
+
+- Configuration: renamed YAML keys **`default_config`** / **`configs`** to **`default_profile`** / **`profiles`** (AuditKit-style). Legacy keys still accepted via normalization; container parameters keep legacy aliases. Form option `config` unchanged. See [`UPGRADING.md`](UPGRADING.md) and [`CONFIGURATION.md`](CONFIGURATION.md).
+- Documentation, Flex recipe, demo, and fixtures updated to the new key names.
+
 ## [1.1.4] - 2026-07-16
 
 ### Added
@@ -102,7 +109,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...v1.2.0
 [1.1.4]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...v1.1.2

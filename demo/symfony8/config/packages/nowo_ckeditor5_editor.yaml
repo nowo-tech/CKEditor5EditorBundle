@@ -5,8 +5,8 @@
 # min_height: CSS value; use %demo.ckeditor.height.*% or %env(DEMO_CKEDITOR_FOLIO_MIN_HEIGHT)% (see .env)
 
 nowo_ckeditor5_editor:
-    default_config: simple
-    configs:
+    default_profile: simple
+    profiles:
         full:
             preset: standard
             toolbar: true

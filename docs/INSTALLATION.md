@@ -28,8 +28,8 @@ Create configuration (recommended — named profiles):
 ```yaml
 # config/packages/nowo_ckeditor5_editor.yaml
 nowo_ckeditor5_editor:
-    default_config: simple
-    configs:
+    default_profile: simple
+    profiles:
         simple:
             preset: simple
             toolbar: true
@@ -39,7 +39,7 @@ nowo_ckeditor5_editor:
             theme: light
 ```
 
-You may use **legacy flat** keys at the root (without `configs`): they are normalized into `configs.default`. Prefer explicit `configs` for multiple profiles.
+You may use **legacy flat** keys at the root (without `profiles`): they are normalized into `profiles.default`. Prefer explicit `profiles` for multiple profiles. Legacy YAML keys `default_config` / `configs` are still accepted and mapped to `default_profile` / `profiles`.
 
 See [CONFIGURATION.md](CONFIGURATION.md) for the full reference.
 

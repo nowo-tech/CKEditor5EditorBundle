@@ -38,11 +38,14 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         $loader->load('services.yaml');
 
         $config         = $this->processConfiguration(new Configuration(), $configs);
-        $defaultName    = $config['default_config'];
-        $defaultProfile = $config['configs'][$defaultName];
+        $defaultName    = $config['default_profile'];
+        $defaultProfile = $config['profiles'][$defaultName];
 
+        $container->setParameter(Configuration::ALIAS . '.default_profile', $defaultName);
+        $container->setParameter(Configuration::ALIAS . '.profiles', $config['profiles']);
+        // Legacy parameter names (same values) for BC.
         $container->setParameter(Configuration::ALIAS . '.default_config', $defaultName);
-        $container->setParameter(Configuration::ALIAS . '.configs', $config['configs']);
+        $container->setParameter(Configuration::ALIAS . '.configs', $config['profiles']);
 
         $container->setParameter(Configuration::ALIAS . '.toolbar', $defaultProfile['toolbar']);
         $container->setParameter(Configuration::ALIAS . '.min_height', $defaultProfile['min_height']);
@@ -71,7 +74,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         }
 
         $configs = $container->getExtensionConfig(Configuration::ALIAS);
-        /** @var array{default_config: string, configs: array<string, array<string, mixed>>} $config */
+        /** @var array{default_profile: string, profiles: array<string, array<string, mixed>>} $config */
         $config = $this->processConfiguration(new Configuration(), $configs);
 
         $themePaths = $this->orderedFormThemePaths($config);
@@ -81,19 +84,19 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
     }
 
     /**
-     * @param array{default_config: string, configs: array<string, array<string, mixed>>} $processedConfig
+     * @param array{default_profile: string, profiles: array<string, array<string, mixed>>} $processedConfig
      *
      * @return list<string>
      */
     private function orderedFormThemePaths(array $processedConfig): array
     {
-        $configs      = $processedConfig['configs'];
-        $defaultName  = $processedConfig['default_config'];
-        $defaultTheme = $configs[$defaultName]['form_theme'] ?? 'form_div_layout.html.twig';
+        $profiles     = $processedConfig['profiles'];
+        $defaultName  = $processedConfig['default_profile'];
+        $defaultTheme = $profiles[$defaultName]['form_theme'] ?? 'form_div_layout.html.twig';
         $defaultPath  = self::FORM_THEME_MAP[$defaultTheme] ?? self::FORM_THEME_MAP['form_div_layout.html.twig'];
 
         $unique = [];
-        foreach ($configs as $profile) {
+        foreach ($profiles as $profile) {
             $ft         = $profile['form_theme'] ?? 'form_div_layout.html.twig';
             $p          = self::FORM_THEME_MAP[$ft] ?? self::FORM_THEME_MAP['form_div_layout.html.twig'];
             $unique[$p] = true;
