@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-07-22
+
+### Changed
+
+- Demo FrankenPHP: select runtime with **`FRANKENPHP_MODE`** (`worker` default / `classic`) via `.env` + Compose; extract `docker/entrypoint.sh` (no longer inline in the Dockerfile).
+- Documentation: [`DEMO-FRANKENPHP.md`](DEMO-FRANKENPHP.md), demo README, and root README aligned with `FRANKENPHP_MODE` (no longer implies `APP_ENV=dev` alone disables workers).
+
 ## [1.2.0] - 2026-07-18
 
 ### Changed
@@ -109,7 +116,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...v1.2.0
 [1.1.4]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...v1.1.3

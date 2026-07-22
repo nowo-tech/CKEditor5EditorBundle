@@ -1,6 +1,6 @@
 # CKEditor 5 Editor Bundle — Demo (Symfony 8.1)
 
-This demo runs with **FrankenPHP** (Caddy, HTTP on port 80 inside the container). In **dev** (`APP_ENV=dev`), worker mode is disabled so each request runs in a new PHP process and **code/template changes are visible on refresh** without restarting the container.
+This demo runs with **FrankenPHP** (Caddy, HTTP on port 80 inside the container). Runtime mode is **`FRANKENPHP_MODE`** in `.env` (default **`worker`**). Set **`classic`** for per-request PHP so **code/template changes are visible on refresh**, then recreate the container (`docker compose up -d` / `make up`). `APP_ENV=dev` still enables the Web Profiler.
 
 The app pins **Symfony 8.1.*** via `extra.symfony.require` in `composer.json`. **Symfony 8** requires **PHP ≥8.4** (see the demo Dockerfile / Compose PHP image). Symfony **6.4** / **7.x** compatibility is covered by the CI PHPUnit matrix.
 

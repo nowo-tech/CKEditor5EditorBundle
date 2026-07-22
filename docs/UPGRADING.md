@@ -127,6 +127,15 @@ nowo_ckeditor5_editor:
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.0**) and [`CONFIGURATION.md`](CONFIGURATION.md).
 
+## To 1.2.1 from 1.2.0
+
+Patch release: FrankenPHP **demo** runtime switch via **`FRANKENPHP_MODE`** and documentation alignment. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Contributors / local demos**: default is **`worker`**. For hot-reload on refresh, set **`FRANKENPHP_MODE=classic`** in `demo/symfony8/.env` and recreate the container (`docker compose up -d` / `make up`). See [`DEMO-FRANKENPHP.md`](DEMO-FRANKENPHP.md).
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.2.0`); with `^1.0` or `^1.2`, **1.2.1** is included on update.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.1**).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:

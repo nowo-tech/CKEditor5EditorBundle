@@ -6,7 +6,7 @@
 
 Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEditor 5 classic** (GPL open-source plugins only) runs in the browser. YAML profiles (FOS-style), **Vite** IIFE build (`ckeditor5-editor.js`) under `src/Resources/public/`.
 
-**FrankenPHP worker mode:** Supported for production-style demo runs (worker-enabled `Caddyfile`). Development demos use classic `php_server` without `worker` so PHP/Twig changes apply on refresh — see [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
+**FrankenPHP:** Demo runtime is selected with **`FRANKENPHP_MODE`** (`worker` default, or `classic` for per-request PHP / hot-reload). See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
 
 ## Features
 
