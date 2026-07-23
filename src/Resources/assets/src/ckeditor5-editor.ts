@@ -390,7 +390,12 @@ function buildConfig(
   return config;
 }
 
-/** Applies light/dark classes from `data-ckeditor5-theme-value` (handles auto + OS changes). */
+/**
+ * Applies light/dark classes from `data-ckeditor5-theme-value` (handles auto + OS changes).
+ *
+ * @param root - Widget root element with theme dataset attributes.
+ * @returns void
+ */
 export function applyChromeTheme(root: HTMLElement): void {
   const mode = (root.dataset.ckeditor5ThemeValue ?? 'light').toLowerCase();
   root.classList.remove('ckeditor5-theme-light', 'ckeditor5-theme-dark', 'ckeditor5-theme-auto');
@@ -415,6 +420,9 @@ export function applyChromeTheme(root: HTMLElement): void {
 
 /**
  * Initializes one widget root (textarea + mount).
+ *
+ * @param root - Element marked with `data-ckeditor5-root="1"`.
+ * @returns Resolves when the editor is created or skipped.
  */
 export async function initCkeditor5Root(root: HTMLElement): Promise<void> {
   if (root.dataset.ckeditor5Initialized === '1') {
@@ -466,6 +474,11 @@ function discoverRoots(doc: Document | HTMLElement): HTMLElement[] {
   return Array.from(doc.querySelectorAll<HTMLElement>(ROOT_SELECTOR));
 }
 
+/**
+ * Initialize every `[data-ckeditor5-root]` currently in the document.
+ *
+ * @returns Resolves when all roots have been processed.
+ */
 export async function runInit(): Promise<void> {
   const roots = discoverRoots(document);
   for (const r of roots) {
@@ -473,6 +486,11 @@ export async function runInit(): Promise<void> {
   }
 }
 
+/**
+ * Run `runInit()` then observe the DOM for new widget roots (Turbo/AJAX-friendly).
+ *
+ * @returns void
+ */
 export function runInitAndObserve(): void {
   void runInit().then(() => {
     const observer = new MutationObserver(() => {

@@ -6,7 +6,11 @@
 
 Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEditor 5 classic** (GPL open-source plugins only) runs in the browser. YAML profiles (FOS-style), **Vite** IIFE build (`ckeditor5-editor.js`) under `src/Resources/public/`.
 
-**FrankenPHP:** Demo runtime is selected with **`FRANKENPHP_MODE`** (`worker` default, or `classic` for per-request PHP / hot-reload). See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
+![FrankenPHP Friendly Worker Mode](docs/images/frankenphp-friendly.png)
+
+This bundle is **FrankenPHP worker mode friendly**.
+
+**FrankenPHP demos:** runtime is selected with **`FRANKENPHP_MODE`** (`worker` default, or `classic` for per-request PHP / hot-reload). See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
 
 ## Features
 
@@ -103,10 +107,10 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 
 ## Tests and coverage
 
-| Layer | Target / notes |
-| ----- | ---------------- |
-| **PHP** | **100%** statement coverage on bundle `src/` (PHPUnit + Clover); enforced by `scripts/verify-clover-100.php`. Run `composer test-coverage` or `make test-coverage`. |
-| **TypeScript** | Vitest thresholds on `src/Resources/assets/src/logger.ts` (see `vitest.config.ts`). Run `pnpm run test:coverage` or `make test-ts`. |
+- Tests: PHPUnit (unit + integration) and Vitest (`logger.ts`). Run `make test` / `composer test` and `make test-ts`.
+- PHP: **100%**
+- TS/JS: **100%** (Vitest on `src/Resources/assets/src/logger.ts`; see `vitest.config.ts`)
+- Python: N/A
 
 CI runs PHPUnit (matrix **PHP 8.2–8.5** × **Symfony 7.0 / 7.4 / 8.0 / 8.1**), PHPStan, PHP-CS-Fixer dry-run, and Vitest coverage on pushes and pull requests.
 

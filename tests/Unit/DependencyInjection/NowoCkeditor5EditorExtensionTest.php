@@ -7,6 +7,7 @@ namespace Nowo\Ckeditor5EditorBundle\Tests\Unit\DependencyInjection;
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\Configuration;
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\NowoCkeditor5EditorExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 
@@ -129,7 +130,7 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
     public function testPrependConfiguresAssets(): void
     {
         $container = new ContainerBuilder();
-        $container->registerExtension(new \Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension());
+        $container->registerExtension(new FrameworkExtension());
         (new NowoCkeditor5EditorExtension())->prepend($container);
         $configs = $container->getExtensionConfig('framework');
         self::assertSame('/bundles/nowockeditor5editor', $configs[0]['assets']['packages']['nowo_ckeditor5_editor']['base_path']);

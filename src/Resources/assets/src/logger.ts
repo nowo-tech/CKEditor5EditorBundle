@@ -1,9 +1,30 @@
+/**
+ * Bundle logger for CKEditor 5 Editor (console helpers with optional debug gate).
+ *
+ * USAGE:
+ *
+ * 1. In the entry (`ckeditor5-editor.ts`), create the logger:
+ *
+ *    import { createBundleLogger } from './logger';
+ *    declare const __CKEDITOR5_EDITOR_BUILD_TIME__: string;
+ *
+ *    const log = createBundleLogger('ckeditor5-editor', {
+ *      buildTime: typeof __CKEDITOR5_EDITOR_BUILD_TIME__ !== 'undefined' ? __CKEDITOR5_EDITOR_BUILD_TIME__ : undefined,
+ *    });
+ *    log.scriptLoaded();
+ *
+ * 2. Enable verbose levels with `log.setDebug(true)` when the widget has debug=true.
+ */
+
 export type BundleLoggerOptions = {
+  /** If set, `scriptLoaded()` includes this build/compilation time. */
   buildTime?: string;
 };
 
 export type BundleLogger = {
+  /** Call once at startup. Logs "script loaded" and optional build time. */
   scriptLoaded: () => void;
+  /** When false (default), `debug`/`info`/`warn`/`error` are no-ops. */
   setDebug: (enabled: boolean) => void;
   debug: (...args: unknown[]) => void;
   info: (...args: unknown[]) => void;
@@ -27,12 +48,25 @@ const EMOJI = {
   error: '❌',
 } as const;
 
+/**
+ * Normalize log arguments for `console.*` (stringify plain objects).
+ *
+ * @param args - Raw log arguments.
+ * @returns Arguments safe to pass to the console API.
+ */
 function formatArgs(args: unknown[]): unknown[] {
   return args.map((arg) =>
     typeof arg === 'object' && arg !== null && !(arg instanceof Error) ? JSON.stringify(arg) : arg,
   );
 }
 
+/**
+ * Create a bundle logger.
+ *
+ * @param name - Short name used as the console prefix (e.g. `ckeditor5-editor`).
+ * @param options - Optional `buildTime` for `scriptLoaded()`.
+ * @returns A logger instance.
+ */
 export function createBundleLogger(name: string, options: BundleLoggerOptions = {}): BundleLogger {
   const prefix = `[${name}]`;
   const { buildTime } = options;

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-07-23
+
+### Added
+
+- Dev QA: `nowo-tech/phpstan-frankenphp` (`require-dev`) with classic + worker rulesets in `phpstan.neon.dist` (REQ-CS-005).
+- GitHub automation: [`.github/copilot-instructions.md`](../.github/copilot-instructions.md), [`.github/dependabot.yml`](../.github/dependabot.yml), [`.github/workflows/pr-lint.yml`](../.github/workflows/pr-lint.yml), [`.github/workflows/stale.yml`](../.github/workflows/stale.yml) (REQ-GH-001/002/004/005).
+- README: FrankenPHP Friendly Worker Mode banner ([`docs/images/frankenphp-friendly.png`](images/frankenphp-friendly.png)) after PHPStan FrankenPHP rules (REQ-DOCS-017).
+
+### Changed
+
+- [`CONFIGURATION.md`](CONFIGURATION.md): Twig override procedure + overridable templates table (REQ-TWIG-001); table of contents.
+- README: explicit numeric coverage for PHP / TS/JS / Python (REQ-TEST-007).
+- TypeScript: English JSDoc on `logger.ts` and exported entry helpers (REQ-ASSETS-002).
+- Demo `.gitignore`: ignore `/.pnpm-store` (REQ-GITIGNORE-003).
+- PHP-CS-Fixer: enable `fully_qualified_strict_types.import_symbols` (aligns with Nowo CS baseline).
+
 ## [1.2.1] - 2026-07-22
 
 ### Changed
@@ -116,7 +132,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...v1.2.0
 [1.1.4]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...v1.1.4

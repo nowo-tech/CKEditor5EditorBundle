@@ -22,7 +22,7 @@ Open an issue describing the use case, expected behaviour, and optional implemen
 1. Fork and clone the repository.
 2. Install PHP dependencies: `composer install` (or Docker: `make up`).
 3. Build frontend assets when touching TS: `make assets` or `pnpm install && pnpm run build`.
-4. Run quality checks: `make release-check` or at minimum `composer qa`, `composer phpstan`, `composer test`, and `pnpm run test:coverage` when TS changes.
+4. Run quality checks: `make release-check` or at minimum `composer qa`, `composer phpstan`, `composer test`, and `pnpm run test:coverage` when TS changes. PHPStan includes [`nowo-tech/phpstan-frankenphp`](https://github.com/nowo-tech/PhpStanFrankenPhp) classic + worker rulesets (`phpstan.neon.dist`); keep findings green before claiming FrankenPHP worker friendliness.
 5. Update [`docs/CHANGELOG.md`](CHANGELOG.md) under `[Unreleased]` for user-visible changes.
 6. Open a pull request against `main` using [`.github/PULL_REQUEST_TEMPLATE.md`](../.github/PULL_REQUEST_TEMPLATE.md).
 

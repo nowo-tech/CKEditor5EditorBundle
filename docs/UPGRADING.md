@@ -136,6 +136,15 @@ Patch release: FrankenPHP **demo** runtime switch via **`FRANKENPHP_MODE`** and 
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.1**).
 
+## To 1.2.2 from 1.2.1
+
+Patch release: Nowo standards compliance (PHPStan FrankenPHP rules, FrankenPHP Friendly banner, Twig override docs, coverage percentages, GitHub automation, JSDoc). No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.2.1`); with `^1.0` or `^1.2`, **1.2.2** is included on update.
+- **Contributors**: Twig override paths are listed in [`CONFIGURATION.md`](CONFIGURATION.md); PHPStan includes FrankenPHP classic + worker rulesets (`composer phpstan` / `make phpstan`).
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.2**).
+
 ## To 1.x (first documented stable line)
 
 When upgrading from snapshots without semver tags in your project:

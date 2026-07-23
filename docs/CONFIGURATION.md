@@ -2,6 +2,18 @@
 
 Root key: `nowo_ckeditor5_editor`
 
+## Contents
+
+- [Top-level](#top-level)
+- [Per profile (`profiles.<name>`)](#per-profile-profilesname)
+- [Legacy keys and flat YAML](#legacy-keys-and-flat-yaml)
+- [Form type `Ckeditor5EditorType` options](#form-type-ckeditor5editortype-options)
+- [Twig overrides](#twig-overrides)
+  - [Procedure](#procedure)
+  - [Overridable templates](#overridable-templates)
+- [Translation overrides](#translation-overrides)
+- [Parameters exposed to the container](#parameters-exposed-to-the-container)
+
 ## Top-level
 
 | Option            | Type   | Default   | Description |
@@ -42,17 +54,41 @@ Root key: `nowo_ckeditor5_editor`
 
 Standard Symfony options (`label`, `required`, `translation_domain`, `attr`, …) work as usual.
 
-## Overriding bundle Twig templates
+## Twig overrides
 
-Templates use the **`@NowoCkeditor5EditorBundle`** namespace (e.g. `@NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig`). Override in your application:
+Application templates under `templates/bundles/NowoCkeditor5EditorBundle/` **always win** over the copies inside the package. The bundle registers paths via `TwigPathsPass` so Symfony resolves app overrides first.
+
+### Procedure
+
+1. Identify the `<subpath>` from the table below (path relative to `src/Resources/views/` inside the bundle).
+2. Create in your application: `templates/bundles/NowoCkeditor5EditorBundle/<subpath>` (same relative path and filename).
+3. Clear the cache in dev if needed: `php bin/console cache:clear`.
+
+Example — override the default form theme:
 
 ```text
-templates/bundles/NowoCkeditor5EditorBundle/Form/<same-file-name>.html.twig
+templates/bundles/NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig
 ```
 
-Use the logical bundle name `NowoCkeditor5EditorBundle`. Clear cache after changes: `php bin/console cache:clear`.
+Controllers and Twig use logical names such as `@NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig`, never absolute filesystem paths.
 
-See Symfony’s [How to Override Templates](https://symfony.com/doc/current/bundles/override.html).
+### Overridable templates
+
+| Subpath | Purpose |
+| --- | --- |
+| `Form/ckeditor5_editor_theme.html.twig` | Default form theme (`form_div_layout`) |
+| `Form/ckeditor5_editor_theme_table.html.twig` | Table form layout |
+| `Form/ckeditor5_editor_theme_bootstrap3.html.twig` | Bootstrap 3 |
+| `Form/ckeditor5_editor_theme_bootstrap3_horizontal.html.twig` | Bootstrap 3 horizontal |
+| `Form/ckeditor5_editor_theme_bootstrap4.html.twig` | Bootstrap 4 |
+| `Form/ckeditor5_editor_theme_bootstrap4_horizontal.html.twig` | Bootstrap 4 horizontal |
+| `Form/ckeditor5_editor_theme_bootstrap5.html.twig` | Bootstrap 5 |
+| `Form/ckeditor5_editor_theme_bootstrap5_horizontal.html.twig` | Bootstrap 5 horizontal |
+| `Form/ckeditor5_editor_theme_foundation5.html.twig` | Foundation 5 |
+| `Form/ckeditor5_editor_theme_foundation6.html.twig` | Foundation 6 |
+| `Form/ckeditor5_editor_theme_tailwind2.html.twig` | Tailwind 2 |
+
+Pick the row that matches the profile `form_theme` (or your app `twig.form_themes`). See Symfony’s [How to Override Templates](https://symfony.com/doc/current/bundles/override.html).
 
 ## Translation overrides
 
