@@ -6,6 +6,8 @@
 - [`UPGRADING.md`](UPGRADING.md) updated if there are migration notes.
 - CI green on `main` ([workflow](../.github/workflows/ci.yml)).
 - [Release security checklist (12.4.1)](SECURITY.md#release-security-checklist-1241) reviewed.
+- `make check-open-prs` passes (REQ-REL-003 — no unresolved open GitHub PRs).
+- Prefer `make release-check` before tagging (includes `check-open-prs`, QA, coverage, and demo `release-verify` / smoke).
 
 ## Version bump
 

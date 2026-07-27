@@ -3,7 +3,7 @@
 
 DEMOS := symfony8
 
-.PHONY: help clean test-all test-coverage-all verify-all release-check release-verify
+.PHONY: help clean test-all test-coverage-all verify-all release-check release-verify demo-smoke
 .PHONY: $(foreach demo,$(DEMOS),up-$(demo) down-$(demo) restart-$(demo) build-$(demo) install-$(demo) update-bundle-$(demo) shell-$(demo) logs-$(demo) test-$(demo) test-coverage-$(demo) verify-$(demo))
 .PHONY: up down restart build install update-bundle test shell logs test-coverage verify
 
@@ -29,6 +29,7 @@ help:
 	done
 	@echo "  release-check    Pre-release: test-coverage-all, release-verify"
 	@echo "  release-verify   For each demo: up → healthcheck HTTP 200 → down"
+	@echo "  demo-smoke       Alias of release-verify (REQ-TEST-011)"
 	@echo ""
 	@echo "Generic (use DEMO=<name>): make up DEMO=symfony8, make update-bundle DEMO=symfony8, etc."
 	@echo ""
@@ -173,6 +174,9 @@ release-verify:
 		echo "OK $$demo (HTTP $$code)"; \
 	done
 	@echo "All demos passed release-verify."
+# REQ-TEST-011 — boot + one HTTP 200
+demo-smoke: release-verify
+
 release-check: test-coverage-all release-verify
 	@echo "All demos passed release-check."
 

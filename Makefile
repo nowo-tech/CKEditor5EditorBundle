@@ -1,5 +1,5 @@
 # CKEditor 5 Editor Bundle — development (Docker + pnpm + PHPUnit).
-.PHONY: help up down build shell install test test-coverage coverage-php-percent cs-check cs-fix qa clean assets assets-build assets-watch test-ts ensure-up rector rector-dry phpstan release-check release-check-demos composer-sync update validate validate-translations check-no-cursor-coauthor strip-cursor-coauthor-from-history setup-hooks
+.PHONY: help up down build shell install test test-coverage coverage-php-percent cs-check cs-fix qa clean assets assets-build assets-watch test-ts ensure-up rector rector-dry phpstan release-check release-check-demos composer-sync update validate validate-translations check-no-cursor-coauthor check-open-prs demo-smoke strip-cursor-coauthor-from-history setup-hooks
 
 COMPOSE_FILE ?= docker-compose.yml
 COMPOSE     ?= docker-compose -f $(COMPOSE_FILE)
@@ -10,6 +10,7 @@ help:
 	@echo "  up / down / build / shell / install"
 	@echo "  assets (pnpm install + build)  |  test-ts  |  test  |  test-coverage"
 	@echo "  qa  |  release-check  |  make -C demo (symfony8) — /demo/variants for heights & themes"
+	@echo "  check-open-prs (REQ-REL-003)  |  demo-smoke (REQ-TEST-011)"
 	@echo "  Demos: make -C demo (see demo/README.md)"
 
 build:
@@ -95,6 +96,15 @@ check-no-cursor-coauthor:
 	@chmod +x .scripts/check-no-cursor-coauthor.sh
 	@./.scripts/check-no-cursor-coauthor.sh HEAD
 
+# REQ-REL-003 — no unresolved open GitHub PRs before release
+check-open-prs:
+	@chmod +x .scripts/check-open-prs.sh
+	@bash .scripts/check-open-prs.sh
+
+# REQ-TEST-011 — demo boots and returns HTTP 200 (delegates to demo/release-verify)
+demo-smoke:
+	@$(MAKE) -C demo release-verify
+
 strip-cursor-coauthor-from-history:
 	@chmod +x .scripts/strip-cursor-coauthor-from-history.sh
 	@./.scripts/strip-cursor-coauthor-from-history.sh main
@@ -104,7 +114,7 @@ setup-hooks:
 	@git config core.hooksPath .githooks
 	@echo "Git hooks installed (.githooks — includes commit-msg for REQ-GIT-001)."
 
-release-check: check-no-cursor-coauthor ensure-up composer-sync cs-fix cs-check rector-dry phpstan test-coverage test-ts release-check-demos
+release-check: check-no-cursor-coauthor check-open-prs ensure-up composer-sync cs-fix cs-check rector-dry phpstan test-coverage test-ts release-check-demos
 
 release-check-demos:
 	@if [ -d demo ]; then $(MAKE) -C demo release-check; fi

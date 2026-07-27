@@ -5,6 +5,7 @@ This document describes how the **CKEditor 5 Editor Bundle** demos run under **F
 ## Contents
 
 - [Overview](#overview)
+  - [Demo smoke (REQ-TEST-011)](#demo-smoke-req-test-011)
 - [What each demo includes](#what-each-demo-includes)
 - [Development](#development)
 - [Production / worker mode](#production--worker-mode)
@@ -29,6 +30,18 @@ There is one demo: **`demo/symfony8`** (Symfony **8.1.***, default HTTP port **8
 make -C demo up-symfony8
 # http://localhost:8021 (see demo README / PORT in .env)
 ```
+
+### Demo smoke (REQ-TEST-011)
+
+Prove the demo boots and returns **HTTP 200**:
+
+```bash
+make demo-smoke
+# or: make -C demo demo-smoke
+# or: make -C demo release-verify
+```
+
+This starts `demo/symfony8`, curls `http://127.0.0.1:$PORT` (default **8021**), expects **200**, then tears the stack down. Included in `make -C demo release-check` / root `make release-check`.
 
 ## What each demo includes
 

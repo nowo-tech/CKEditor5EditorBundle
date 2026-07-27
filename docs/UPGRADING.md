@@ -136,6 +136,10 @@ Patch release: FrankenPHP **demo** runtime switch via **`FRANKENPHP_MODE`** and 
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.1**).
 
+## Unreleased (maintainers)
+
+No application-facing API changes. Contributors: `make release-check` now runs `check-open-prs` (REQ-REL-003) and demos expose `demo-smoke` (REQ-TEST-011). Twig override procedure is also documented in [`USAGE.md`](USAGE.md).
+
 ## To 1.2.2 from 1.2.1
 
 Patch release: Nowo standards compliance (PHPStan FrankenPHP rules, FrankenPHP Friendly banner, Twig override docs, coverage percentages, GitHub automation, JSDoc). No bundle API, YAML, or runtime behaviour changes for applications.

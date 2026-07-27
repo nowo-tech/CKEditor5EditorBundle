@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `make check-open-prs` (REQ-REL-003) wired into `release-check` via `.scripts/check-open-prs.sh`.
+- `make demo-smoke` / `make -C demo demo-smoke` (REQ-TEST-011) — alias of demo `release-verify` (boot + HTTP 200).
+- [`USAGE.md`](USAGE.md): Twig template override procedure and link to the overridable templates table (REQ-TWIG-001).
+- [`SECURITY.md`](SECURITY.md): AI security audit record (REQ-SEC-004) — **Pass (conditional)**, 2026-07-27.
+
+### Changed
+
+- Dependabot: merged open dependency/CI bumps (php-cs-fixer, rector, phpstan, actions/cache, action-gh-release, ckeditor5, vite).
+- Security docs: CSP / MutationObserver notes; explicit HTML sanitization reminder from [`USAGE.md`](USAGE.md).
+
 ## [1.2.2] - 2026-07-23
 
 ### Added

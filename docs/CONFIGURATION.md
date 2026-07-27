@@ -56,7 +56,7 @@ Standard Symfony options (`label`, `required`, `translation_domain`, `attr`, …
 
 ## Twig overrides
 
-Application templates under `templates/bundles/NowoCkeditor5EditorBundle/` **always win** over the copies inside the package. The bundle registers paths via `TwigPathsPass` so Symfony resolves app overrides first.
+**REQ-TWIG-001.** Application templates under `templates/bundles/NowoCkeditor5EditorBundle/` **always win** over the copies inside the package. The bundle registers paths via `TwigPathsPass` so Symfony resolves app overrides first.
 
 ### Procedure
 
