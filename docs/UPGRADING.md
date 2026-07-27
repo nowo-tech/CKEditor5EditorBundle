@@ -136,10 +136,6 @@ Patch release: FrankenPHP **demo** runtime switch via **`FRANKENPHP_MODE`** and 
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.1**).
 
-## Unreleased (maintainers)
-
-No application-facing API changes. Contributors: `make release-check` now runs `check-open-prs` (REQ-REL-003) and demos expose `demo-smoke` (REQ-TEST-011). Twig override procedure is also documented in [`USAGE.md`](USAGE.md).
-
 ## To 1.2.2 from 1.2.1
 
 Patch release: Nowo standards compliance (PHPStan FrankenPHP rules, FrankenPHP Friendly banner, Twig override docs, coverage percentages, GitHub automation, JSDoc). No bundle API, YAML, or runtime behaviour changes for applications.
@@ -148,6 +144,16 @@ Patch release: Nowo standards compliance (PHPStan FrankenPHP rules, FrankenPHP F
 - **Contributors**: Twig override paths are listed in [`CONFIGURATION.md`](CONFIGURATION.md); PHPStan includes FrankenPHP classic + worker rulesets (`composer phpstan` / `make phpstan`).
 
 See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.2**).
+
+## To 1.2.3 from 1.2.2
+
+Patch release: Nowo full-spec compliance (open-PR gate, demo smoke, USAGE Twig overrides, REQ-SEC-004 audit record) plus dependency bumps. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer**: `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.2.2`); with `^1.0` or `^1.2`, **1.2.3** is included on update.
+- **Integrators**: keep sanitizing persisted/rendered HTML (see [`SECURITY.md`](SECURITY.md)); Twig override procedure is also in [`USAGE.md`](USAGE.md).
+- **Contributors**: `make release-check` runs `check-open-prs` (REQ-REL-003); use `make demo-smoke` (REQ-TEST-011). Rebuild frontend with current lockfiles if you change assets (**Vite 8** / CKEditor **48.3.x**).
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.2.3**).
 
 ## To 1.x (first documented stable line)
 
