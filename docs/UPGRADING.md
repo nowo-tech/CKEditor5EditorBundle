@@ -1,5 +1,24 @@
 # Upgrade guide
 
+## Table of contents
+
+- [General](#general)
+- [To 1.3.0 from 1.2.3](#to-130-from-123)
+- [To 1.0.0 (first Git / Packagist semver tag)](#to-100-first-git-packagist-semver-tag)
+- [To 1.0.1 from 1.0.0](#to-101-from-100)
+- [To 1.0.2 from 1.0.1](#to-102-from-101)
+- [To 1.0.3 from 1.0.2](#to-103-from-102)
+- [To 1.1.0 from 1.0.3](#to-110-from-103)
+- [To 1.1.1 from 1.1.0](#to-111-from-110)
+- [To 1.1.2 from 1.1.1](#to-112-from-111)
+- [To 1.1.3 from 1.1.2](#to-113-from-112)
+- [To 1.1.4 from 1.1.3](#to-114-from-113)
+- [To 1.2.0 from 1.1.4](#to-120-from-114)
+- [To 1.2.1 from 1.2.0](#to-121-from-120)
+- [To 1.2.2 from 1.2.1](#to-122-from-121)
+- [To 1.2.3 from 1.2.2](#to-123-from-122)
+- [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
+
 ## General
 
 **Supported platforms:** Symfony **6.4**, **7.x** (incl. **7.4**) on PHP **8.2+**; Symfony **8.0** and **8.1** on PHP **8.4+**. See [`INSTALLATION.md`](INSTALLATION.md#requirements).
@@ -7,6 +26,19 @@
 - Follow [`CHANGELOG.md`](CHANGELOG.md) for each release.
 - Pin versions in `composer.json` (e.g. `^1.0`) instead of relying only on `dev-main` for production apps.
 - After upgrading, run `php bin/console cache:clear` and `php bin/console assets:install public` so Twig and published bundle assets stay in sync.
+
+## To 1.3.0 from 1.2.3
+
+Minor release: public backed enum `EditorTheme` for chrome palette values, plus Nowo standards (deprecations helper, PHPStan baseline, pnpm-only frontend, demo PHP 8.5). YAML `theme` string values are unchanged.
+
+- **Config:** `theme` remains `light` / `dark` / `auto` (validated via `EditorTheme`). Invalid values still fall back to `light` on the form type.
+- **Composer:** `composer update nowo-tech/ckeditor5-editor-bundle` (with `^1.0` or `^1.3`); then `php bin/console cache:clear`.
+- **Frontend contributors:** standardize on **pnpm** (`packageManager` in `package.json`). Prefer `pnpm install` / `pnpm run build` over npm; `package-lock.json` is removed.
+- **Demo:** FrankenPHP image is PHP **8.5** (`dunglas/frankenphp:1-php8.5-alpine`).
+
+No Doctrine schema or Twig block renames.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.3.0**).
 
 ## To 1.0.0 (first Git / Packagist semver tag)
 

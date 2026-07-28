@@ -1,4 +1,5 @@
 includes:
+    - phpstan-baseline.neon
     - vendor/nowo-tech/phpstan-frankenphp/ruleset-classic.neon
     - vendor/nowo-tech/phpstan-frankenphp/ruleset-worker.neon
 
@@ -13,3 +14,4 @@ parameters:
     bootstrapFiles:
         - vendor/autoload.php
     reportUnmatchedIgnoredErrors: false
+    treatPhpDocTypesAsCertain: false

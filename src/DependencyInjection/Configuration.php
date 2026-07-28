@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nowo\Ckeditor5EditorBundle\DependencyInjection;
 
 use Nowo\Ckeditor5EditorBundle\EditorPreset;
+use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -102,10 +103,10 @@ final class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                             ->scalarNode('theme')
-                                ->info('Chrome palette for the demo/widget wrapper: light, dark, or auto.')
-                                ->defaultValue('light')
+                                ->info('Chrome palette for the demo/widget wrapper: light, dark, or auto (EditorTheme).')
+                                ->defaultValue(EditorTheme::Light->value)
                                 ->validate()
-                                    ->ifNotInArray(['light', 'dark', 'auto'])
+                                    ->ifNotInArray(EditorTheme::values())
                                     ->thenInvalid('Invalid nowo_ckeditor5_editor theme %s.')
                                 ->end()
                             ->end()

@@ -3,6 +3,18 @@
 Thank you for contributing to **CKEditor 5 Editor Bundle**.
 
 
+## Table of contents
+
+- [Code of Conduct](#code-of-conduct)
+- [How to contribute](#how-to-contribute)
+  - [Reporting bugs](#reporting-bugs)
+  - [Suggesting enhancements](#suggesting-enhancements)
+  - [Contributing code](#contributing-code)
+- [Project layout](#project-layout)
+- [Code style](#code-style)
+- [Questions](#questions)
+- [Git hooks (REQ-GIT-001)](#git-hooks-req-git-001)
+
 ## Code of Conduct
 
 This project follows the [Contributor Covenant Code of Conduct](../CODE_OF_CONDUCT.md). By participating, you are expected to uphold it. Please report unacceptable behavior to **hectorfranco@nowo.tech**.

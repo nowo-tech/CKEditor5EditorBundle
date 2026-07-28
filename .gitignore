@@ -30,3 +30,4 @@
 # Cursor local sandbox (machine-specific; REQ-IDE-005)
 .cursor/sandbox.json
 
+package-lock.json

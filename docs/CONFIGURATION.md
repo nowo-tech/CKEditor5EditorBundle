@@ -30,7 +30,7 @@ Root key: `nowo_ckeditor5_editor`
 | `form_theme`  | string | `form_div_layout.html.twig` | Base Symfony form theme; must align with your app `twig.form_themes`. |
 | `debug`       | bool   | `false`                     | Verbose browser console logging from the bundle script. |
 | `preset`      | string | —                           | Build preset: `standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, … (see `EditorPreset`). |
-| `theme`       | string | `light`                     | Chrome palette: `light`, `dark`, or `auto`. |
+| `theme`       | string | `light`                     | Chrome palette: `light`, `dark`, or `auto` (`EditorTheme` backed enum). |
 | `upload_url`  | string | `null`                      | Optional URL for Simple Upload Adapter (demo/apps provide POST endpoints). |
 
 ## Legacy keys and flat YAML
@@ -49,7 +49,7 @@ Root key: `nowo_ckeditor5_editor`
 | `toolbar`       | bool | Field-level override. |
 | `min_height`    | string | Field-level override. |
 | `height`        | `string\|null` | Alias for min-height when `min_height` is not set. |
-| `theme`         | string | Field-level palette (`light` / `dark` / `auto`). |
+| `theme`         | string | Field-level palette (`light` / `dark` / `auto`; `EditorTheme`). |
 | `placeholder`   | `string\|bool\|null` | Translation key in domain `NowoCkeditor5EditorBundle`, or `false` to disable. |
 
 Standard Symfony options (`label`, `required`, `translation_domain`, `attr`, …) work as usual.

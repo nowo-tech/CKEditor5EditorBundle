@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nowo\Ckeditor5EditorBundle\Form;
 
 use Nowo\Ckeditor5EditorBundle\EditorPreset;
+use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
@@ -87,7 +88,7 @@ final class Ckeditor5EditorType extends AbstractType
 
             return $this->mergeYamlProfileWithEditorConfigFromOptions($options)['min_height'];
         });
-        $resolver->setDefault('theme', fn (Options $options): string => $this->normalizeTheme((string) ($this->mergeYamlProfileWithEditorConfigFromOptions($options)['theme'] ?? 'light')));
+        $resolver->setDefault('theme', fn (Options $options): string => $this->normalizeTheme((string) ($this->mergeYamlProfileWithEditorConfigFromOptions($options)['theme'] ?? EditorTheme::Light->value)));
 
         $resolver->setAllowedTypes('config', ['null', 'string']);
         $resolver->setAllowedTypes('editor_config', ['array']);
@@ -130,9 +131,7 @@ final class Ckeditor5EditorType extends AbstractType
 
     private function normalizeTheme(string $value): string
     {
-        $t = strtolower(trim($value));
-
-        return in_array($t, ['light', 'dark', 'auto'], true) ? $t : 'light';
+        return EditorTheme::fromString($value)->value;
     }
 
     /**

@@ -1,5 +1,10 @@
 # Installation
 
+## Table of contents
+
+- [Requirements](#requirements)
+  - [AssetMapper](#assetmapper)
+
 ## Requirements
 
 | Symfony | PHP (minimum) | Composer constraint |

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Vite + CKEditor 5 build for Ckeditor5 Editor Bundle (TypeScript)",
   "private": true,
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",

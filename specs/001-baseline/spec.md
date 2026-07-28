@@ -47,7 +47,7 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 
 ## Success Criteria
 
-- **SC-001**: **30/30** production files mapped in inventory.
+- **SC-001**: **31/31** production files mapped in inventory.
 - **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md).
 - **SC-003**: `composer qa` passes; Vitest runs when TS changes.
 

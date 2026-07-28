@@ -1,5 +1,14 @@
 # Maintainer: tagging and GitHub Release
 
+## Table of contents
+
+- [Prerequisites](#prerequisites)
+- [Version bump](#version-bump)
+- [Tag and push](#tag-and-push)
+- [GitHub Release](#github-release)
+- [Packagist](#packagist)
+- [Automated sync](#automated-sync)
+
 ## Prerequisites
 
 - [`CHANGELOG.md`](CHANGELOG.md) updated with the new version and date (`[Unreleased]` moved to a numbered section).

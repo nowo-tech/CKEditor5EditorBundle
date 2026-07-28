@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nowo\Ckeditor5EditorBundle\DependencyInjection;
 
+use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -52,7 +53,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         $container->setParameter(Configuration::ALIAS . '.form_theme', $defaultProfile['form_theme']);
         $container->setParameter(Configuration::ALIAS . '.debug', $defaultProfile['debug']);
         $container->setParameter(Configuration::ALIAS . '.preset', $defaultProfile['preset']);
-        $container->setParameter(Configuration::ALIAS . '.theme', $defaultProfile['theme'] ?? 'light');
+        $container->setParameter(Configuration::ALIAS . '.theme', $defaultProfile['theme'] ?? EditorTheme::Light->value);
     }
 
     public function prepend(ContainerBuilder $container): void

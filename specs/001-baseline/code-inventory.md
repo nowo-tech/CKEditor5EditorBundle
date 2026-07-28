@@ -2,13 +2,14 @@
 
 **Baseline spec**: [`spec.md`](spec.md)  
 **Package**: `nowo-tech/ckeditor5-editor-bundle`  
-**Last audited**: 2026-07-07
+**Last audited**: 2026-07-28
 
 ## PHP classes (`src/**/*.php`)
 
 | Source file | Spec section | Requirement IDs |
 | --- | --- | --- |
 | `NowoCkeditor5EditorBundle.php` | Bundle entry | FR-BUNDLE-001 |
+| `EditorTheme.php` | Editor theme enum | FR-PHP-001 |
 | `EditorPreset.php` | Editor preset enum | FR-PRESET-001 |
 | `DependencyInjection/Configuration.php` | Config tree | FR-CFG-001 |
 | `DependencyInjection/NowoCkeditor5EditorExtension.php` | DI extension | FR-CFG-002 |
@@ -68,10 +69,10 @@
 
 | Category | Files | Mapped |
 | --- | ---: | ---: |
-| PHP classes | 7 | 7 |
+| PHP classes | 8 | 8 |
 | TypeScript production | 2 | 2 |
 | TypeScript tests | 1 | 1 |
 | Config & build | 2 | 2 |
 | Translations | 7 | 7 |
 | Twig themes | 11 | 11 |
-| **Total production sources** | **30** | **30** |
+| **Total production sources** | **31** | **31** |

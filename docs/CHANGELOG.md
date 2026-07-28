@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-07-28
+
+### Added
+
+- **REQ-PHP-001:** backed enum `EditorTheme` (`light` / `dark` / `auto`) for dashboard chrome palette.
+- **REQ-SF-005:** `SYMFONY_DEPRECATIONS_HELPER=max[direct]=0` in `phpunit.xml.dist`.
+- **REQ-CS-006:** explicit `phpstan-baseline.neon` with `ignoreErrors: []`.
+- TOC (`## Table of contents`) on long docs (REQ-DOCS-005).
+
+### Changed
+
+- **REQ-DEMO-010:** demo FrankenPHP image `dunglas/frankenphp:1-php8.5-alpine`; demo PORT fallback **8021**.
+- **REQ-DOCS-002/004:** README Documentation order; GitHub stars badge; Coverage badge **100%**.
+- **REQ-ASSETS-001:** `packageManager: pnpm@10.34.5`; CI Vitest via **pnpm**; removed `package-lock.json` (ignore + delete).
+
 ## [1.2.3] - 2026-07-27
 
 ### Added
@@ -147,7 +162,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.3...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...v1.2.1
