@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [General](#general)
+- [To 1.3.1 from 1.3.0](#to-131-from-130)
 - [To 1.3.0 from 1.2.3](#to-130-from-123)
 - [To 1.0.0 (first Git / Packagist semver tag)](#to-100-first-git-packagist-semver-tag)
 - [To 1.0.1 from 1.0.0](#to-101-from-100)
@@ -26,6 +27,15 @@
 - Follow [`CHANGELOG.md`](CHANGELOG.md) for each release.
 - Pin versions in `composer.json` (e.g. `^1.0`) instead of relying only on `dev-main` for production apps.
 - After upgrading, run `php bin/console cache:clear` and `php bin/console assets:install public` so Twig and published bundle assets stay in sync.
+
+## To 1.3.1 from 1.3.0
+
+Patch release: Makefile Compose V2 preference and optional monorepo `update-deps` includes. No bundle API, YAML, or runtime behaviour changes for applications.
+
+- **Composer:** `composer update nowo-tech/ckeditor5-editor-bundle` only if you pin an exact patch (e.g. `1.3.0`); with `^1.0` or `^1.3`, **1.3.1** is included on update.
+- **Contributors / demos:** Makefiles use `docker compose` when available (fallback `docker-compose`). Standalone clones no longer require `bundles/.scripts` for `make` to load.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.3.1**).
 
 ## To 1.3.0 from 1.2.3
 
