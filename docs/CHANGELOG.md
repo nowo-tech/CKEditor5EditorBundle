@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-08-04
+
+### Added
+
+- **REQ-TWIG-004:** require `twig/extra-bundle` + `twig/string-extra`; `make check-twig-extra` in `release-check`; demos register `TwigExtraBundle`.
+- **Twig-CS-Fixer:** `vincentlanglet/twig-cs-fixer`, `.twig-cs-fixer.php`, `composer twig:lint` / `twig:fix`.
+
+### Changed
+
+- Rector skips generated fixture cache (`tests/Fixtures/app/var`) and `reference.php`.
+- `check-open-prs` resolves `owner/repo` from the `origin` remote (`-R`) when `gh` default detection fails.
+- Demo `test-coverage` aliases the smoke `composer test` script (no demo PHPUnit suite).
+- Demo healthchecks accept HTTP **2xx/3xx** (redirects), matching the `make up` readiness probe.
+
 ## [1.3.1] - 2026-07-29
 
 ### Changed
@@ -169,7 +183,8 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.2...v1.2.3

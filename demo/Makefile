@@ -95,7 +95,7 @@ verify-$(1):
 	@port=$$(grep "^PORT=" $(1)/.env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
 		[ -z "$$port" ] && port="8021"; \
 	code=$$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port 2>/dev/null || echo "000"); \
-	if [ "$$code" = "200" ]; then echo "✅ $(1) OK (HTTP $$code)"; else echo "❌ $(1) HTTP $$code"; exit 1; fi
+	if echo "$$code" | grep -qE '^[23][0-9][0-9]$$'; then echo "✅ $(1) OK (HTTP $$code)"; else echo "❌ $(1) HTTP $$code"; exit 1; fi
 endef
 
 $(foreach demo,$(DEMOS),$(eval $(call up-target-template,$(demo))))
@@ -164,7 +164,7 @@ verify:
 	@[ -n "$(DEMO)" ] || { echo "Usage: make verify DEMO=symfony8"; exit 1; }
 	@$(MAKE) verify-$(DEMO)
 
-# release-verify: for each demo up → sleep → healthcheck HTTP 200 → down
+# release-verify: for each demo up → sleep → healthcheck HTTP 2xx/3xx → down
 release-verify:
 	@for demo in $(DEMOS); do \
 		port=$$(grep '^PORT=' $$demo/.env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
@@ -173,11 +173,11 @@ release-verify:
 		$(MAKE) up-$$demo; sleep 12; \
 		code=$$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port 2>/dev/null || echo "000"); \
 		$(MAKE) down-$$demo 2>/dev/null || true; \
-		if [ "$$code" != "200" ]; then echo "$$demo healthcheck failed (HTTP $$code)"; exit 1; fi; \
+		if ! echo "$$code" | grep -qE '^[23][0-9][0-9]$$'; then echo "$$demo healthcheck failed (HTTP $$code)"; exit 1; fi; \
 		echo "OK $$demo (HTTP $$code)"; \
 	done
 	@echo "All demos passed release-verify."
-# REQ-TEST-011 — boot + one HTTP 200
+# REQ-TEST-011 — boot + one HTTP 2xx/3xx
 demo-smoke: release-verify
 
 release-check: test-coverage-all release-verify

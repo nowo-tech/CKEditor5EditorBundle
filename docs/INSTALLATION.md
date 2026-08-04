@@ -4,6 +4,7 @@
 
 - [Requirements](#requirements)
   - [AssetMapper](#assetmapper)
+- [Twig Extra Bundle (REQ-TWIG-004)](#twig-extra-bundle-req-twig-004)
 
 ## Requirements
 
@@ -67,3 +68,13 @@ When developing the bundle from a git clone, rebuild the JS with `pnpm run build
 If your app uses [Symfony AssetMapper](https://symfony.com/doc/current/frontend/asset_mapper.html), the bundle registers the `nowo_ckeditor5_editor` asset package. Run `assets:install` once so `ckeditor5-editor.js` is published to `public/bundles/nowockeditor5editor/`, or copy the built file into your own asset pipeline. The layout loads it via `asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package())`.
 
 Persisted HTML may require sanitization — see [SECURITY.md](SECURITY.md). To override Twig themes or translations, see [CONFIGURATION.md](CONFIGURATION.md#overriding-bundle-twig-templates).
+
+## Twig Extra Bundle (REQ-TWIG-004)
+
+This package ships Twig templates. Host applications **must** install and enable Twig Extra:
+
+```bash
+composer require twig/extra-bundle twig/string-extra
+```
+
+Register `Twig\Extra\TwigExtraBundle\TwigExtraBundle` in `config/bundles.php` (Flex usually does this). Demos already include the same stack. The package `release-check` runs `make check-twig-extra` to guard this contract.

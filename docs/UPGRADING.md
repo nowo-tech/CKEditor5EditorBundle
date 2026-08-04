@@ -2,7 +2,9 @@
 
 ## Table of contents
 
+- [Unreleased](#unreleased)
 - [General](#general)
+- [To 1.4.0 from 1.3.1](#to-140-from-131)
 - [To 1.3.1 from 1.3.0](#to-131-from-130)
 - [To 1.3.0 from 1.2.3](#to-130-from-123)
 - [To 1.0.0 (first Git / Packagist semver tag)](#to-100-first-git-packagist-semver-tag)
@@ -20,6 +22,9 @@
 - [To 1.2.3 from 1.2.2](#to-123-from-122)
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
+
+## Unreleased
+
 ## General
 
 **Supported platforms:** Symfony **6.4**, **7.x** (incl. **7.4**) on PHP **8.2+**; Symfony **8.0** and **8.1** on PHP **8.4+**. See [`INSTALLATION.md`](INSTALLATION.md#requirements).
@@ -27,6 +32,27 @@
 - Follow [`CHANGELOG.md`](CHANGELOG.md) for each release.
 - Pin versions in `composer.json` (e.g. `^1.0`) instead of relying only on `dev-main` for production apps.
 - After upgrading, run `php bin/console cache:clear` and `php bin/console assets:install public` so Twig and published bundle assets stay in sync.
+
+## To 1.4.0 from 1.3.1
+
+Minor release: required **Twig Extra** (REQ-TWIG-004) for hosts that render this bundle’s Twig templates.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console cache:clear
+```
+
+Composer pulls `twig/extra-bundle` `^3.12` and `twig/string-extra` `^3.12`. Register if Flex did not:
+
+```php
+Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+```
+
+**Maintainers:** `composer twig:lint` / `composer twig:fix` use `.twig-cs-fixer.php`.
+
+No YAML, form API, or asset path changes.
+
+See [`CHANGELOG.md`](CHANGELOG.md) (section **1.4.0**).
 
 ## To 1.3.1 from 1.3.0
 

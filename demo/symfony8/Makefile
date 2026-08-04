@@ -68,8 +68,8 @@ logs:
 test: ensure-up
 	$(COMPOSE) exec -e APP_ENV=test php composer test
 
-test-coverage: ensure-up
-	$(COMPOSE) exec php composer test-coverage
+# Demo has no PHPUnit suite; alias smoke script used by release-check.
+test-coverage: test
 
 cache-clear: ensure-up
 	$(COMPOSE) exec php php bin/console cache:clear

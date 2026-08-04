@@ -12,8 +12,8 @@ namespace Nowo\Ckeditor5EditorBundle;
 enum EditorTheme: string
 {
     case Light = 'light';
-    case Dark = 'dark';
-    case Auto = 'auto';
+    case Dark  = 'dark';
+    case Auto  = 'auto';
 
     /**
      * @return list<string>
