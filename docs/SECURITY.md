@@ -11,7 +11,24 @@
 
 ## Security considerations for integrators
 
-- **HTML and XSS**: This bundle stores **HTML** produced by CKEditor 5 in a form field. The bundle does **not** enforce HTML sanitization. **Your application** must sanitize or allowlist content before persisting or rendering it (e.g. HTML Purifier, DOMPurify on the client, or server-side filtering), especially for user-generated content.
+- **HTML and XSS**: This bundle exposes a form field with **HTML** produced by CKEditor 5. The bundle does **not** persist HTML itself and does **not** enforce sanitization on submit. **Your application** must sanitize or allowlist content before persisting or rendering it, especially for user-generated content.
+- **HTML sanitizer services**: The bundle registers `Ckeditor5HtmlSanitizerInterface` (aliased by default to `IdentityCkeditor5HtmlSanitizer`, a no-op). Prefer injecting `AllowlistCkeditor5HtmlSanitizer` (or your own implementation of the interface) in Doctrine/event listeners or services that persist editor HTML:
+
+  ```yaml
+  # config/services.yaml (example)
+  App\Listener\SanitizeEditorHtmlListener:
+      arguments:
+          $htmlSanitizer: '@Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer'
+  ```
+
+  Or re-alias the interface in your app:
+
+  ```yaml
+  Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface:
+      alias: Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer
+  ```
+
+  Client-side filtering alone is not sufficient for UGC.
 - **Script tags**: The widget loads `ckeditor5-editor.js` from published bundle assets. Use `assets:install` / AssetMapper hygiene and trusted builds only.
 - **CSP**: Prefer loading the published IIFE via `asset(...)` (no inline scripts). The widget uses a long-lived `MutationObserver` for Turbo/AJAX remounts; it does not use `eval`, `document.write`, or `innerHTML` with unsanitized HTML.
 - **Upload endpoints**: If you configure `upload_url`, your endpoint must validate MIME types (prefer magic-byte checks), size limits, and authentication/authorization; the demos are examples only — do not copy them to production unchanged.
@@ -28,7 +45,7 @@ The bundle provides a Symfony form type, Twig themes, translations, and a static
 | Date | 2026-07-27 |
 | Method | Cursor security-review (`src/`, Twig, assets, SECURITY docs, demo `.env.example`, Flex recipe) |
 | Grade | **Pass (conditional)** — overall **Medium** (residual) |
-| Open residuals | Integrator must sanitize persisted/rendered HTML (XSS with UGC); production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
+| Open residuals | Integrator must wire Allowlist (or custom) sanitizer on persist/render (XSS with UGC); Identity is default no-op; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
 
 See also the monorepo record in [`BUNDLES_SECURITY_ANALYSIS.md`](https://github.com/nowo-tech/bundles/blob/master/BUNDLES_SECURITY_ANALYSIS.md) (Ckeditor5EditorBundle entry).
 
@@ -59,7 +76,7 @@ Before tagging a release, confirm:
 | **SECURITY.md** | This document is current and linked from the README where applicable. |
 | **`.gitignore` and `.env`** | `.env` and local env files are ignored; no committed secrets. |
 | **No secrets in repo** | No API keys, passwords, or tokens in tracked files. |
-| **HTML / XSS** | Documentation reminds integrators to sanitize persisted HTML. |
+| **HTML / XSS** | Sanitizer interface + Allowlist/Identity services documented; apps must sanitize on persist. |
 | **Input / output** | Form options validated; user HTML is not executed server-side by the bundle. |
 | **Dependencies** | `composer audit` run; issues triaged. |
 | **Logging** | Logs do not print secrets or session identifiers unnecessarily. |
