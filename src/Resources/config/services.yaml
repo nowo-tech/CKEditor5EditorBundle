@@ -4,6 +4,17 @@ services:
         autoconfigure: true
         public: false
 
+
+    Nowo\Ckeditor5EditorBundle\Security\IdentityCkeditor5HtmlSanitizer:
+        public: true
+
+    Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer:
+        public: true
+
+    Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface:
+        alias: Nowo\Ckeditor5EditorBundle\Security\IdentityCkeditor5HtmlSanitizer
+        public: true
+
     Nowo\Ckeditor5EditorBundle\Twig\NowoCkeditor5EditorTwigExtension:
         tags: ['twig.extension']
 
