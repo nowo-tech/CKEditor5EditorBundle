@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.4.1 from 1.4.0](#to-141-from-140)
 - [General](#general)
 - [To 1.4.0 from 1.3.1](#to-140-from-131)
 - [To 1.3.1 from 1.3.0](#to-131-from-130)
@@ -24,6 +25,10 @@
 
 
 ## Unreleased
+
+## To 1.4.1 from 1.4.0
+
+No application upgrade steps. Demos only: Hot Reload Bundle `^1.4` (FrankenPHP Mercure/`hot_reload`, `dev`/`test`).
 
 ## General
 
