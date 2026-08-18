@@ -48,6 +48,7 @@ This starts `demo/symfony8`, curls `http://127.0.0.1:$PORT` (default **8021**), 
 In **`APP_ENV=dev`** (default for the demos):
 
 - **Symfony Web Profiler** and **Debug** bundles (`require-dev`) for toolbar and profiling.
+- **Nowo Twig Inspector** (`nowo-tech/twig-inspector-bundle`) and **Nowo Hot Reload** (`nowo-tech/hot-reload-bundle`) — required together on FrankenPHP demos (dev/test only; Caddyfile Mercure + `hot_reload`, plus `worker { watch }` in worker mode). Do not enable Hot Reload in production.
 - **`nowo-tech/twig-inspector-bundle`** (`require-dev`) where listed in the demo `composer.json`.
 
 The bundle under test is **`nowo-tech/ckeditor5-editor-bundle`**, installed from the path repo **`/var/ckeditor5-editor-bundle`**.
