@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Nowo\Ckeditor5EditorBundle\Tests\Unit\Form;
 
 use Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType;
+use Nowo\Ckeditor5EditorBundle\Form\DataTransformer\Ckeditor5HtmlSanitizeTransformer;
+use Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -399,5 +402,30 @@ final class Ckeditor5EditorTypeTest extends TestCase
 
         self::assertSame('light', $m->invoke($type, 'invalid-theme'));
         self::assertSame('auto', $m->invoke($type, ' AuTo '));
+    }
+
+    public function testBuildFormAddsSanitizerTransformer(): void
+    {
+        $type = new Ckeditor5EditorType(
+            $this->sampleConfigs(),
+            'default',
+            $this->createCsrfTokenManager(),
+            new AllowlistCkeditor5HtmlSanitizer(),
+        );
+        $builder = $this->createMock(FormBuilderInterface::class);
+        $builder->expects(self::once())
+            ->method('addModelTransformer')
+            ->with(self::isInstanceOf(Ckeditor5HtmlSanitizeTransformer::class));
+
+        $type->buildForm($builder, []);
+    }
+
+    public function testBuildFormSkipsTransformerWithoutSanitizer(): void
+    {
+        $type    = $this->createType();
+        $builder = $this->createMock(FormBuilderInterface::class);
+        $builder->expects(self::never())->method('addModelTransformer');
+
+        $type->buildForm($builder, []);
     }
 }
