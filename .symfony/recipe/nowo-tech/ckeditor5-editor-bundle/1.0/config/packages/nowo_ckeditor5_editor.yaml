@@ -8,3 +8,10 @@ nowo_ckeditor5_editor:
             form_theme: form_div_layout.html.twig
             debug: false
             theme: light
+
+# Production: alias Ckeditor5HtmlSanitizerInterface to AllowlistCkeditor5HtmlSanitizer
+# in config/services.yaml (see docs/SECURITY.md):
+#
+# services:
+#     Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface:
+#         alias: Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer
