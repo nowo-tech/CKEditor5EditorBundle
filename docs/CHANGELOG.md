@@ -7,10 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-08-19
+
+### Changed
+
+- **Tests:** 100% PHP coverage for `html_sanitizer` wiring in `Ckeditor5EditorType`.
+
+[1.4.3]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.3
+
+## [1.4.2] - 2026-08-19
+
 ### Added
 
 - **`html_sanitizer` config** (opt-in, BC-safe): set to `allowlist` or a custom service id to sanitize HTML on form submit via `Ckeditor5HtmlSanitizeTransformer` (mirrors TiptapEditorBundle).
 - **Flex recipe `when@prod`**: enables `html_sanitizer: allowlist` by default in production profiles.
+
+[1.4.2]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.2
 
 ## [1.4.1] - 2026-08-18
 

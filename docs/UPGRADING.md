@@ -26,6 +26,30 @@
 
 ## Unreleased
 
+## To 1.4.3 from 1.4.2
+
+No application upgrade steps.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
+## To 1.4.2 from 1.4.1
+
+Review production config if you render editor HTML from untrusted sources. The Flex recipe sets `when@prod`:
+
+```yaml
+nowo_ckeditor5_editor:
+    html_sanitizer: allowlist
+```
+
+Hosts that already trust all editors may keep the default (no sanitizer) or set a custom `PageLayoutHtmlSanitizerInterface` service id.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console cache:clear
+```
+
 ## To 1.4.1 from 1.4.0
 
 No application upgrade steps. Demos only: Hot Reload Bundle `^1.4` (FrankenPHP Mercure/`hot_reload`, `dev`/`test`).
