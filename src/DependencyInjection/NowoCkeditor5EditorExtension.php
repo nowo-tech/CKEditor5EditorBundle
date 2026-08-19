@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace Nowo\Ckeditor5EditorBundle\DependencyInjection;
 
 use Nowo\Ckeditor5EditorBundle\EditorTheme;
+use Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType;
+use Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer;
+use Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Loads services and prepends the bundle form theme(s) to Twig.
@@ -54,6 +58,35 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         $container->setParameter(Configuration::ALIAS . '.debug', $defaultProfile['debug']);
         $container->setParameter(Configuration::ALIAS . '.preset', $defaultProfile['preset']);
         $container->setParameter(Configuration::ALIAS . '.theme', $defaultProfile['theme'] ?? EditorTheme::Light->value);
+
+        $this->configureHtmlSanitizer($container, $config['html_sanitizer'] ?? null);
+    }
+
+    /**
+     * Opt-in HTML sanitizer for Ckeditor5EditorType (default: off for BC).
+     */
+    private function configureHtmlSanitizer(ContainerBuilder $container, mixed $htmlSanitizer): void
+    {
+        $typeDefinition = $container->getDefinition(Ckeditor5EditorType::class);
+
+        if ($htmlSanitizer === null || $htmlSanitizer === '') {
+            $typeDefinition->setArgument('$htmlSanitizer', null);
+
+            return;
+        }
+
+        if ($htmlSanitizer === 'allowlist') {
+            if (!$container->hasDefinition(AllowlistCkeditor5HtmlSanitizer::class)
+                && !$container->hasAlias(AllowlistCkeditor5HtmlSanitizer::class)
+            ) {
+                $container->register(AllowlistCkeditor5HtmlSanitizer::class, AllowlistCkeditor5HtmlSanitizer::class);
+            }
+            $container->setAlias(Ckeditor5HtmlSanitizerInterface::class, AllowlistCkeditor5HtmlSanitizer::class);
+        } else {
+            $container->setAlias(Ckeditor5HtmlSanitizerInterface::class, (string) $htmlSanitizer);
+        }
+
+        $typeDefinition->setArgument('$htmlSanitizer', new Reference(Ckeditor5HtmlSanitizerInterface::class));
     }
 
     public function prepend(ContainerBuilder $container): void

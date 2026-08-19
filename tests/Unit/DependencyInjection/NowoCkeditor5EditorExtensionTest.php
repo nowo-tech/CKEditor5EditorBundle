@@ -6,6 +6,8 @@ namespace Nowo\Ckeditor5EditorBundle\Tests\Unit\DependencyInjection;
 
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\Configuration;
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\NowoCkeditor5EditorExtension;
+use Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer;
+use Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -64,6 +66,19 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
         self::assertSame('bootstrap_5_layout.html.twig', $container->getParameter('nowo_ckeditor5_editor.form_theme'));
         self::assertTrue($container->getParameter('nowo_ckeditor5_editor.debug'));
         self::assertSame('minimal', $container->getParameter('nowo_ckeditor5_editor.preset'));
+    }
+
+    public function testLoadWithAllowlistHtmlSanitizer(): void
+    {
+        $container = new ContainerBuilder();
+        $extension = new NowoCkeditor5EditorExtension();
+        $extension->load([['html_sanitizer' => 'allowlist']], $container);
+
+        self::assertTrue($container->hasAlias(Ckeditor5HtmlSanitizerInterface::class));
+        self::assertSame(
+            AllowlistCkeditor5HtmlSanitizer::class,
+            (string) $container->getAlias(Ckeditor5HtmlSanitizerInterface::class),
+        );
     }
 
     public function testPrependAddsTwigFormTheme(): void
