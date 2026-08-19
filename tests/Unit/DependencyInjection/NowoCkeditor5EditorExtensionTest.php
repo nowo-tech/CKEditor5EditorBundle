@@ -6,12 +6,15 @@ namespace Nowo\Ckeditor5EditorBundle\Tests\Unit\DependencyInjection;
 
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\Configuration;
 use Nowo\Ckeditor5EditorBundle\DependencyInjection\NowoCkeditor5EditorExtension;
+use Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType;
 use Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer;
 use Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\FrameworkExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @covers \Nowo\Ckeditor5EditorBundle\DependencyInjection\NowoCkeditor5EditorExtension
@@ -79,6 +82,48 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
             AllowlistCkeditor5HtmlSanitizer::class,
             (string) $container->getAlias(Ckeditor5HtmlSanitizerInterface::class),
         );
+
+        $typeDefinition = $container->getDefinition(Ckeditor5EditorType::class);
+        $arg            = $typeDefinition->getArgument('$htmlSanitizer');
+        self::assertInstanceOf(Reference::class, $arg);
+        self::assertSame(Ckeditor5HtmlSanitizerInterface::class, (string) $arg);
+    }
+
+    public function testLoadWithHtmlSanitizerCustomService(): void
+    {
+        $container = new ContainerBuilder();
+        $extension = new NowoCkeditor5EditorExtension();
+        $extension->load([['html_sanitizer' => 'app.custom_sanitizer']], $container);
+
+        self::assertTrue($container->hasAlias(Ckeditor5HtmlSanitizerInterface::class));
+        self::assertSame('app.custom_sanitizer', (string) $container->getAlias(Ckeditor5HtmlSanitizerInterface::class));
+    }
+
+    public function testLoadWithHtmlSanitizerEmptyDisables(): void
+    {
+        $container = new ContainerBuilder();
+        $extension = new NowoCkeditor5EditorExtension();
+        $extension->load([['html_sanitizer' => '']], $container);
+
+        $typeDefinition = $container->getDefinition(Ckeditor5EditorType::class);
+        self::assertNull($typeDefinition->getArgument('$htmlSanitizer'));
+    }
+
+    public function testConfigureHtmlSanitizerRegistersAllowlistWhenMissing(): void
+    {
+        $container = new ContainerBuilder();
+        $container->register(Ckeditor5EditorType::class, Ckeditor5EditorType::class)
+            ->setAutowired(true)
+            ->setAutoconfigured(true)
+            ->addTag('form.type');
+
+        $extension = new NowoCkeditor5EditorExtension();
+        $method    = new ReflectionMethod(NowoCkeditor5EditorExtension::class, 'configureHtmlSanitizer');
+        $method->setAccessible(true);
+        $method->invoke($extension, $container, 'allowlist');
+
+        self::assertTrue($container->hasDefinition(AllowlistCkeditor5HtmlSanitizer::class));
+        self::assertTrue($container->hasAlias(Ckeditor5HtmlSanitizerInterface::class));
     }
 
     public function testPrependAddsTwigFormTheme(): void
