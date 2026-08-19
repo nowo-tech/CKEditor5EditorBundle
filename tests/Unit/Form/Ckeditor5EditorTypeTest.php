@@ -406,7 +406,7 @@ final class Ckeditor5EditorTypeTest extends TestCase
 
     public function testBuildFormAddsSanitizerTransformer(): void
     {
-        $type    = new Ckeditor5EditorType(
+        $type = new Ckeditor5EditorType(
             $this->sampleConfigs(),
             'default',
             $this->createCsrfTokenManager(),
