@@ -11,8 +11,17 @@
 
 ## Security considerations for integrators
 
-- **HTML and XSS**: This bundle exposes a form field with **HTML** produced by CKEditor 5. The bundle does **not** persist HTML itself and does **not** enforce sanitization on submit. **Your application** must sanitize or allowlist content before persisting or rendering it, especially for user-generated content.
-- **HTML sanitizer services**: The bundle registers `Ckeditor5HtmlSanitizerInterface` (aliased by default to `IdentityCkeditor5HtmlSanitizer`, a no-op). Prefer injecting `AllowlistCkeditor5HtmlSanitizer` (or your own implementation of the interface) in Doctrine/event listeners or services that persist editor HTML:
+- **HTML and XSS**: This bundle exposes a form field with **HTML** produced by CKEditor 5. When `nowo_ckeditor5_editor.html_sanitizer` is set (Flex recipe enables `allowlist` in `when@prod`), submitted HTML is sanitized server-side via `Ckeditor5HtmlSanitizeTransformer`. With `html_sanitizer: null` (default in dev/test), sanitization is disabled for BC — **your application** must still sanitize or allowlist content before persisting or rendering UGC.
+- **HTML sanitizer services**: The bundle registers `Ckeditor5HtmlSanitizerInterface` (aliased by default to `IdentityCkeditor5HtmlSanitizer`, a no-op). Enable built-in allowlist sanitization:
+
+  ```yaml
+  # config/packages/prod/nowo_ckeditor5_editor.yaml (also shipped in Flex recipe when@prod)
+  when@prod:
+      nowo_ckeditor5_editor:
+          html_sanitizer: allowlist
+  ```
+
+  Or re-alias the interface / inject into custom listeners:
 
   ```yaml
   # config/services.yaml (example)
@@ -45,7 +54,7 @@ The bundle provides a Symfony form type, Twig themes, translations, and a static
 | Date | 2026-07-27 |
 | Method | Cursor security-review (`src/`, Twig, assets, SECURITY docs, demo `.env.example`, Flex recipe) |
 | Grade | **Pass (conditional)** — overall **Medium** (residual) |
-| Open residuals | Integrator must wire Allowlist (or custom) sanitizer on persist/render (XSS with UGC); Identity is default no-op; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
+| Open residuals | Integrator must enable `html_sanitizer` in non-prod UGC apps; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
 
 See also the monorepo record in [`BUNDLES_SECURITY_ANALYSIS.md`](https://github.com/nowo-tech/bundles/blob/master/BUNDLES_SECURITY_ANALYSIS.md) (Ckeditor5EditorBundle entry).
 

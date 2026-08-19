@@ -9,9 +9,6 @@ nowo_ckeditor5_editor:
             debug: false
             theme: light
 
-# Production: alias Ckeditor5HtmlSanitizerInterface to AllowlistCkeditor5HtmlSanitizer
-# in config/services.yaml (see docs/SECURITY.md):
-#
-# services:
-#     Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface:
-#         alias: Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer
+when@prod:
+    nowo_ckeditor5_editor:
+        html_sanitizer: allowlist

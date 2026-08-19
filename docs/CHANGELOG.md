@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`html_sanitizer` config** (opt-in, BC-safe): set to `allowlist` or a custom service id to sanitize HTML on form submit via `Ckeditor5HtmlSanitizeTransformer` (mirrors TiptapEditorBundle).
+- **Flex recipe `when@prod`**: enables `html_sanitizer: allowlist` by default in production profiles.
+
 ## [1.4.1] - 2026-08-18
 
 ### Changed
