@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.4] - 2026-08-20
+
+### Documentation
+
+- **SECURITY.md / REQ-SEC-004:** re-audit **Pass (good)** — Flex `when@prod` `html_sanitizer: allowlist` confirmed as production default.
+
 ## [1.4.3] - 2026-08-19
 
 ### Changed

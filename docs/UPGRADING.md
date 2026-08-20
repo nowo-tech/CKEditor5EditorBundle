@@ -26,6 +26,14 @@
 
 ## Unreleased
 
+## To 1.4.4 from 1.4.3
+
+No application upgrade steps (SECURITY re-audit docs only).
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
 ## To 1.4.3 from 1.4.2
 
 No application upgrade steps.

@@ -51,10 +51,10 @@ The bundle provides a Symfony form type, Twig themes, translations, and a static
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-07-27 |
-| Method | Cursor security-review (`src/`, Twig, assets, SECURITY docs, demo `.env.example`, Flex recipe) |
-| Grade | **Pass (conditional)** — overall **Medium** (residual) |
-| Open residuals | Integrator must enable `html_sanitizer` in non-prod UGC apps; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
+| Date | 2026-08-20 (re-audit; prior 2026-07-27) |
+| Method | Cursor security-review (`src/`, Twig, assets, SECURITY docs, demo, Flex recipe `when@prod` allowlist) |
+| Grade | **Pass (good)** — overall **Low** |
+| Open residuals | Host must not disable prod recipe allowlist for UGC; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
 
 See also the monorepo record in [`BUNDLES_SECURITY_ANALYSIS.md`](https://github.com/nowo-tech/bundles/blob/master/BUNDLES_SECURITY_ANALYSIS.md) (Ckeditor5EditorBundle entry).
 
