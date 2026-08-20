@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.4.5 from 1.4.4](#to-145-from-144)
 - [To 1.4.1 from 1.4.0](#to-141-from-140)
 - [General](#general)
 - [To 1.4.0 from 1.3.1](#to-140-from-131)
@@ -25,6 +26,23 @@
 
 
 ## Unreleased
+
+## To 1.4.5 from 1.4.4
+
+From **1.4.4** — If production uses `html_sanitizer: allowlist` (Flex recipe `when@prod`, **not** applied automatically to YAML you already copied), submitted HTML is **lossy**.
+
+**Kept tags:** `p`, `br`, `strong`, `b`, `em`, `i`, `u`, `s`, `del`, `h1`–`h6`, `ul`, `ol`, `li`, `blockquote`, `code`, `pre`, `a`, `img`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `caption`, `hr`, `span`, `div`, `figure`, `figcaption`, `sub`, `sup`, `mark`, `iframe` (YouTube / Vimeo hosts only).
+
+**Stripped:** `<script>`, event handlers, `javascript:` URLs, unknown tags (including custom CKEditor widgets), iframes from other hosts.
+
+1. Re-copying or merging the Flex recipe into an existing app **enables** the sanitizer in `prod` even if you previously had none — review stored HTML after the first prod deploy.
+2. If the allowlist still drops markup you need, set `html_sanitizer` to your own service id implementing `Ckeditor5HtmlSanitizerInterface` (do not disable sanitization for untrusted UGC).
+3. Trusted-staff-only editors may keep `html_sanitizer: null` (PHP default) — document that choice.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console cache:clear --env=prod
+```
 
 ## To 1.4.4 from 1.4.3
 

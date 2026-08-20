@@ -37,7 +37,7 @@
       alias: Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer
   ```
 
-  Client-side filtering alone is not sufficient for UGC.
+  Client-side filtering alone is not sufficient for UGC. The built-in allowlist keeps common block/inline tags (`p`, headings `h1`–`h6`, lists, tables, `figure`/`figcaption`, `sub`/`sup`/`mark`, YouTube/Vimeo `iframe`) and strips scripts, event handlers, and unknown tags.
 - **Script tags**: The widget loads `ckeditor5-editor.js` from published bundle assets. Use `assets:install` / AssetMapper hygiene and trusted builds only.
 - **CSP**: Prefer loading the published IIFE via `asset(...)` (no inline scripts). The widget uses a long-lived `MutationObserver` for Turbo/AJAX remounts; it does not use `eval`, `document.write`, or `innerHTML` with unsanitized HTML.
 - **Upload endpoints**: If you configure `upload_url`, your endpoint must validate MIME types (prefer magic-byte checks), size limits, and authentication/authorization; the demos are examples only — do not copy them to production unchanged.

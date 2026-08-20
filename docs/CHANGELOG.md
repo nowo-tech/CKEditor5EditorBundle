@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.5] - 2026-08-20
+
+### Changed
+
+- **Allowlist sanitizer:** keep `figure` / `figcaption` / `h5` / `h6` / `sub` / `sup` / `mark` / `caption` in addition to the previous heading/table/iframe set so production `html_sanitizer: allowlist` is less lossy for typical CKEditor 5 markup.
+
+### Documentation
+
+- **UPGRADING.md:** production Flex recipe enables the sanitizer; list kept tags and how to supply a custom sanitizer if the allowlist is still too strict.
+
+[1.4.5]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.5
+
 ## [1.4.4] - 2026-08-20
 
 ### Documentation
