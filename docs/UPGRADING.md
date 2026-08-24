@@ -2,6 +2,8 @@
 
 ## Table of contents
 
+
+- [From 1.4.5 to 1.4.6](#from-145-to-146)
 - [Unreleased](#unreleased)
 - [To 1.4.5 from 1.4.4](#to-145-from-144)
 - [To 1.4.1 from 1.4.0](#to-141-from-140)
@@ -23,6 +25,22 @@
 - [To 1.2.2 from 1.2.1](#to-122-from-121)
 - [To 1.2.3 from 1.2.2](#to-123-from-122)
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
+
+## From 1.4.5 to 1.4.6
+
+No breaking changes. **No application upgrade steps.**
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
+## From 1.4.5 to 1.4.6
+
+No breaking changes. **No application upgrade steps.**
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
 
 
 ## Unreleased
