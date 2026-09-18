@@ -2,7 +2,7 @@
 
 **Baseline spec**: [`spec.md`](spec.md)  
 **Package**: `nowo-tech/ckeditor5-editor-bundle`  
-**Last audited**: 2026-07-28
+**Last audited**: 2026-09-18
 
 ## PHP classes (`src/**/*.php`)
 
@@ -15,6 +15,10 @@
 | `DependencyInjection/NowoCkeditor5EditorExtension.php` | DI extension | FR-CFG-002 |
 | `DependencyInjection/Compiler/TwigPathsPass.php` | Twig namespace path | FR-TWIG-001 |
 | `Form/Ckeditor5EditorType.php` | Symfony form type | FR-FORM-001 |
+| `Form/DataTransformer/Ckeditor5HtmlSanitizeTransformer.php` | Submit-time sanitizer | FR-SEC-001 |
+| `Security/Ckeditor5HtmlSanitizerInterface.php` | Sanitizer contract | FR-SEC-001 |
+| `Security/IdentityCkeditor5HtmlSanitizer.php` | No-op sanitizer (default) | FR-SEC-001 |
+| `Security/AllowlistCkeditor5HtmlSanitizer.php` | Allowlist / strict sanitizer | FR-SEC-001 |
 | `Twig/NowoCkeditor5EditorTwigExtension.php` | Form theme helpers | FR-TWIG-002 |
 
 ## TypeScript production (`src/Resources/assets/src/`)
@@ -69,10 +73,10 @@
 
 | Category | Files | Mapped |
 | --- | ---: | ---: |
-| PHP classes | 8 | 8 |
+| PHP classes | 12 | 12 |
 | TypeScript production | 2 | 2 |
 | TypeScript tests | 1 | 1 |
 | Config & build | 2 | 2 |
 | Translations | 7 | 7 |
 | Twig themes | 11 | 11 |
-| **Total production sources** | **31** | **31** |
+| **Total production sources** | **35** | **35** |

@@ -89,6 +89,18 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
         self::assertSame(Ckeditor5HtmlSanitizerInterface::class, (string) $arg);
     }
 
+    public function testLoadWithStrictHtmlSanitizerDropsEmbeds(): void
+    {
+        $container = new ContainerBuilder();
+        $extension = new NowoCkeditor5EditorExtension();
+        $extension->load([['html_sanitizer' => 'strict']], $container);
+
+        $serviceId = AllowlistCkeditor5HtmlSanitizer::class . '.strict';
+        self::assertTrue($container->hasAlias(Ckeditor5HtmlSanitizerInterface::class));
+        self::assertSame($serviceId, (string) $container->getAlias(Ckeditor5HtmlSanitizerInterface::class));
+        self::assertFalse($container->getDefinition($serviceId)->getArgument('$allowEmbeds'));
+    }
+
     public function testLoadWithHtmlSanitizerCustomService(): void
     {
         $container = new ContainerBuilder();

@@ -79,4 +79,52 @@ final class AllowlistCkeditor5HtmlSanitizerTest extends TestCase
         self::assertStringContainsString('<sup>', $result);
         self::assertStringContainsString('<mark>', $result);
     }
+
+    public function testStripsUnquotedEventHandler(): void
+    {
+        $sanitizer = new AllowlistCkeditor5HtmlSanitizer();
+        $result    = $sanitizer->sanitize('<img src="x.png" onerror=alert(1)>');
+
+        self::assertStringNotContainsString('onerror', $result);
+        self::assertStringNotContainsString('alert', $result);
+    }
+
+    public function testStripsEventHandlerGluedToPreviousAttribute(): void
+    {
+        $sanitizer = new AllowlistCkeditor5HtmlSanitizer();
+        $result    = $sanitizer->sanitize('<img src="x.png"onerror=alert(1)>');
+
+        self::assertStringNotContainsString('onerror', $result);
+        self::assertStringNotContainsString('alert', $result);
+    }
+
+    public function testStripsUnquotedJavascriptHref(): void
+    {
+        $sanitizer = new AllowlistCkeditor5HtmlSanitizer();
+        $result    = $sanitizer->sanitize('<a href=javascript:alert(1)>x</a>');
+
+        self::assertStringNotContainsString('javascript:', $result);
+        self::assertStringNotContainsString('alert', $result);
+    }
+
+    public function testDropsSrcdocFromAllowedYoutubeIframe(): void
+    {
+        $sanitizer = new AllowlistCkeditor5HtmlSanitizer();
+        $result    = $sanitizer->sanitize('<iframe src="https://www.youtube.com/embed/abc" srcdoc="<script>alert(1)</script>"></iframe>');
+
+        self::assertStringContainsString('youtube.com', $result);
+        self::assertStringNotContainsString('srcdoc', $result);
+        self::assertStringNotContainsString('script', $result);
+        self::assertStringNotContainsString('alert', $result);
+    }
+
+    public function testStrictDropsEveryIframe(): void
+    {
+        $sanitizer = new AllowlistCkeditor5HtmlSanitizer(allowEmbeds: false);
+        $result    = $sanitizer->sanitize('<p>v</p><iframe src="https://www.youtube.com/embed/abc"></iframe>');
+
+        self::assertStringNotContainsString('iframe', $result);
+        self::assertStringNotContainsString('youtube.com', $result);
+        self::assertStringContainsString('<p>v</p>', $result);
+    }
 }

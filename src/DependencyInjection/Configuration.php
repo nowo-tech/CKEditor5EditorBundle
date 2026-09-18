@@ -79,7 +79,7 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('html_sanitizer')
                     ->defaultNull()
-                    ->info('Optional service id implementing Ckeditor5HtmlSanitizerInterface, or the special value "allowlist" for the built-in allowlist sanitizer. Null (default) disables server-side sanitization (BC).')
+                    ->info('Optional service id implementing Ckeditor5HtmlSanitizerInterface, or a built-in: "allowlist" (YouTube/Vimeo iframes kept as src only) or "strict" (same sanitizer, every iframe dropped). Null (default) disables server-side sanitization (BC).')
                 ->end()
                 ->arrayNode('profiles')
                     ->info('Named profiles; each field may reference one via the "config" form option.')

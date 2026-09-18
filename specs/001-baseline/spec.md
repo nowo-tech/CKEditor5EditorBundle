@@ -30,6 +30,14 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 
 **Given** bundle translation files, **When** locale switches, **Then** editor UI strings follow Symfony translator domain `NowoCkeditor5EditorBundle`.
 
+### US-04 — Server-side HTML sanitizer (P1)
+
+**Given** `html_sanitizer` is `allowlist`, **When** a field is submitted, **Then** scripts, event handlers (quoted, unquoted, or glued), `javascript:` / `data:` / `vbscript:` URLs, and `srcdoc` are stripped, and a YouTube or Vimeo iframe is rewritten to `src` only.
+
+**Given** `html_sanitizer` is `strict`, **When** a field is submitted, **Then** the same allowlist applies and every `iframe` is dropped.
+
+**Given** `html_sanitizer` is `null` (default), **When** a field is submitted, **Then** the identity sanitizer leaves HTML unchanged (backward compatible).
+
 ---
 
 ## Requirements
@@ -37,6 +45,7 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 - **FR-BUNDLE-001**: `NowoCkeditor5EditorBundle` + alias `nowo_ckeditor5_editor`.
 - **FR-CFG-001 / FR-CFG-002**: Editor defaults, presets, and DI wiring.
 - **FR-FORM-001**: `Ckeditor5EditorType` exposes options documented in [`docs/USAGE.md`](../../docs/USAGE.md).
+- **FR-SEC-001**: `Ckeditor5HtmlSanitizerInterface` plus identity, allowlist, and `html_sanitizer: strict` (allowlist with embeds disabled). Submit path uses `Ckeditor5HtmlSanitizeTransformer`.
 - **FR-TWIG-001–003**: Twig path pass, extension, and form theme variants.
 - **FR-UI-001 / FR-UI-002**: TypeScript initializer and logger under `Resources/assets/src/`.
 - **FR-BUILD-001**: `ckeditor5-editor.js` build output consumed by form themes.
@@ -47,9 +56,9 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 
 ## Success Criteria
 
-- **SC-001**: **31/31** production files mapped in inventory.
-- **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md).
-- **SC-003**: `composer qa` passes; Vitest runs when TS changes.
+- **SC-001**: **35/35** production files mapped in inventory.
+- **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md), including `html_sanitizer` (`null` / `allowlist` / `strict` / custom service id).
+- **SC-003**: `composer qa` passes; PHPUnit line coverage on `src/` is **100%**; Vitest runs when TS changes.
 
 ---
 

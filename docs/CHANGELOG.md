@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.7] - 2026-09-18
+
+### Added
+
+- **`html_sanitizer: strict`:** same allowlist sanitizer as `allowlist`, but every `iframe` is dropped. Use it for public HTML that must not embed third-party players (legal pages).
+
+### Fixed
+
+- **Allowlist sanitizer:** unquoted and glued event handlers, unquoted `javascript:` / `data:` / `vbscript:` URLs, and `srcdoc` no longer survive. A kept YouTube/Vimeo iframe is rewritten to `src` only.
+
+### Documentation
+
+- **CONFIGURATION.md** and baseline spec inventory include `html_sanitizer` (`null` / `allowlist` / `strict`).
 
 ## [1.4.6] - 2026-08-24
 
@@ -19,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **No API or configuration changes** for integrators unless noted above.
 
+[1.4.7]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.7
 [1.4.6]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.6
 
 ## [1.4.5] - 2026-08-20

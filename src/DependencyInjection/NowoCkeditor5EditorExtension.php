@@ -75,13 +75,19 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
             return;
         }
 
-        if ($htmlSanitizer === 'allowlist') {
-            if (!$container->hasDefinition(AllowlistCkeditor5HtmlSanitizer::class)
+        if ($htmlSanitizer === 'allowlist' || $htmlSanitizer === 'strict') {
+            $serviceId = AllowlistCkeditor5HtmlSanitizer::class;
+            if ($htmlSanitizer === 'strict') {
+                $serviceId .= '.strict';
+                $container->register($serviceId, AllowlistCkeditor5HtmlSanitizer::class)
+                    ->setPublic(true)
+                    ->setArgument('$allowEmbeds', false);
+            } elseif (!$container->hasDefinition(AllowlistCkeditor5HtmlSanitizer::class)
                 && !$container->hasAlias(AllowlistCkeditor5HtmlSanitizer::class)
             ) {
                 $container->register(AllowlistCkeditor5HtmlSanitizer::class, AllowlistCkeditor5HtmlSanitizer::class);
             }
-            $container->setAlias(Ckeditor5HtmlSanitizerInterface::class, AllowlistCkeditor5HtmlSanitizer::class);
+            $container->setAlias(Ckeditor5HtmlSanitizerInterface::class, $serviceId);
         } else {
             $container->setAlias(Ckeditor5HtmlSanitizerInterface::class, (string) $htmlSanitizer);
         }

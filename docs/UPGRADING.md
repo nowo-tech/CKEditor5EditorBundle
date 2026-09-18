@@ -3,8 +3,8 @@
 ## Table of contents
 
 
+- [From 1.4.6 to 1.4.7](#from-146-to-147)
 - [From 1.4.5 to 1.4.6](#from-145-to-146)
-- [Unreleased](#unreleased)
 - [To 1.4.5 from 1.4.4](#to-145-from-144)
 - [To 1.4.1 from 1.4.0](#to-141-from-140)
 - [General](#general)
@@ -26,12 +26,23 @@
 - [To 1.2.3 from 1.2.2](#to-123-from-122)
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
-## From 1.4.5 to 1.4.6
+## From 1.4.6 to 1.4.7
 
-No breaking changes. **No application upgrade steps.**
+Security patch for the built-in HTML sanitizer. **No required YAML change** if you already use `html_sanitizer: allowlist`.
+
+- **`allowlist`:** unquoted and glued event handlers, unquoted `javascript:` / `data:` / `vbscript:` URLs, and `srcdoc` are stripped. A kept YouTube/Vimeo iframe is rewritten to `<iframe src="…"></iframe>` (other iframe attributes are dropped). Re-check stored embeds after deploy if you relied on extra iframe attributes.
+- **`strict`:** same sanitizer, but every `iframe` is dropped. Use it for public HTML that must not embed third-party players (legal pages):
+
+```yaml
+nowo_ckeditor5_editor:
+    html_sanitizer: strict
+```
+
+Editor routes that load CKEditor still need `style-src-elem 'self' 'unsafe-inline'` **without** a nonce on that directive. A nonce makes browsers ignore `unsafe-inline`.
 
 ```bash
 composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console cache:clear
 ```
 
 ## From 1.4.5 to 1.4.6
@@ -41,9 +52,6 @@ No breaking changes. **No application upgrade steps.**
 ```bash
 composer update nowo-tech/ckeditor5-editor-bundle
 ```
-
-
-## Unreleased
 
 ## To 1.4.5 from 1.4.4
 

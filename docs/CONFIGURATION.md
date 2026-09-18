@@ -20,6 +20,7 @@ Root key: `nowo_ckeditor5_editor`
 | ----------------- | ------ | --------- | ----------- |
 | `default_profile` | string | `default` | Profile name when a form field omits the `config` option. **Must** exist under `profiles`. |
 | `profiles`        | map    | —         | Named profiles. At least one profile is required (or use [legacy keys and flat YAML](#legacy-keys-and-flat-yaml) input). |
+| `html_sanitizer`  | string\|null | `null` | Service id implementing `Ckeditor5HtmlSanitizerInterface`, or a built-in: `allowlist` (YouTube/Vimeo iframes kept as `src` only) or `strict` (same sanitizer, every iframe dropped). `null` disables server-side sanitization (BC). See [SECURITY.md](SECURITY.md). |
 
 ## Per profile (`profiles.<name>`)
 
