@@ -76,7 +76,7 @@ final class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSanitizerInt
     {
         return preg_replace_callback(
             '/<iframe\b[^>]*>.*?<\/iframe>|<iframe\b[^>]*\/?>/is',
-            function (array $matches): string {
+            static function (array $matches): string {
                 if (preg_match('/\ssrc=(["\'])([^"\']+)\1/i', $matches[0], $srcMatch) !== 1) {
                     return '';
                 }
