@@ -395,6 +395,56 @@ final class Ckeditor5EditorTypeTest extends TestCase
         self::assertSame('test-csrf', $view->vars['ckeditor5_upload_csrf']);
     }
 
+    /**
+     * FrankenPHP worker with reset_kernel=false keeps the same form type instance across requests.
+     * CSRF must be read per buildView(), never memoized on the type.
+     */
+    public function testConsecutiveBuildViewOnSameInstanceDoesNotLeakCsrf(): void
+    {
+        $csrf = $this->createMock(CsrfTokenManagerInterface::class);
+        $csrf->expects(self::exactly(2))
+            ->method('getToken')
+            ->with(Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID)
+            ->willReturnOnConsecutiveCalls(
+                new CsrfToken(Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID, 'token-user-a'),
+                new CsrfToken(Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID, 'token-user-b'),
+            );
+
+        $type = new Ckeditor5EditorType([
+            'default' => [
+                'toolbar'    => true,
+                'min_height' => '240px',
+                'form_theme' => 'form_div_layout.html.twig',
+                'debug'      => false,
+                'preset'     => 'minimal',
+                'upload_url' => '/api/upload',
+            ],
+        ], 'default', $csrf);
+
+        $options = [
+            'toolbar'            => true,
+            'min_height'         => '240px',
+            'placeholder'        => 'ckeditor5_placeholder',
+            'attr'               => [],
+            'translation_domain' => 'messages',
+            'required'           => false,
+            'empty_data'         => '',
+            'config'             => null,
+            'editor_config'      => [],
+            'height'             => null,
+            'theme'              => 'light',
+        ];
+        $form = $this->createStub(FormInterface::class);
+
+        $viewA = new FormView();
+        $type->buildView($viewA, $form, $options);
+        self::assertSame('token-user-a', $viewA->vars['ckeditor5_upload_csrf']);
+
+        $viewB = new FormView();
+        $type->buildView($viewB, $form, $options);
+        self::assertSame('token-user-b', $viewB->vars['ckeditor5_upload_csrf']);
+    }
+
     public function testNormalizeThemePrivate(): void
     {
         $type = $this->createType();

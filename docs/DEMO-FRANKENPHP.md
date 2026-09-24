@@ -55,7 +55,7 @@ The bundle under test is **`nowo-tech/ckeditor5-editor-bundle`**, installed from
 
 ### FrankenPHP worker mode (compatibility)
 
-**FrankenPHP worker mode:** Supported for production-style runs (worker-enabled `Caddyfile`, e.g. `worker /app/public/index.php 2` inside `php_server`). The **bundle itself** is a form widget + static JS; it does not require workers. For local editing with refresh, set **`FRANKENPHP_MODE=classic`** — see each demo’s `docker/frankenphp/` files (`Caddyfile` vs `Caddyfile.dev`).
+**FrankenPHP worker mode:** Supported for production-style runs (worker-enabled `Caddyfile`, e.g. `worker /app/public/index.php 2` inside `php_server`). The bundle is **100% compatible with worker mode when the kernel is not reset between requests** (`reset_kernel: false` / scenario B): shared services hold only `readonly` config; the upload CSRF token is read in `buildView()` per render. Full audit: [`FRANKENPHP-WORKER-AUDIT.md`](FRANKENPHP-WORKER-AUDIT.md). For local editing with refresh, set **`FRANKENPHP_MODE=classic`** — see each demo’s `docker/frankenphp/` files (`Caddyfile` vs `Caddyfile.dev`).
 
 ## Development
 

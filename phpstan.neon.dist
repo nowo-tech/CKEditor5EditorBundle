@@ -1,7 +1,8 @@
 includes:
     - phpstan-baseline.neon
     - vendor/nowo-tech/phpstan-frankenphp/ruleset-classic.neon
-    - vendor/nowo-tech/phpstan-frankenphp/ruleset-worker.neon
+    # Includes ruleset-worker + flagRequestSuperglobals (scenario B / reset_kernel=false hygiene)
+    - vendor/nowo-tech/phpstan-frankenphp/ruleset-worker-strict.neon
 
 parameters:
     level: 8

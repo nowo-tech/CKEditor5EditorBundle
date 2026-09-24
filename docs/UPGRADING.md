@@ -3,6 +3,7 @@
 ## Table of contents
 
 
+- [From 1.4.7 to 1.4.8](#from-147-to-148)
 - [From 1.4.6 to 1.4.7](#from-146-to-147)
 - [From 1.4.5 to 1.4.6](#from-145-to-146)
 - [To 1.4.5 from 1.4.4](#to-145-from-144)
@@ -25,6 +26,14 @@
 - [To 1.2.2 from 1.2.1](#to-122-from-121)
 - [To 1.2.3 from 1.2.2](#to-123-from-122)
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
+
+## From 1.4.7 to 1.4.8
+
+FrankenPHP worker hygiene for apps that disable kernel reset between requests (`reset_kernel: false`). **No required application or YAML changes.**
+
+- PHPStan in this package now uses `ruleset-classic` + `ruleset-worker-strict` (dev/CI only; replaces the previous classic + worker pair).
+- Custom `html_sanitizer` services must stay **stateless** (or clear per-request state themselves); built-in sanitizers already are.
+- See [`FRANKENPHP-WORKER-AUDIT.md`](FRANKENPHP-WORKER-AUDIT.md) for the full scenario B audit.
 
 ## From 1.4.6 to 1.4.7
 

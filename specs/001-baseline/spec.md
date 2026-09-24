@@ -38,6 +38,10 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 
 **Given** `html_sanitizer` is `null` (default), **When** a field is submitted, **Then** the identity sanitizer leaves HTML unchanged (backward compatible).
 
+### US-05 — FrankenPHP worker without kernel reset (P1)
+
+**Given** the application runs under FrankenPHP worker with `reset_kernel: false` (shared container, no `services_resetter`), **When** two consecutive requests render `Ckeditor5EditorType` on the same service instance, **Then** upload CSRF tokens and form vars do not leak from the first request to the second, and built-in sanitizers remain stateless.
+
 ---
 
 ## Requirements
@@ -46,6 +50,7 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 - **FR-CFG-001 / FR-CFG-002**: Editor defaults, presets, and DI wiring.
 - **FR-FORM-001**: `Ckeditor5EditorType` exposes options documented in [`docs/USAGE.md`](../../docs/USAGE.md).
 - **FR-SEC-001**: `Ckeditor5HtmlSanitizerInterface` plus identity, allowlist, and `html_sanitizer: strict` (allowlist with embeds disabled). Submit path uses `Ckeditor5HtmlSanitizeTransformer`.
+- **FR-WORKER-001**: Bundle services are safe under FrankenPHP worker scenario B (`reset_kernel: false`); documented in [`docs/FRANKENPHP-WORKER-AUDIT.md`](../../docs/FRANKENPHP-WORKER-AUDIT.md). PHPStan includes `ruleset-classic` + `ruleset-worker-strict` (worker rules + request-superglobal flags).
 - **FR-TWIG-001–003**: Twig path pass, extension, and form theme variants.
 - **FR-UI-001 / FR-UI-002**: TypeScript initializer and logger under `Resources/assets/src/`.
 - **FR-BUILD-001**: `ckeditor5-editor.js` build output consumed by form themes.

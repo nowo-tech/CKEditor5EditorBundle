@@ -9,7 +9,7 @@ Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEd
 
 ![FrankenPHP Friendly Worker Mode](docs/images/frankenphp-friendly.png)
 
-This bundle is **FrankenPHP worker mode friendly**.
+This bundle is **FrankenPHP worker mode friendly** (including **`reset_kernel: false`** / no kernel reset between requests). See [FRANKENPHP-WORKER-AUDIT.md](docs/FRANKENPHP-WORKER-AUDIT.md).
 
 ## Features
 
@@ -102,6 +102,7 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 ### Additional documentation
 
 - [Demo with FrankenPHP (development and production)](docs/DEMO-FRANKENPHP.md)
+- [FrankenPHP worker audit (`reset_kernel: false`)](docs/FRANKENPHP-WORKER-AUDIT.md)
 - [GitHub Actions CI requirements](docs/GITHUB_CI.md)
 
 ## Tests and coverage

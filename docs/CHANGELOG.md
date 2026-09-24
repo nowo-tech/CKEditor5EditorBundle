@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.8] - 2026-09-24
+
+### Changed
+
+- **FrankenPHP:** PHPStan uses `ruleset-classic.neon` + `ruleset-worker-strict.neon` (worker rules plus request-superglobal flags).
+- **Tests:** regression covering consecutive `buildView()` on the same `Ckeditor5EditorType` instance without kernel reset (CSRF must not leak across requests).
+
+### Documentation
+
+- **FRANKENPHP-WORKER-AUDIT.md:** full audit for worker mode with `reset_kernel: false` (scenario B) — verdict Viable.
+- Specs: US-05 / FR-WORKER-001; DEMO-FRANKENPHP and README link the audit.
+
+### Notes
+
+- **No API or configuration changes** for integrators.
+
 ## [1.4.7] - 2026-09-18
 
 ### Added
@@ -32,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **No API or configuration changes** for integrators unless noted above.
 
+[1.4.8]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.8
 [1.4.7]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.7
 [1.4.6]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.6
 
