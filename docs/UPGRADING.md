@@ -3,7 +3,16 @@
 
 ## Unreleased
 
+## To 1.4.10
+
+From **1.4.9** — maintainers dependency bumps only. **No application upgrade steps.**
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
 ## To 1.4.9
+
 
 From **1.4.8** — REQ-CS-008 Igor FrankenPHP worker audit (igor-php require-dev, igor.json, make igor).
 

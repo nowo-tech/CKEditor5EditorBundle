@@ -7,7 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.10] - 2026-09-28
+
+### Changed
+
+- Dev dependencies: bump `@types/node`, Vite, CKEditor5, phpstan-frankenphp, php-cs-fixer; sync `pnpm-lock.yaml` for frozen lockfile CI.
+
+[1.4.10]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.10
+
 ## [1.4.9] - 2026-09-27
+
 
 ### Added
 
