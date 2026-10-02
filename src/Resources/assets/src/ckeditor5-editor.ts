@@ -425,49 +425,56 @@ export function applyChromeTheme(root: HTMLElement): void {
  * @returns Resolves when the editor is created or skipped.
  */
 export async function initCkeditor5Root(root: HTMLElement): Promise<void> {
-  if (root.dataset.ckeditor5Initialized === '1') {
+  // Sync lock before any await: MutationObserver + explicit initCkeditor5Root() can race
+  // ClassicEditor.create on the same mount and spawn duplicate toolbars/editors.
+  if (root.dataset.ckeditor5Initialized === '1' || root.dataset.ckeditor5Mounting === '1') {
     return;
   }
+  root.dataset.ckeditor5Mounting = '1';
 
-  const textarea = root.querySelector('textarea');
-  const mount = root.querySelector<HTMLElement>('[data-ckeditor5-mount]');
-  if (!(textarea instanceof HTMLTextAreaElement) || !mount) {
-    log.warn('skipped: textarea or mount missing');
-    return;
-  }
+  try {
+    const textarea = root.querySelector('textarea');
+    const mount = root.querySelector<HTMLElement>('[data-ckeditor5-mount]');
+    if (!(textarea instanceof HTMLTextAreaElement) || !mount) {
+      log.warn('skipped: textarea or mount missing');
+      return;
+    }
 
-  const preset = parsePreset(root.dataset.ckeditor5PresetValue);
-  applyChromeTheme(root);
-  root.classList.add(`ckeditor5-preset-${preset}`);
+    const preset = parsePreset(root.dataset.ckeditor5PresetValue);
+    applyChromeTheme(root);
+    root.classList.add(`ckeditor5-preset-${preset}`);
 
-  const debug = parseBool(root.dataset.ckeditor5DebugValue);
-  log.setDebug(debug);
+    const debug = parseBool(root.dataset.ckeditor5DebugValue);
+    log.setDebug(debug);
 
-  const toolbar = parseBool(root.dataset.ckeditor5ToolbarValue);
-  const minHeight = normalizeMinHeight(root.dataset.ckeditor5MinHeightValue);
-  root.style.setProperty('--ckeditor5-min-height', minHeight);
+    const toolbar = parseBool(root.dataset.ckeditor5ToolbarValue);
+    const minHeight = normalizeMinHeight(root.dataset.ckeditor5MinHeightValue);
+    root.style.setProperty('--ckeditor5-min-height', minHeight);
 
-  const placeholder = root.dataset.ckeditor5PlaceholderValue ?? '';
+    const placeholder = root.dataset.ckeditor5PlaceholderValue ?? '';
 
-  const uploadUrl = root.dataset.ckeditor5UploadUrlValue?.trim();
-  const uploadCsrf = root.dataset.ckeditor5UploadCsrfValue?.trim();
-  const upload =
-    uploadUrl && uploadUrl !== '' ? { url: uploadUrl, csrf: uploadCsrf || undefined } : undefined;
+    const uploadUrl = root.dataset.ckeditor5UploadUrlValue?.trim();
+    const uploadCsrf = root.dataset.ckeditor5UploadCsrfValue?.trim();
+    const upload =
+      uploadUrl && uploadUrl !== '' ? { url: uploadUrl, csrf: uploadCsrf || undefined } : undefined;
 
-  const config = buildConfig(preset, toolbar, placeholder, upload);
+    const config = buildConfig(preset, toolbar, placeholder, upload);
 
-  const editor = await ClassicEditor.create(mount, config);
+    const editor = await ClassicEditor.create(mount, config);
 
-  applyMinHeightToClassicEditor(editor, minHeight);
+    applyMinHeightToClassicEditor(editor, minHeight);
 
-  editor.setData(textarea.value || '');
-  syncTextarea(textarea, editor.getData());
-
-  editor.model.document.on('change:data', () => {
+    editor.setData(textarea.value || '');
     syncTextarea(textarea, editor.getData());
-  });
 
-  root.dataset.ckeditor5Initialized = '1';
+    editor.model.document.on('change:data', () => {
+      syncTextarea(textarea, editor.getData());
+    });
+
+    root.dataset.ckeditor5Initialized = '1';
+  } finally {
+    delete root.dataset.ckeditor5Mounting;
+  }
 }
 
 function discoverRoots(doc: Document | HTMLElement): HTMLElement[] {
@@ -486,15 +493,42 @@ export async function runInit(): Promise<void> {
   }
 }
 
+let observeDebounce: ReturnType<typeof setTimeout> | undefined;
+
+/**
+ * Whether the script should attach a MutationObserver after the first runInit().
+ * Opt out with data-ckeditor5-auto-observe="0" on <html> or <body> when the host
+ * mounts widgets only via NowoCkeditor5Editor.initCkeditor5Root().
+ */
+export function isAutoObserveEnabled(doc: Document = document): boolean {
+  const raw =
+    doc.documentElement.getAttribute('data-ckeditor5-auto-observe') ??
+    doc.body?.getAttribute('data-ckeditor5-auto-observe');
+  if (raw === '0' || raw === 'false') {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Run `runInit()` then observe the DOM for new widget roots (Turbo/AJAX-friendly).
+ * No-ops the observer when {@link isAutoObserveEnabled} is false.
  *
  * @returns void
  */
 export function runInitAndObserve(): void {
   void runInit().then(() => {
+    if (!isAutoObserveEnabled()) {
+      return;
+    }
     const observer = new MutationObserver(() => {
-      void runInit();
+      if (observeDebounce !== undefined) {
+        clearTimeout(observeDebounce);
+      }
+      observeDebounce = setTimeout(() => {
+        observeDebounce = undefined;
+        void runInit();
+      }, 0);
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   });
@@ -508,6 +542,7 @@ if (typeof window !== 'undefined') {
         applyChromeTheme: typeof applyChromeTheme;
         runInit: typeof runInit;
         runInitAndObserve: typeof runInitAndObserve;
+        isAutoObserveEnabled: typeof isAutoObserveEnabled;
       };
     }
   ).NowoCkeditor5Editor = {
@@ -515,13 +550,21 @@ if (typeof window !== 'undefined') {
     applyChromeTheme,
     runInit,
     runInitAndObserve,
+    isAutoObserveEnabled,
   };
 }
 
 if (typeof document !== 'undefined') {
+  const boot = (): void => {
+    if (isAutoObserveEnabled()) {
+      runInitAndObserve();
+    } else {
+      void runInit();
+    }
+  };
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runInitAndObserve);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    runInitAndObserve();
+    boot();
   }
 }

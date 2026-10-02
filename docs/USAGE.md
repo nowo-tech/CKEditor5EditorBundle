@@ -36,6 +36,15 @@ Include the compiled widget **once** per page (after your layout base):
 
 The script mounts CKEditor 5 on fields rendered by the bundle form theme.
 
+
+## Dynamic mounts / MutationObserver
+
+The published `ckeditor5-editor.js` boots with `runInit()` for existing `[data-ckeditor5-root]` widgets and, by default, a `MutationObserver` (`runInitAndObserve`) for Turbo/AJAX inserts.
+
+- Prefer marking Symfony-rendered widgets with `data-ckeditor5-root="1"` (form theme) and letting auto-init run.
+- When the host builds the widget DOM and calls `NowoCkeditor5Editor.initCkeditor5Root(root)` itself, either omit `data-ckeditor5-root` **or** set `data-ckeditor5-auto-observe="0"` on `<html>`/`<body>` so the observer does not race a second `ClassicEditor.create` on the same mount. As of **1.4.11**, `initCkeditor5Root` also uses a synchronous mounting lock as a safety net.
+
+
 ## Presets
 
 YAML **`preset`** selects which OSS CKEditor build variant is used (`standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, …). See the FrankenPHP demo under `demo/symfony8` for live examples (themes, heights, upload URL).

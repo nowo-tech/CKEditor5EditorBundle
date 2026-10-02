@@ -3,7 +3,21 @@
 
 ## Unreleased
 
+## To 1.4.11
+
+From **1.4.10** — frontend race fix for duplicate ClassicEditor mounts; optional auto-observe opt-out.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console assets:install public
+# rebuild host assets if you copy/bundle the public JS
+```
+
+- No YAML/config changes required for standard form widgets.
+- If you dynamically call `NowoCkeditor5Editor.initCkeditor5Root()` **and** keep `data-ckeditor5-root` on the widget, the sync mount lock alone prevents duplicates. Optionally set `data-ckeditor5-auto-observe="0"` on `<html>`/`<body>` when you do not want MutationObserver auto-discovery.
+
 ## To 1.4.10
+
 
 From **1.4.9** — maintainers dependency bumps only. **No application upgrade steps.**
 
@@ -26,6 +40,7 @@ php bin/console cache:clear
 ## Table of contents
 
 
+- [To 1.4.11](#to-1411)
 - [From 1.4.7 to 1.4.8](#from-147-to-148)
 - [From 1.4.6 to 1.4.7](#from-146-to-147)
 - [From 1.4.5 to 1.4.6](#from-145-to-146)

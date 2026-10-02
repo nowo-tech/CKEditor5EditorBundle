@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.11] - 2026-10-02
+
+### Fixed
+
+- **Duplicate editors:** `initCkeditor5Root()` now sets a synchronous `data-ckeditor5-mounting` lock before `ClassicEditor.create`. Concurrent calls (MutationObserver auto-observe + explicit `initCkeditor5Root`) no longer race and mount multiple toolbars on the same widget.
+
+### Added
+
+- **`data-ckeditor5-auto-observe="0"`** on `<html>` or `<body>`: boot still runs `runInit()` once for existing `[data-ckeditor5-root]` widgets, but does **not** attach the MutationObserver. Use this when the host mounts editors only via `NowoCkeditor5Editor.initCkeditor5Root()`.
+- `NowoCkeditor5Editor.isAutoObserveEnabled()` helper.
+
+### Changed
+
+- MutationObserver callbacks are debounced to the next macrotask (`setTimeout(0)`).
+
+[1.4.11]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.11
+
 ## [1.4.10] - 2026-09-28
 
 ### Changed
