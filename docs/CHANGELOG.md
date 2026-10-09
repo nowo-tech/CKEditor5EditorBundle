@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.12] - 2026-10-09
+
+### Changed
+
+- Dev dependencies (Dependabot): Vite 8.3.2, `@types/node` 26.6.4, `igor-php/igor-php` 0.10, `nowo-tech/phpstan-frankenphp` 1.2.1, `phpstan/phpstan-phpunit`; `pnpm-lock.yaml` in sync.
+- Composer lock refresh: PHPStan 2.3.1 (+ phpunit/symfony extensions 2.1), PHPUnit 11.5.57, Rector 2.7.0, Symfony 7.4.20, Twig 3.30.0.
+- Demo (Symfony 8): Symfony 8.1.8, Twig 3.30.0, `twig/extra-bundle` 3.29.0, HotReloadBundle 1.5.4, TwigInspectorBundle 1.1.7; regenerated `config/reference.php`.
+
+[1.4.12]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.12
+
 ## [1.4.11] - 2026-10-02
 
 ### Fixed

@@ -3,6 +3,14 @@
 
 ## Unreleased
 
+## To 1.4.12
+
+From **1.4.11** — dependency refresh only. No breaking changes. **No application upgrade steps.**
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
 ## To 1.4.11
 
 From **1.4.10** — frontend race fix for duplicate ClassicEditor mounts; optional auto-observe opt-out.
@@ -40,6 +48,7 @@ php bin/console cache:clear
 ## Table of contents
 
 
+- [To 1.4.12](#to-1412)
 - [To 1.4.11](#to-1411)
 - [From 1.4.7 to 1.4.8](#from-147-to-148)
 - [From 1.4.6 to 1.4.7](#from-146-to-147)
