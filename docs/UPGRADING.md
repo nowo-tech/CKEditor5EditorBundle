@@ -3,6 +3,34 @@
 
 ## Unreleased
 
+## To 1.5.0
+
+From **1.4.12** — opt-in lazy loading of the editor build and versioned asset URLs. No breaking changes; existing script tags keep working.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console assets:install public   # publishes the new ckeditor5-editor-loader.js
+```
+
+Optional — replace the manual tag with the Twig function (adds a `?v=<content hash>` query, safe for long-lived caching of `/bundles/*`):
+
+```twig
+{# before #}
+<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}" defer></script>
+{# after (eager, same behaviour) #}
+{{ nowo_ckeditor5_editor_script() }}
+```
+
+On pages where the editor is not visible at first (inside a closed `<dialog>`, collapsed panel, below the fold), load it lazily — only the ~2.6 kB loader is downloaded until an editor becomes visible:
+
+```twig
+{{ nowo_ckeditor5_editor_script({lazy: true}) }}
+{# with a CSP nonce #}
+{{ nowo_ckeditor5_editor_script({lazy: true, nonce: csp_nonce('script')}) }}
+```
+
+To make lazy the default for every call: `nowo_ckeditor5_editor: { lazy_load: true }`. JavaScript that needs the editor immediately (for example before opening a modal programmatically) can call `await window.NowoCkeditor5EditorLoader.load()`. Code that uses `window.NowoCkeditor5Editor.*` directly must wait for the build to load on lazy pages.
+
 ## To 1.4.12
 
 From **1.4.11** — dependency refresh only. No breaking changes. **No application upgrade steps.**

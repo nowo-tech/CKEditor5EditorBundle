@@ -38,7 +38,7 @@
   ```
 
   Client-side filtering alone is not sufficient for UGC. The built-in allowlist keeps common block/inline tags (`p`, headings `h1`–`h6`, lists, tables, `figure`/`figcaption`, `sub`/`sup`/`mark`, YouTube/Vimeo `iframe`) and strips scripts, event handlers (including unquoted), `javascript:` / `data:` / `vbscript:` URLs, `srcdoc`, and unknown tags. Set `html_sanitizer: strict` when the page must not keep any iframe (for example legal HTML). A kept embed is reduced to its `src`.
-- **Script tags**: The widget loads `ckeditor5-editor.js` from published bundle assets. Use `assets:install` / AssetMapper hygiene and trusted builds only.
+- **Script tags**: The widget loads `ckeditor5-editor.js` from published bundle assets (directly, or injected by `ckeditor5-editor-loader.js` from its `data-ckeditor5-src` attribute when `nowo_ckeditor5_editor_script({lazy: true})` is used; the loader copies its `nonce` onto the injected script, and scripts created by a trusted script are also allowed under `'strict-dynamic'`). Use `assets:install` / AssetMapper hygiene and trusted builds only.
 - **CSP**: Prefer loading the published IIFE via `asset(...)` (no inline scripts). The widget uses a long-lived `MutationObserver` for Turbo/AJAX remounts; it does not use `eval`, `document.write`, or `innerHTML` with unsanitized HTML. Routes that mount the editor need `style-src-elem 'self' 'unsafe-inline'` **without** a style nonce — a nonce on that directive makes browsers ignore `unsafe-inline`, and the editor injects `<style>` elements.
 - **Upload endpoints**: If you configure `upload_url`, your endpoint must validate MIME types (prefer magic-byte checks), size limits, and authentication/authorization; the demos are examples only — do not copy them to production unchanged.
 - **CSRF**: Upload flows may use CSRF tokens (`Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID`) — ensure your routes validate them consistently.
@@ -89,7 +89,7 @@ Before tagging a release, confirm:
 | **Input / output** | Form options validated; user HTML is not executed server-side by the bundle. |
 | **Dependencies** | `composer audit` run; issues triaged. |
 | **Logging** | Logs do not print secrets or session identifiers unnecessarily. |
-| **Assets** | Built `ckeditor5-editor.js` is reproducible from source (`pnpm run build`). |
+| **Assets** | Built `ckeditor5-editor.js` / `ckeditor5-editor-loader.js` are reproducible from source (`pnpm run build`). |
 | **AI security audit** | REQ-SEC-004 Pass (good/conditional) recorded (this document + monorepo analysis). |
 
 Record confirmation in the release PR or tag notes.

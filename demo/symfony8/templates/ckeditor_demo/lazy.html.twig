@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'demo.lazy_page_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
+
+{% block ckeditor5_script %}{{ nowo_ckeditor5_editor_script({lazy: true}) }}{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <h1>{{ 'demo.lazy_page_title'|trans({}, 'messages') }}</h1>
+    <p class="lead text-muted">{{ 'demo.lazy_page_lead'|trans({}, 'messages') }}</p>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+
+    <p>
+        <button type="button" class="btn btn-primary" id="ckeditor5-lazy-open">{{ 'demo.lazy_open'|trans({}, 'messages') }}</button>
+        <span class="ms-2 small text-muted" id="ckeditor5-lazy-status" data-loaded="{{ 'demo.lazy_status_loaded'|trans({}, 'messages') }}">{{ 'demo.lazy_status_waiting'|trans({}, 'messages') }}</span>
+    </p>
+
+    <dialog id="ckeditor5-lazy-dialog" class="border rounded p-4" style="width: min(90vw, 760px);">
+        {{ form_start(form) }}
+            {{ form_row(form.content) }}
+            <button type="submit" class="btn btn-primary">{{ 'demo.submit'|trans({}, 'messages') }}</button>
+            <button type="button" class="btn btn-outline-secondary" id="ckeditor5-lazy-close">{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
+        {{ form_end(form) }}
+    </dialog>
+
+    {% if saved_value is defined and saved_value != '' %}
+        <hr class="my-4">
+        <p class="text-muted small">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
+        <pre class="border rounded p-3 bg-light small">{{ saved_value|e }}</pre>
+    {% endif %}
+
+    <div class="alert alert-light border mt-4 small" role="note">
+        <strong>{{ 'demo.lazy_snippet_title'|trans({}, 'messages') }}</strong>
+        <pre class="mb-0 mt-2 bg-white border rounded p-3">{{ '{{ nowo_ckeditor5_editor_script({lazy: true}) }}' }}</pre>
+    </div>
+</div>
+<script>
+(function () {
+    var dialog = document.getElementById('ckeditor5-lazy-dialog');
+    var status = document.getElementById('ckeditor5-lazy-status');
+    document.getElementById('ckeditor5-lazy-open').addEventListener('click', function () { dialog.showModal(); });
+    document.getElementById('ckeditor5-lazy-close').addEventListener('click', function () { dialog.close(); });
+    var timer = setInterval(function () {
+        if (window.NowoCkeditor5Editor) {
+            status.textContent = status.getAttribute('data-loaded');
+            clearInterval(timer);
+        }
+    }, 250);
+})();
+</script>
+{% endblock %}

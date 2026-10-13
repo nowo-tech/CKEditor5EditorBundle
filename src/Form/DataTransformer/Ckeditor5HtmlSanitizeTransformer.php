@@ -14,10 +14,10 @@ use function is_string;
  *
  * @implements DataTransformerInterface<string|null, string|null>
  */
-final class Ckeditor5HtmlSanitizeTransformer implements DataTransformerInterface
+final readonly class Ckeditor5HtmlSanitizeTransformer implements DataTransformerInterface
 {
     public function __construct(
-        private readonly Ckeditor5HtmlSanitizerInterface $sanitizer,
+        private Ckeditor5HtmlSanitizerInterface $sanitizer,
     ) {
     }
 

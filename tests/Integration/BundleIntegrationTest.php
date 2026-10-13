@@ -41,6 +41,20 @@ final class BundleIntegrationTest extends KernelTestCase
         self::assertTrue($twig->hasExtension(NowoCkeditor5EditorTwigExtension::class));
     }
 
+    public function testScriptFunctionRendersThroughAssetPackage(): void
+    {
+        self::bootKernel();
+        $twig = self::getContainer()->get('twig');
+        self::assertInstanceOf(Environment::class, $twig);
+
+        $eager = $twig->createTemplate('{{ nowo_ckeditor5_editor_script() }}')->render();
+        $lazy  = $twig->createTemplate('{{ nowo_ckeditor5_editor_script({lazy: true}) }}')->render();
+
+        self::assertMatchesRegularExpression('#^<script src="/bundles/nowockeditor5editor/ckeditor5-editor\.js\?v=[0-9a-f]{12}" defer></script>$#', $eager);
+        self::assertStringContainsString('/bundles/nowockeditor5editor/ckeditor5-editor-loader.js?v=', $lazy);
+        self::assertStringContainsString('data-ckeditor5-src="/bundles/nowockeditor5editor/ckeditor5-editor.js?v=', $lazy);
+    }
+
     public function testCsrfTokenManagerExists(): void
     {
         self::bootKernel();

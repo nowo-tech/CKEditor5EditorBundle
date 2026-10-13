@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-13
+
+### Added
+
+- **Lazy loader** `ckeditor5-editor-loader.js` (~2.6 kB, separate Vite entry): watches `[data-ckeditor5-root="1"]` widgets and injects the full build (`ckeditor5-editor.js`, ~1.2 MB) **once**, when a widget is visible — at load, or later revealed (`<dialog>` opened, `<details>` expanded, hidden ancestor shown, scrolled into view via `IntersectionObserver`, root inserted later). The full build then boots as usual (`runInit()` + `MutationObserver`). Escape hatch: `window.NowoCkeditor5EditorLoader.load()` (also `refresh()`, `isLoaded()`, `disconnect()`). The build URL comes from `data-ckeditor5-src` on the loader tag; its `nonce` is copied onto the injected script.
+- **Twig `nowo_ckeditor5_editor_script(options = null, nonce = null)`**: renders the eager `<script defer>` (default) or the lazy loader (`true` / `{lazy: true}`), with optional CSP nonce (`{nonce: csp_nonce('script')}`).
+- **Twig `nowo_ckeditor5_editor_asset_url(filename = 'ckeditor5-editor.js')`**: asset-package URL plus `?v=<xxh3 content hash>`, so hosts can cache `/bundles/*` long-term.
+- **Config `lazy_load`** (bool, default `false`): default for the `lazy` option of `nowo_ckeditor5_editor_script()`; container parameter `nowo_ckeditor5_editor.lazy_load`.
+- Demo (Symfony 8): *Lazy loading* page with the editor inside a closed `<dialog>`; layout uses `nowo_ckeditor5_editor_script()`.
+
+### Changed
+
+- `pnpm run build` now runs two Vite builds (`vite.config.ts` for the editor, `vite.loader.config.ts` for the loader). Vitest coverage gate (100%) includes the loader.
+
+### Notes
+
+- Backwards compatible: existing `asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package())` tags keep working; eager loading stays the default.
+
+[1.5.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.5.0
+
 ## [1.4.12] - 2026-10-09
 
 ### Changed

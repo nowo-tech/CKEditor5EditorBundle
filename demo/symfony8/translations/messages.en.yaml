@@ -10,6 +10,7 @@ demo:
   menu_typography: 'Fonts'
   menu_variables: 'Variables'
   menu_upload_images: 'Upload images'
+  menu_lazy: 'Lazy loading'
   theme_toggle_title: 'Toggle demo dark mode'
   theme_dark: 'Dark'
   theme_light: 'Light'
@@ -124,6 +125,14 @@ demo:
         preset: variables
         toolbar: true
         min_height: 280px
+  lazy_page_title: 'Lazy loading'
+  lazy_page_lead: 'This page only loads the small ckeditor5-editor-loader.js. The 1.2 MB editor build is downloaded when the editor inside the dialog becomes visible (open the browser Network tab, then click the button).'
+  lazy_open: 'Open editor dialog'
+  lazy_close: 'Close'
+  lazy_status_waiting: 'Editor build not loaded yet.'
+  lazy_status_loaded: 'Editor build loaded.'
+  lazy_sample_html: 'This editor lives in a closed dialog: its build was only downloaded when you opened it.'
+  lazy_snippet_title: 'Twig'
   upload_images_page_title: 'Image upload & recovery'
   upload_images_page_lead: 'Insert images from the toolbar; files are POSTed to /upload/ckeditor with a CSRF header. The endpoint stores files under public/uploads/ckeditor and returns an absolute URL. After save, the HTML below shows those URLs — reload the page and submit again to confirm images still load.'
   upload_images_field_label: 'Content with uploads'

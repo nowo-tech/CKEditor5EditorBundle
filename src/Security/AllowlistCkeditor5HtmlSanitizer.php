@@ -27,7 +27,7 @@ use const PHP_URL_HOST;
  * Both modes strip scripts, event handlers (quoted, unquoted, or glued to the previous
  * attribute), `javascript:` / `data:` / `vbscript:` URLs, and `srcdoc`.
  */
-final class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSanitizerInterface
+final readonly class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSanitizerInterface
 {
     private const ALLOWED_TAGS = '<p><br><strong><b><em><i><u><s><del><h1><h2><h3><h4><h5><h6><ul><ol><li><blockquote><code><pre><a><img><table><thead><tbody><tr><th><td><caption><hr><span><div><figure><figcaption><sub><sup><mark><iframe>';
 
@@ -40,7 +40,7 @@ final class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSanitizerInt
     ];
 
     public function __construct(
-        private readonly bool $allowEmbeds = true,
+        private bool $allowEmbeds = true,
     ) {
     }
 

@@ -9,5 +9,5 @@
     "isolatedModules": true,
     "types": ["node", "vitest/globals"]
   },
-  "include": ["vite.config.ts", "vitest.config.ts", "src/Resources/assets/**/*.ts"]
+  "include": ["vite.config.ts", "vite.loader.config.ts", "vitest.config.ts", "src/Resources/assets/**/*.ts"]
 }

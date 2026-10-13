@@ -31,7 +31,7 @@ After changing the bundle PHP/Twig, run `make update-bundle` in the demo or `com
 
 ## Assets
 
-The demo loads `ckeditor5-editor.js` via `assets:install` from the bundle’s `Resources/public`. Re-run after rebuilding frontend assets in the bundle root (`npm run build` or `pnpm run build`).
+The demo loads `ckeditor5-editor.js` (via `nowo_ckeditor5_editor_script()`; the *Lazy loading* page uses the lazy loader `ckeditor5-editor-loader.js`) via `assets:install` from the bundle’s `Resources/public`. Re-run after rebuilding frontend assets in the bundle root (`npm run build` or `pnpm run build`).
 
 ## Pages
 

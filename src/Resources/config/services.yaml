@@ -16,6 +16,10 @@ services:
         public: true
 
     Nowo\Ckeditor5EditorBundle\Twig\NowoCkeditor5EditorTwigExtension:
+        arguments:
+            $packages: '@?assets.packages'
+            $lazyLoad: '%nowo_ckeditor5_editor.lazy_load%'
+            $publicDir: null
         tags: ['twig.extension']
 
     Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType:

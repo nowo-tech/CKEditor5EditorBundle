@@ -15,7 +15,8 @@ use function is_array;
 use function sprintf;
 
 /**
- * Named profiles (toolbar, min_height, form_theme, debug, preset, theme) plus default profile key.
+ * Named profiles (toolbar, min_height, form_theme, debug, preset, theme) plus default profile key,
+ * global `html_sanitizer` and `lazy_load`.
  *
  * Legacy YAML keys `default_config` / `configs` are accepted and mapped to `default_profile` / `profiles`.
  * Flat options under the root are normalized into `profiles.default`.
@@ -65,8 +66,10 @@ final class Configuration implements ConfigurationInterface
                         'default' => $profile,
                     ],
                 ];
-                if (array_key_exists('html_sanitizer', $v)) {
-                    $normalized['html_sanitizer'] = $v['html_sanitizer'];
+                foreach (['html_sanitizer', 'lazy_load'] as $globalKey) {
+                    if (array_key_exists($globalKey, $v)) {
+                        $normalized[$globalKey] = $v[$globalKey];
+                    }
                 }
 
                 return $normalized;
@@ -80,6 +83,10 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('html_sanitizer')
                     ->defaultNull()
                     ->info('Optional service id implementing Ckeditor5HtmlSanitizerInterface, or a built-in: "allowlist" (YouTube/Vimeo iframes kept as src only) or "strict" (same sanitizer, every iframe dropped). Null (default) disables server-side sanitization (BC).')
+                ->end()
+                ->booleanNode('lazy_load')
+                    ->defaultFalse()
+                    ->info('Default for nowo_ckeditor5_editor_script(): when true, render the small lazy loader that injects the full editor build only once an editor becomes visible (dialog opened, panel expanded, scrolled into view). False (default) renders the full build eagerly (BC).')
                 ->end()
                 ->arrayNode('profiles')
                     ->info('Named profiles; each field may reference one via the "config" form option.')

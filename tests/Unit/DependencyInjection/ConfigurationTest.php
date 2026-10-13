@@ -171,4 +171,35 @@ final class ConfigurationTest extends TestCase
 
         self::assertSame('allowlist', $config['html_sanitizer']);
     }
+
+    public function testLazyLoadDefaultsToFalse(): void
+    {
+        $processor = new Processor();
+        $config    = $processor->processConfiguration(new Configuration(), [[]]);
+
+        self::assertFalse($config['lazy_load']);
+    }
+
+    public function testFlatConfigurationPreservesLazyLoad(): void
+    {
+        $processor = new Processor();
+        $config    = $processor->processConfiguration(new Configuration(), [[
+            'lazy_load' => true,
+            'preset'    => 'minimal',
+        ]]);
+
+        self::assertTrue($config['lazy_load']);
+        self::assertSame('minimal', $config['profiles']['default']['preset']);
+    }
+
+    public function testProfilesConfigurationAcceptsLazyLoad(): void
+    {
+        $processor = new Processor();
+        $config    = $processor->processConfiguration(new Configuration(), [[
+            'lazy_load' => true,
+            'profiles'  => ['default' => []],
+        ]]);
+
+        self::assertTrue($config['lazy_load']);
+    }
 }

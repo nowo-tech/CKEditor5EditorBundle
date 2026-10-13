@@ -59,6 +59,8 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         $container->setParameter(Configuration::ALIAS . '.preset', $defaultProfile['preset']);
         $container->setParameter(Configuration::ALIAS . '.theme', $defaultProfile['theme'] ?? EditorTheme::Light->value);
 
+        $container->setParameter(Configuration::ALIAS . '.lazy_load', $config['lazy_load']);
+
         $this->configureHtmlSanitizer($container, $config['html_sanitizer'] ?? null);
     }
 

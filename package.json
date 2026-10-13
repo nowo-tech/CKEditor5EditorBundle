@@ -5,8 +5,9 @@
   "private": true,
   "packageManager": "pnpm@10.34.5",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && vite build -c vite.loader.config.ts",
     "dev": "vite build --watch",
+    "watch:loader": "vite build -c vite.loader.config.ts --watch",
     "watch": "vite build --watch",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

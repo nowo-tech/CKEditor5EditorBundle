@@ -752,6 +752,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  * @psalm-type NowoCkeditor5EditorConfig = array{
  *     default_profile?: scalar|Param|null, // Profile name used when the form field omits the "config" option (form option key remains "config" for BC). // Default: "default"
  *     html_sanitizer?: scalar|Param|null, // Optional service id implementing Ckeditor5HtmlSanitizerInterface, or a built-in: "allowlist" (YouTube/Vimeo iframes kept as src only) or "strict" (same sanitizer, every iframe dropped). Null (default) disables server-side sanitization (BC). // Default: null
+ *     lazy_load?: bool|Param, // Default for nowo_ckeditor5_editor_script(): when true, render the small lazy loader that injects the full editor build only once an editor becomes visible (dialog opened, panel expanded, scrolled into view). False (default) renders the full build eagerly (BC). // Default: false
  *     profiles?: array<string, array{ // Default: []
  *         toolbar?: bool|Param, // When true, CKEditor shows its toolbar (preset still controls which buttons are available). // Default: true
  *         min_height?: scalar|Param|null, // Default CSS min-height for the editable region wrapper (e.g. 240px, 12rem). // Default: "240px"

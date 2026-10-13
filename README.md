@@ -15,8 +15,9 @@ This bundle is **FrankenPHP worker mode friendly** (including **`reset_kernel: f
 
 - Named YAML profiles (`toolbar`, `min_height`, `form_theme`, `preset`, `theme`, optional `upload_url`).
 - Twig themes for common layouts (Bootstrap 3–5, Foundation, Tailwind 2, table layout).
-- `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
-- **pnpm + Vite** frontend; **Vitest** coverage on shared utilities (`logger.ts`).
+- `nowo_ckeditor5_editor_script()` Twig function: eager build or **lazy loader** (injects the 1.2 MB build only when an editor becomes visible — dialog opened, panel expanded, scrolled into view), CSP nonce, content-hash versioned URLs for long-lived caching.
+- `nowo_ckeditor5_editor_asset_url()`, `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
+- **pnpm + Vite** frontend; **Vitest** coverage on `logger.ts` and the lazy loader.
 - **Dockerfile + Makefile** aligned with other Nowo bundles.
 - **Demos**: Symfony **8.1** FrankenPHP app under `demo/symfony8` (port **8021**).
 
@@ -50,7 +51,9 @@ $builder->add('body', Ckeditor5EditorType::class, [
 ```
 
 ```twig
-<script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
+{{ nowo_ckeditor5_editor_script() }}
+{# or, when the editor is not visible at first (modal, collapsed panel): #}
+{{ nowo_ckeditor5_editor_script({lazy: true}) }}
 ```
 
 ## Requirements
@@ -68,7 +71,7 @@ Requirements: Docker (recommended), or PHP 8.2+ with Composer + pnpm locally.
 
 ```bash
 make up && make install   # Docker PHP + composer + pnpm
-make assets               # vite → src/Resources/public/ckeditor5-editor.js
+make assets               # vite → src/Resources/public/ckeditor5-editor.js + ckeditor5-editor-loader.js
 make test                 # PHPUnit
 make test-ts              # Vitest + coverage script
 make qa                   # cs-check + phpunit

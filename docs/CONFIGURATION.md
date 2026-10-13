@@ -20,6 +20,7 @@ Root key: `nowo_ckeditor5_editor`
 | ----------------- | ------ | --------- | ----------- |
 | `default_profile` | string | `default` | Profile name when a form field omits the `config` option. **Must** exist under `profiles`. |
 | `profiles`        | map    | —         | Named profiles. At least one profile is required (or use [legacy keys and flat YAML](#legacy-keys-and-flat-yaml) input). |
+| `lazy_load`       | bool   | `false`   | Default for `nowo_ckeditor5_editor_script()`: `true` renders the small lazy loader that injects the full build only when an editor becomes visible. `false` renders the full build eagerly (BC). See [USAGE.md](USAGE.md#lazy-loading-150). |
 | `html_sanitizer`  | string\|null | `null` | Service id implementing `Ckeditor5HtmlSanitizerInterface`, or a built-in: `allowlist` (YouTube/Vimeo iframes kept as `src` only) or `strict` (same sanitizer, every iframe dropped). `null` disables server-side sanitization (BC). See [SECURITY.md](SECURITY.md). |
 
 ## Per profile (`profiles.<name>`)
@@ -40,6 +41,8 @@ Root key: `nowo_ckeditor5_editor`
 - **Flat layout:** If the root has no `profiles` (nor legacy `configs`) key, the extension maps flat keys into a single profile under `profiles` using `default_profile` (default `default`):
 
 - `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`
+
+Global keys `html_sanitizer` and `lazy_load` stay at the root in both layouts.
 
 ## Form type `Ckeditor5EditorType` options
 
@@ -97,4 +100,4 @@ Translations use the domain **`NowoCkeditor5EditorBundle`** (`src/Resources/tran
 
 ## Parameters exposed to the container
 
-The DI extension sets `nowo_ckeditor5_editor.default_profile` and `nowo_ckeditor5_editor.profiles`, plus legacy aliases `nowo_ckeditor5_editor.default_config` / `nowo_ckeditor5_editor.configs` (same values), and backward-compatible scalars for the **default** profile. Prefer resolving behaviour through `Ckeditor5EditorType` and YAML profiles.
+The DI extension sets `nowo_ckeditor5_editor.default_profile` and `nowo_ckeditor5_editor.profiles`, plus legacy aliases `nowo_ckeditor5_editor.default_config` / `nowo_ckeditor5_editor.configs` (same values), backward-compatible scalars for the **default** profile, and `nowo_ckeditor5_editor.lazy_load` (bool). Prefer resolving behaviour through `Ckeditor5EditorType` and YAML profiles.

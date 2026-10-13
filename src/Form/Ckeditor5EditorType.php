@@ -54,7 +54,7 @@ final class Ckeditor5EditorType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        if ($this->htmlSanitizer !== null) {
+        if ($this->htmlSanitizer instanceof Ckeditor5HtmlSanitizerInterface) {
             $builder->addModelTransformer(new Ckeditor5HtmlSanitizeTransformer($this->htmlSanitizer));
         }
     }

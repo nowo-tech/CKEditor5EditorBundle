@@ -47,6 +47,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ app.request.attributes.get('_route') == 'app_demo_upload_images' ? 'active' : '' }}" href="{{ path('app_demo_upload_images', { _locale: _locale }) }}">{{ 'demo.menu_upload_images'|trans({}, 'messages') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.request.attributes.get('_route') == 'app_demo_lazy' ? 'active' : '' }}" href="{{ path('app_demo_lazy', { _locale: _locale }) }}">{{ 'demo.menu_lazy'|trans({}, 'messages') }}</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
                     <li class="nav-item">
@@ -64,8 +67,8 @@
         </div>
     </nav>
     {% block body %}{% endblock %}
-    {# CKEditor 5 IIFE: monta editores en [data-ckeditor5-root]; requiere `bin/console assets:install public` en la app #}
-    <script src="{{ asset(nowo_ckeditor5_editor_asset_path('ckeditor5-editor.js'), nowo_ckeditor5_editor_asset_package()) }}"></script>
+    {# CKEditor 5 IIFE: mounts editors on [data-ckeditor5-root]; requires `bin/console assets:install public` in the app. Pages can override with the lazy loader. #}
+    {% block ckeditor5_script %}{{ nowo_ckeditor5_editor_script() }}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 (function () {

@@ -2,7 +2,7 @@
 
 **Baseline spec**: [`spec.md`](spec.md)  
 **Package**: `nowo-tech/ckeditor5-editor-bundle`  
-**Last audited**: 2026-09-24
+**Last audited**: 2026-10-13
 
 ## PHP classes (`src/**/*.php`)
 
@@ -19,7 +19,7 @@
 | `Security/Ckeditor5HtmlSanitizerInterface.php` | Sanitizer contract | FR-SEC-001 |
 | `Security/IdentityCkeditor5HtmlSanitizer.php` | No-op sanitizer (default) | FR-SEC-001 |
 | `Security/AllowlistCkeditor5HtmlSanitizer.php` | Allowlist / strict sanitizer | FR-SEC-001, FR-WORKER-001 |
-| `Twig/NowoCkeditor5EditorTwigExtension.php` | Form theme helpers | FR-TWIG-002, FR-WORKER-001 |
+| `Twig/NowoCkeditor5EditorTwigExtension.php` | Asset helpers, script tag (eager / lazy), versioned URLs | FR-TWIG-002, FR-WORKER-001, FR-LAZY-002, FR-LAZY-003 |
 
 ## TypeScript production (`src/Resources/assets/src/`)
 
@@ -27,12 +27,14 @@
 | --- | --- | --- |
 | `Resources/assets/src/ckeditor5-editor.ts` | CKEditor 5 initializer | FR-UI-001 |
 | `Resources/assets/src/logger.ts` | Client logger | FR-UI-002 |
+| `Resources/assets/src/ckeditor5-editor-loader.ts` | Lazy loader (spec 002) | FR-LAZY-001 |
 
 ## TypeScript tests (`src/Resources/assets/src/*.test.ts`)
 
 | Source file | Spec section | Requirement IDs |
 | --- | --- | --- |
 | `Resources/assets/src/logger.test.ts` | Vitest: logger | FR-TEST-TS-001 |
+| `Resources/assets/src/ckeditor5-editor-loader.test.ts` | Vitest: lazy loader | FR-LAZY-005 |
 
 ## Symfony config & build output
 
@@ -40,6 +42,7 @@
 | --- | --- | --- |
 | `Resources/config/services.yaml` | Service wiring | FR-DI-001 |
 | `Resources/public/ckeditor5-editor.js` | Vite build output | FR-BUILD-001 |
+| `Resources/public/ckeditor5-editor-loader.js` | Vite build output (loader) | FR-BUILD-001, FR-LAZY-001 |
 
 ## Translations (`src/Resources/translations/`)
 
@@ -74,9 +77,9 @@
 | Category | Files | Mapped |
 | --- | ---: | ---: |
 | PHP classes | 12 | 12 |
-| TypeScript production | 2 | 2 |
-| TypeScript tests | 1 | 1 |
-| Config & build | 2 | 2 |
+| TypeScript production | 3 | 3 |
+| TypeScript tests | 2 | 2 |
+| Config & build | 3 | 3 |
 | Translations | 7 | 7 |
 | Twig themes | 11 | 11 |
-| **Total production sources** | **35** | **35** |
+| **Total production sources** | **38** | **38** |

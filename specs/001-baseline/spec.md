@@ -55,14 +55,15 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 - **FR-UI-001 / FR-UI-002**: TypeScript initializer and logger under `Resources/assets/src/`.
 - **FR-BUILD-001**: `ckeditor5-editor.js` build output consumed by form themes.
 - **FR-I18N-001**: Seven locale YAML files with key parity.
-- **FR-TEST-TS-001**: Vitest coverage for client logger.
+- **FR-TEST-TS-001**: Vitest coverage for client logger and lazy loader.
+- **FR-LAZY-001–005**: Lazy loading of the editor build — see [`../002-lazy-loader/spec.md`](../002-lazy-loader/spec.md).
 
 ---
 
 ## Success Criteria
 
-- **SC-001**: **35/35** production files mapped in inventory.
-- **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md), including `html_sanitizer` (`null` / `allowlist` / `strict` / custom service id).
+- **SC-001**: **38/38** production files mapped in inventory.
+- **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md), including `html_sanitizer` (`null` / `allowlist` / `strict` / custom service id) and `lazy_load`.
 - **SC-003**: `composer qa` passes; PHPUnit line coverage on `src/` is **100%**; Vitest runs when TS changes.
 
 ---

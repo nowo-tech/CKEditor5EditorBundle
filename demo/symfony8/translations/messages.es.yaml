@@ -10,6 +10,7 @@ demo:
   menu_typography: 'Fuentes'
   menu_variables: 'Variables'
   menu_upload_images: 'Subir imágenes'
+  menu_lazy: 'Carga diferida'
   theme_toggle_title: 'Alternar modo oscuro'
   theme_dark: 'Oscuro'
   theme_light: 'Claro'
@@ -124,6 +125,14 @@ demo:
         preset: variables
         toolbar: true
         min_height: 280px
+  lazy_page_title: 'Carga diferida'
+  lazy_page_lead: 'Esta página solo carga el pequeño ckeditor5-editor-loader.js. El build del editor (1,2 MB) se descarga cuando el editor del diálogo se hace visible (abre la pestaña Red del navegador y pulsa el botón).'
+  lazy_open: 'Abrir diálogo del editor'
+  lazy_close: 'Cerrar'
+  lazy_status_waiting: 'El build del editor aún no se ha cargado.'
+  lazy_status_loaded: 'Build del editor cargado.'
+  lazy_sample_html: 'Este editor está en un diálogo cerrado: su build solo se descargó al abrirlo.'
+  lazy_snippet_title: 'Twig'
   upload_images_page_title: 'Subida y recuperación de imágenes'
   upload_images_page_lead: 'Inserta imágenes desde la barra; los ficheros se envían por POST a /upload/ckeditor con cabecera CSRF. El endpoint guarda en public/uploads/ckeditor y devuelve una URL absoluta. Tras guardar, el HTML muestra esas URLs — recarga y vuelve a enviar para comprobar que las imágenes siguen cargando.'
   upload_images_field_label: 'Contenido con subidas'

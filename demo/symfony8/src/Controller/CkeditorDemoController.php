@@ -217,6 +217,35 @@ class CkeditorDemoController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/{_locale}/demo/lazy', name: 'app_demo_lazy', requirements: self::LOCALE_REQ, defaults: ['_locale' => 'en'], methods: ['GET', 'POST'])]
+    public function demoLazy(Request $request): Response
+    {
+        $request->setLocale((string) $request->attributes->get('_locale', 'en'));
+
+        $field = 'content';
+        $data  = [$field => '<p>' . $this->translator->trans('demo.lazy_sample_html', [], 'messages') . '</p>'];
+
+        $form = $this->createFormBuilder($data, ['translation_domain' => 'messages'])
+            ->add($field, Ckeditor5EditorType::class, [
+                'label'              => 'demo.body_label',
+                'translation_domain' => 'messages',
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(
+                'success',
+                $this->translator->trans('demo.saved', [], 'messages'),
+            );
+        }
+
+        return $this->render('ckeditor_demo/lazy.html.twig', [
+            'form'        => $form,
+            'saved_value' => (string) ($form->get($field)->getData() ?? ''),
+        ]);
+    }
+
     #[Route(path: '/{_locale}/demo/emoji', name: 'app_demo_emoji', requirements: self::LOCALE_REQ, defaults: ['_locale' => 'en'], methods: ['GET', 'POST'])]
     public function demoEmoji(Request $request): Response
     {

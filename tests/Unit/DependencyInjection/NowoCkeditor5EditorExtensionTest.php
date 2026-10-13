@@ -50,6 +50,16 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.form_theme'));
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.debug'));
         self::assertTrue($container->hasParameter('nowo_ckeditor5_editor.preset'));
+        self::assertFalse($container->getParameter('nowo_ckeditor5_editor.lazy_load'));
+    }
+
+    public function testLoadRegistersLazyLoadParameter(): void
+    {
+        $container = new ContainerBuilder();
+        $extension = new NowoCkeditor5EditorExtension();
+        $extension->load([['lazy_load' => true]], $container);
+
+        self::assertTrue($container->getParameter('nowo_ckeditor5_editor.lazy_load'));
     }
 
     public function testLoadWithCustomConfig(): void
@@ -131,7 +141,6 @@ final class NowoCkeditor5EditorExtensionTest extends TestCase
 
         $extension = new NowoCkeditor5EditorExtension();
         $method    = new ReflectionMethod(NowoCkeditor5EditorExtension::class, 'configureHtmlSanitizer');
-        $method->setAccessible(true);
         $method->invoke($extension, $container, 'allowlist');
 
         self::assertTrue($container->hasDefinition(AllowlistCkeditor5HtmlSanitizer::class));
