@@ -45,7 +45,7 @@ Open an issue describing the use case, expected behaviour, and optional implemen
 - `tests/` — PHPUnit (`Unit`, `Integration`).
 - `demo/` — FrankenPHP demo: **`symfony8`** (Symfony **8.1**, port **8021**); not shipped in the Composer package.
 
-CI runs PHPUnit on **PHP 8.2–8.5** × **Symfony 7.0 / 7.4 / 8.0 / 8.1** (Symfony **8.x** jobs use PHP **≥8.4**).
+CI runs PHPUnit on **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1** (Symfony **8.x** jobs use PHP **≥8.4**).
 
 ## Code style
 

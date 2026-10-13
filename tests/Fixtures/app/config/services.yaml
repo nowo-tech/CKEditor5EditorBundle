@@ -2,3 +2,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+
+    # Public handle for integration tests that render the form widget (form.factory is otherwise removed as unused).
+    test.nowo_ckeditor5_editor.form_factory:
+        alias: form.factory
+        public: true

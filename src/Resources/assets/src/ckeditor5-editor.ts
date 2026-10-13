@@ -4,6 +4,7 @@
  */
 
 import 'ckeditor5/ckeditor5.css';
+import './ckeditor5-editor-widget.css';
 
 import {
   Alignment,

@@ -1,6 +1,6 @@
 # CKEditor 5 Editor Bundle
 
-[![CI](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/ckeditor5-editor-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/ckeditor5-editor-bundle.svg)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-6.4%20%7C%207.4%2B%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/ckeditor5-editor-bundle.svg?style=social&label=Star)](https://github.com/nowo-tech/Ckeditor5EditorBundle) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
+[![CI](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/ckeditor5-editor-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/ckeditor5-editor-bundle.svg)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-7.4%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/ckeditor5-editor-bundle.svg?style=social&label=Star)](https://github.com/nowo-tech/Ckeditor5EditorBundle) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
 
 > **Found this useful?** [Install from Packagist](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) · Star the repo on [GitHub](https://github.com/nowo-tech/Ckeditor5EditorBundle).
 
@@ -60,10 +60,10 @@ $builder->add('body', Ckeditor5EditorType::class, [
 
 | Symfony | PHP (minimum) | Notes |
 | ------- | ------------- | ----- |
-| **6.4**, **7.x** (incl. **7.4**) | **8.2+** | Tested in CI on **7.0** and **7.4** |
+| **7.4** | **8.2+** | Tested in CI on **7.4** |
 | **8.0**, **8.1** | **8.4+** | Symfony 8 requirement; tested in CI on **8.0** and **8.1** |
 
-Composer constraints: `^6.4 \|\| ^7.0 \|\| ^8.0` on Symfony components. See [INSTALLATION.md](docs/INSTALLATION.md).
+Composer constraints: `^7.4 \|\| ^8.0` on Symfony components. See [INSTALLATION.md](docs/INSTALLATION.md).
 
 ## Development
 
@@ -115,7 +115,7 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 - TS/JS: **100%** (Vitest on `src/Resources/assets/src/logger.ts`; see `vitest.config.ts`)
 - Python: N/A
 
-CI runs PHPUnit (matrix **PHP 8.2–8.5** × **Symfony 7.0 / 7.4 / 8.0 / 8.1**), PHPStan, PHP-CS-Fixer dry-run, and Vitest coverage on pushes and pull requests.
+CI runs PHPUnit (matrix **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1**), PHPStan, PHP-CS-Fixer dry-run, and Vitest coverage on pushes and pull requests.
 
 ## License
 

@@ -39,10 +39,10 @@ The sections below state **behavior**; this subsection states **intent** in back
 
 | Symfony | PHP (minimum) |
 | ------- | ------------- |
-| **6.4**, **7.x** (incl. **7.4**) | **8.2+** |
+| **7.4** | **8.2+** |
 | **8.0**, **8.1** | **8.4+** |
 
-CI matrix: **PHP 8.2–8.5** × **Symfony 7.0 / 7.4 / 8.0 / 8.1**. The FrankenPHP demo pins **8.1.***. Details: [`INSTALLATION.md`](INSTALLATION.md#requirements).
+CI matrix: **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1**. The FrankenPHP demo pins **8.1.***. Details: [`INSTALLATION.md`](INSTALLATION.md#requirements).
 
 ---
 
