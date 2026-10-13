@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## To 1.8.0
+
+From **1.7.0** — widget CSS bundled instead of inline style; Symfony >=7.4; vitest 4.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console assets:install
+```
+
 - **Symfony 7.4+ required** (`^7.4 || ^8.0`). Apps on Symfony 6.4 or 7.0–7.3 stay on 1.7.x until they upgrade Symfony.
 - The form theme no longer prints an inline `<style>` per widget; the styles ship in `ckeditor5-editor.js`. Run `assets:install` after updating and load the editor with `nowo_ckeditor5_editor_script()` (or the published `ckeditor5-editor.js`) as before. If you overrode the `ckeditor5_editor_widget` block, the CSS still applies as long as the build script is loaded.
 

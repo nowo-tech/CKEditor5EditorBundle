@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-10-13
+
 ### Changed
 
 - **Requirements:** Symfony floor raised to **7.4** (`^7.4 || ^8.0`, was `^6.4 || ^7.0 || ^8.0`) so the lowest allowed version matches the CI matrix (7.0 cell dropped; coverage runs on PHP 8.2 + Symfony 7.4).
 - **Composer:** dropped the unused direct `symfony/routing` requirement (nothing in `src/` uses it; it still comes with `symfony/framework-bundle`). `twig/extra-bundle` and `twig/string-extra` stay required per the Nowo Twig Extra baseline (REQ-TWIG-004).
 - **Form theme:** the widget CSS (min-height, dark theme tokens) moved from an inline `<style>` printed for every widget instance to `src/Resources/assets/src/ckeditor5-editor-widget.css`, bundled into `ckeditor5-editor.js` and injected once per page together with the CKEditor 5 styles (same CSP requirement as before). Assets rebuilt.
 - **Dev:** Vitest 4 (`vitest` / `@vitest/coverage-v8` `^4.1.11`).
+
+[1.8.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.8.0
 
 ## [1.7.0] - 2026-10-13
 
