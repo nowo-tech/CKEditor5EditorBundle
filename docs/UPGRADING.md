@@ -1,7 +1,18 @@
 # Upgrade guide
 
-
 ## Unreleased
+
+## To 1.6.0
+
+From **1.5.0** — bundled CKEditor 5 upgraded to v49.0.0.
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+php bin/console assets:install
+```
+
+- No bundle API or configuration changes.
+- The shipped editor build now embeds CKEditor 5 v49.0.0; if your app extends the editor with custom CKEditor plugins, check the [CKEditor 5 v49 release notes](https://github.com/ckeditor/ckeditor5/releases) for plugin API changes.
 
 ## To 1.5.0
 
@@ -54,7 +65,6 @@ php bin/console assets:install public
 
 ## To 1.4.10
 
-
 From **1.4.9** — maintainers dependency bumps only. **No application upgrade steps.**
 
 ```bash
@@ -62,7 +72,6 @@ composer update nowo-tech/ckeditor5-editor-bundle
 ```
 
 ## To 1.4.9
-
 
 From **1.4.8** — REQ-CS-008 Igor FrankenPHP worker audit (igor-php require-dev, igor.json, make igor).
 
@@ -74,7 +83,6 @@ php bin/console cache:clear
 - No application upgrade steps for require-dev Igor tooling (REQ-CS-008). Consumers do not pull `igor-php/igor-php` transitively.
 
 ## Table of contents
-
 
 - [To 1.4.12](#to-1412)
 - [To 1.4.11](#to-1411)

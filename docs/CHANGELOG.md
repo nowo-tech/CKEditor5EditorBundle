@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-10-13
+
+### Changed
+
+- Repository: `.twig-cs-fixer.cache` is now git-ignored.
+- **Bundled editor:** `src/Resources/public/ckeditor5-editor.js` rebuilt with CKEditor 5 **v49.0.0** (was v48.5.2). All imported OSS plugins (Essentials, Heading, Link, Image*, Table*, List, Emoji, Mention, etc.) and the `licenseKey: 'GPL'` setup are unchanged; TypeScript tests pass at 100% coverage.
+
+### Dependencies
+
+- `happy-dom` 20.14.5 → 20.14.6 (frontend tooling; #72).
+- `ckeditor5` 48.5.2 → 49.0.0 (frontend tooling; #73).
+- `vite` 8.3.2 → 8.3.4 (frontend tooling; #74).
+
+[1.6.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.6.0
+
 ## [1.5.0] - 2026-10-13
 
 ### Added
@@ -63,7 +78,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.4.10]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.10
 
 ## [1.4.9] - 2026-09-27
-
 
 ### Added
 
