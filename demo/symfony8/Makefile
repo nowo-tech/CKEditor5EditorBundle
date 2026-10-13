@@ -75,12 +75,13 @@ cache-clear: ensure-up
 	$(COMPOSE) exec php php bin/console cache:clear
 
 link-bundle: ensure-up
-	$(COMPOSE) exec php sh -c "rm -rf vendor/nowo-tech/ckeditor5-editor-bundle && ln -s /var/ckeditor5-editor-bundle vendor/nowo-tech/ckeditor5-editor-bundle && php bin/console cache:clear"
+	$(COMPOSE) exec php sh -c "rm -rf vendor/nowo-tech/ckeditor5-editor-bundle && ln -s /var/ckeditor5-editor-bundle vendor/nowo-tech/ckeditor5-editor-bundle && php bin/console cache:clear && php bin/console assets:install public"
 	@echo "Bundle linked to mounted source. Reload the page in the browser."
 
 update-bundle: ensure-up
 	$(COMPOSE) exec php composer update nowo-tech/ckeditor5-editor-bundle --no-interaction
 	$(COMPOSE) exec php php bin/console cache:clear --env=dev
+	$(COMPOSE) exec php php bin/console assets:install public
 	@echo "Bundle updated. Reload the page in the browser."
 
 
