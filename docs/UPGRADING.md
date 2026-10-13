@@ -1,5 +1,43 @@
 # Upgrade guide
 
+## Table of contents
+
+- [Unreleased](#unreleased)
+- [To 1.8.0](#to-180)
+- [To 1.7.0](#to-170)
+- [To 1.6.0](#to-160)
+- [To 1.5.0](#to-150)
+- [To 1.4.12](#to-1412)
+- [To 1.4.11](#to-1411)
+- [To 1.4.10](#to-1410)
+- [To 1.4.9](#to-149)
+- [From 1.4.7 to 1.4.8](#from-147-to-148)
+- [From 1.4.6 to 1.4.7](#from-146-to-147)
+- [From 1.4.5 to 1.4.6](#from-145-to-146)
+- [To 1.4.5 from 1.4.4](#to-145-from-144)
+- [To 1.4.4 from 1.4.3](#to-144-from-143)
+- [To 1.4.3 from 1.4.2](#to-143-from-142)
+- [To 1.4.2 from 1.4.1](#to-142-from-141)
+- [To 1.4.1 from 1.4.0](#to-141-from-140)
+- [General](#general)
+- [To 1.4.0 from 1.3.1](#to-140-from-131)
+- [To 1.3.1 from 1.3.0](#to-131-from-130)
+- [To 1.3.0 from 1.2.3](#to-130-from-123)
+- [To 1.0.0 (first Git / Packagist semver tag)](#to-100-first-git--packagist-semver-tag)
+- [To 1.0.1 from 1.0.0](#to-101-from-100)
+- [To 1.0.2 from 1.0.1](#to-102-from-101)
+- [To 1.0.3 from 1.0.2](#to-103-from-102)
+- [To 1.1.0 from 1.0.3](#to-110-from-103)
+- [To 1.1.1 from 1.1.0](#to-111-from-110)
+- [To 1.1.2 from 1.1.1](#to-112-from-111)
+- [To 1.1.3 from 1.1.2](#to-113-from-112)
+- [To 1.1.4 from 1.1.3](#to-114-from-113)
+- [To 1.2.0 from 1.1.4](#to-120-from-114)
+- [To 1.2.1 from 1.2.0](#to-121-from-120)
+- [To 1.2.2 from 1.2.1](#to-122-from-121)
+- [To 1.2.3 from 1.2.2](#to-123-from-122)
+- [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
+
 ## Unreleased
 
 ## To 1.8.0
@@ -104,34 +142,6 @@ php bin/console cache:clear
 ```
 
 - No application upgrade steps for require-dev Igor tooling (REQ-CS-008). Consumers do not pull `igor-php/igor-php` transitively.
-
-## Table of contents
-
-- [To 1.4.12](#to-1412)
-- [To 1.4.11](#to-1411)
-- [From 1.4.7 to 1.4.8](#from-147-to-148)
-- [From 1.4.6 to 1.4.7](#from-146-to-147)
-- [From 1.4.5 to 1.4.6](#from-145-to-146)
-- [To 1.4.5 from 1.4.4](#to-145-from-144)
-- [To 1.4.1 from 1.4.0](#to-141-from-140)
-- [General](#general)
-- [To 1.4.0 from 1.3.1](#to-140-from-131)
-- [To 1.3.1 from 1.3.0](#to-131-from-130)
-- [To 1.3.0 from 1.2.3](#to-130-from-123)
-- [To 1.0.0 (first Git / Packagist semver tag)](#to-100-first-git-packagist-semver-tag)
-- [To 1.0.1 from 1.0.0](#to-101-from-100)
-- [To 1.0.2 from 1.0.1](#to-102-from-101)
-- [To 1.0.3 from 1.0.2](#to-103-from-102)
-- [To 1.1.0 from 1.0.3](#to-110-from-103)
-- [To 1.1.1 from 1.1.0](#to-111-from-110)
-- [To 1.1.2 from 1.1.1](#to-112-from-111)
-- [To 1.1.3 from 1.1.2](#to-113-from-112)
-- [To 1.1.4 from 1.1.3](#to-114-from-113)
-- [To 1.2.0 from 1.1.4](#to-120-from-114)
-- [To 1.2.1 from 1.2.0](#to-121-from-120)
-- [To 1.2.2 from 1.2.1](#to-122-from-121)
-- [To 1.2.3 from 1.2.2](#to-123-from-122)
-- [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## From 1.4.7 to 1.4.8
 
