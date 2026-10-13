@@ -21,7 +21,7 @@ Root key: `nowo_ckeditor5_editor`
 | `default_profile` | string | `default` | Profile name when a form field omits the `config` option. **Must** exist under `profiles`. |
 | `profiles`        | map    | —         | Named profiles. At least one profile is required (or use [legacy keys and flat YAML](#legacy-keys-and-flat-yaml) input). |
 | `lazy_load`       | bool   | `false`   | Default for `nowo_ckeditor5_editor_script()`: `true` renders the small lazy loader that injects the full build only when an editor becomes visible. `false` renders the full build eagerly (BC). See [USAGE.md](USAGE.md#lazy-loading-150). |
-| `html_sanitizer`  | string\|null | `null` | Service id implementing `Ckeditor5HtmlSanitizerInterface`, or a built-in: `allowlist` (YouTube/Vimeo iframes kept as `src` only) or `strict` (same sanitizer, every iframe dropped). `null` disables server-side sanitization (BC). See [SECURITY.md](SECURITY.md). |
+| `html_sanitizer`  | string\|null | `null` | Service id implementing `Ckeditor5HtmlSanitizerInterface`, or a built-in: `allowlist` (YouTube/Vimeo `https` iframes kept as `src` only) or `strict` (same sanitizer, every iframe dropped). `null` disables server-side sanitization (BC). See [SECURITY.md](SECURITY.md). |
 
 ## Per profile (`profiles.<name>`)
 
@@ -33,7 +33,7 @@ Root key: `nowo_ckeditor5_editor`
 | `debug`       | bool   | `false`                     | Verbose browser console logging from the bundle script. |
 | `preset`      | string | —                           | Build preset: `standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, … (see `EditorPreset`). |
 | `theme`       | string | `light`                     | Chrome palette: `light`, `dark`, or `auto` (`EditorTheme` backed enum). |
-| `upload_url`  | string | `null`                      | Optional URL for Simple Upload Adapter (demo/apps provide POST endpoints). |
+| `upload_url`  | string | `null`                      | Optional URL for Simple Upload Adapter (demo/apps provide POST endpoints). Requires `framework.csrf_protection` (the upload token is rendered with the field). |
 
 ## Legacy keys and flat YAML
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nowo\Ckeditor5EditorBundle\Form;
 
+use LogicException;
 use Nowo\Ckeditor5EditorBundle\EditorPreset;
 use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Nowo\Ckeditor5EditorBundle\Form\DataTransformer\Ckeditor5HtmlSanitizeTransformer;
@@ -43,11 +44,12 @@ final class Ckeditor5EditorType extends AbstractType
 
     /**
      * @param array<string, array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}> $profiles
+     * @param CsrfTokenManagerInterface|null $csrfTokenManager Null when the host app disables CSRF; only required by profiles with `upload_url`
      */
     public function __construct(
         private readonly array $profiles,
         private readonly string $defaultProfileName,
-        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+        private readonly ?CsrfTokenManagerInterface $csrfTokenManager = null,
         private readonly ?Ckeditor5HtmlSanitizerInterface $htmlSanitizer = null,
     ) {
     }
@@ -73,8 +75,17 @@ final class Ckeditor5EditorType extends AbstractType
         $uploadUrl                           = is_string($uploadRaw) ? trim($uploadRaw) : '';
         $view->vars['ckeditor5_upload_url']  = $uploadUrl !== '' ? $uploadUrl : null;
         $view->vars['ckeditor5_upload_csrf'] = $uploadUrl !== ''
-            ? $this->csrfTokenManager->getToken(self::CSRF_UPLOAD_TOKEN_ID)->getValue()
+            ? $this->getUploadCsrfToken()
             : '';
+    }
+
+    private function getUploadCsrfToken(): string
+    {
+        if (!$this->csrfTokenManager instanceof CsrfTokenManagerInterface) {
+            throw new LogicException('Ckeditor5EditorType: "upload_url" requires a CSRF token manager. Enable "framework.csrf_protection" (and install symfony/security-csrf) or remove "upload_url" from the profile.');
+        }
+
+        return $this->csrfTokenManager->getToken(self::CSRF_UPLOAD_TOKEN_ID)->getValue();
     }
 
     public function configureOptions(OptionsResolver $resolver): void

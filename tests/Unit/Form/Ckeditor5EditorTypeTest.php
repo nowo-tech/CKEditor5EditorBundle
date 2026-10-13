@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nowo\Ckeditor5EditorBundle\Tests\Unit\Form;
 
+use LogicException;
 use Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType;
 use Nowo\Ckeditor5EditorBundle\Form\DataTransformer\Ckeditor5HtmlSanitizeTransformer;
 use Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer;
@@ -393,6 +394,55 @@ final class Ckeditor5EditorTypeTest extends TestCase
 
         self::assertSame('/api/upload', $view->vars['ckeditor5_upload_url']);
         self::assertSame('test-csrf', $view->vars['ckeditor5_upload_csrf']);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function uploadViewOptions(): array
+    {
+        return [
+            'toolbar'            => true,
+            'min_height'         => '240px',
+            'placeholder'        => 'ckeditor5_placeholder',
+            'attr'               => [],
+            'translation_domain' => 'messages',
+            'required'           => false,
+            'empty_data'         => '',
+            'config'             => null,
+            'editor_config'      => [],
+            'height'             => null,
+            'theme'              => 'light',
+        ];
+    }
+
+    public function testBuildViewWithoutCsrfManagerWorksWhenNoUploadUrl(): void
+    {
+        $type = new Ckeditor5EditorType($this->sampleConfigs(true, '240px', false), 'default');
+        $view = new FormView();
+        $type->buildView($view, $this->createStub(FormInterface::class), $this->uploadViewOptions());
+
+        self::assertNull($view->vars['ckeditor5_upload_url']);
+        self::assertSame('', $view->vars['ckeditor5_upload_csrf']);
+    }
+
+    public function testBuildViewWithUploadUrlButNoCsrfManagerThrows(): void
+    {
+        $type = new Ckeditor5EditorType([
+            'default' => [
+                'toolbar'    => true,
+                'min_height' => '240px',
+                'form_theme' => 'form_div_layout.html.twig',
+                'debug'      => false,
+                'preset'     => 'minimal',
+                'upload_url' => '/api/upload',
+            ],
+        ], 'default', null);
+
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage('requires a CSRF token manager');
+
+        $type->buildView(new FormView(), $this->createStub(FormInterface::class), $this->uploadViewOptions());
     }
 
     /**

@@ -26,6 +26,6 @@ services:
         arguments:
             $profiles: '%nowo_ckeditor5_editor.profiles%'
             $defaultProfileName: '%nowo_ckeditor5_editor.default_profile%'
-            $csrfTokenManager: '@security.csrf.token_manager'
+            $csrfTokenManager: '@?security.csrf.token_manager'
         tags:
             - { name: form.type }

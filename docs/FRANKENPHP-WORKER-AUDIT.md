@@ -40,7 +40,7 @@ A bundle that is safe under **B** is safe under **A** and under classic mode / P
 |---------|--------|---------------|------------|------------|
 | `Nowo\Ckeditor5EditorBundle\Form\Ckeditor5EditorType` | yes (`form.type`) | none (`readonly` profiles, default profile name, CSRF token manager, optional sanitizer) | ✅ | ✅ |
 | `Nowo\Ckeditor5EditorBundle\Security\IdentityCkeditor5HtmlSanitizer` | yes (public, default alias) | none | ✅ | ✅ |
-| `Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer` (and `.strict` variant) | yes (public) | none (`readonly` `$allowEmbeds`, `private const` allowlists) | ✅ | ✅ |
+| `Nowo\Ckeditor5EditorBundle\Security\AllowlistCkeditor5HtmlSanitizer` (and `.strict` variant) | yes (public) | none (`readonly` `$allowEmbeds` and immutable `HtmlSanitizer` built from `private const` allowlists) | ✅ | ✅ |
 | `Nowo\Ckeditor5EditorBundle\Twig\NowoCkeditor5EditorTwigExtension` | yes (`twig.extension`) | none | ✅ | ✅ |
 
 `Ckeditor5HtmlSanitizeTransformer` is created per form build in `Ckeditor5EditorType::buildForm()` (`src/Form/Ckeditor5EditorType.php:55-60`) and only holds a `readonly` reference to the sanitizer. `NowoCkeditor5EditorExtension` and `TwigPathsPass` only run at container compile time.

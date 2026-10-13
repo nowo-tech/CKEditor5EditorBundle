@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- **`html_sanitizer: allowlist` / `strict`** now uses `symfony/html-sanitizer` (installed as a dependency). Output is normalised HTML (e.g. `<img … />`, entities in text) and is stricter: attributes outside the allowlist (`id`, `data-*`, `srcset`, …) are dropped, links accept only `http`/`https`/`mailto`/relative URLs, images only `http`/`https`/relative (no `data:`), and an embed iframe must be `https://` on YouTube/Vimeo. Re-check stored content if you relied on other attributes; use a custom `html_sanitizer` service if you need more.
+- Apps with `framework.csrf_protection: false` can now boot; profiles with `upload_url` still need CSRF enabled.
+
 ## To 1.6.0
 
 From **1.5.0** — bundled CKEditor 5 upgraded to v49.0.0.
