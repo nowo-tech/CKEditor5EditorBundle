@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-10-13
+
 ### Security
 
 - **HTML sanitizer (`html_sanitizer: allowlist` / `strict`):** `AllowlistCkeditor5HtmlSanitizer` is rebuilt on `symfony/html-sanitizer` (new dependency). The old regex filter let `<img/onerror=alert(1) src=x>` and entity-encoded schemes such as `href="&#106;avascript:…"` through. Now only allowlisted elements/attributes are kept (every `on*` handler is dropped), links must be `http`, `https`, `mailto` or relative, images `http`, `https` or relative, and an embed iframe needs an absolute `https://` URL on the YouTube/Vimeo list. Same class, constructor and allowlist vs strict behaviour.
@@ -14,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - The container now compiles when the host app disables `framework.csrf_protection` (`security.csrf.token_manager` is an optional dependency of `Ckeditor5EditorType`). A profile with `upload_url` then throws a clear `LogicException` when rendered.
+
+[1.7.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.7.0
 
 ## [1.6.0] - 2026-10-13
 
