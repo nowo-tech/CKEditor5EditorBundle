@@ -58,7 +58,7 @@ CI runs PHPUnit on **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1** (Symfony **8
 Open a support issue from the issue templates or use repository Discussions if enabled.
 ## Git hooks (REQ-GIT-001)
 
-Do **not** add `Co-authored-by: Cursor` or `cursoragent@cursor.com` trailers to commit messages.
+Do **not** add `Co-authored-by: Cursor` or `cursoragent@cursor.com` trailers, nor `Co-Authored-By: Claude …` / `noreply@anthropic.com` ones, to commit messages.
 
 ```bash
 make setup-hooks
