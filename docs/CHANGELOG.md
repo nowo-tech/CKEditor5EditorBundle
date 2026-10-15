@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.9.0] - 2026-10-15](#190---2026-10-15)
 - [[1.8.0] - 2026-10-13](#180---2026-10-13)
 - [[1.7.0] - 2026-10-13](#170---2026-10-13)
 - [[1.6.0] - 2026-10-13](#160---2026-10-13)
@@ -43,10 +44,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-10-15
+
 ### Changed
 
 - **Editor CSS is a file, not an injected `<style>` (strict CSP).** The Vite build now emits `src/Resources/public/ckeditor5-editor.css` (CKEditor 5 styles + widget CSS, ~277 kB) and `ckeditor5-editor.js` no longer creates a `<style>` element at runtime (1.29 MB → 1.01 MB). `nowo_ckeditor5_editor_script()` renders `<link rel="stylesheet">` (content-hash `?v=`, same nonce as the script) before the eager build; in lazy mode the loader reads `data-ckeditor5-css` and links the stylesheet once, right before it injects the build. Pages with a CKEditor no longer need `style-src-elem 'unsafe-inline'` without a nonce.
 - **Emoji preset is self-hosted.** The `emoji` preset loads its dataset from the bundle (`Resources/public/emoji/16/en.json`, resolved next to the build URL) through `emoji.definitionsUrl` instead of `https://cdn.ckeditor.com/ckeditor5/data/emoji/16/en.json`, which `connect-src 'self'` blocked (empty picker) and which leaked a request to a third party.
+
+[1.9.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.9.0
 
 ## [1.8.0] - 2026-10-13
 

@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.9.0](#to-190)
 - [To 1.8.0](#to-180)
 - [To 1.7.0](#to-170)
 - [To 1.6.0](#to-160)
@@ -39,6 +40,8 @@
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## Unreleased
+
+## To 1.9.0
 
 - Run `assets:install` (new public file `ckeditor5-editor.css`). If you render the widget through `nowo_ckeditor5_editor_script()`, nothing else changes. If you print your own `<script src="…/ckeditor5-editor.js">`, also link `nowo_ckeditor5_editor_asset_url('ckeditor5-editor.css')` (the build no longer injects its styles).
 - CSP: drop any per-route exception that removed the style nonce for CKEditor pages (for example HttpHardening `nonce_free_style_path_prefixes`) — `style-src-elem 'self' 'nonce-…'` is enough.
