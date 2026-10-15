@@ -42,6 +42,9 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
     /** Lazy loader (a few KB) that injects {@see self::BUILD_SCRIPT} when an editor root becomes visible. */
     public const LOADER_SCRIPT = 'ckeditor5-editor-loader.js';
 
+    /** Editor CSS as a file (no runtime-injected `<style>`: strict CSP `style-src-elem` stays nonce-only). */
+    public const BUILD_STYLESHEET = 'ckeditor5-editor.css';
+
     private const DEFAULT_SCRIPT = self::BUILD_SCRIPT;
 
     private const SAFE_FILENAME_PATTERN = '#^[a-zA-Z0-9._/-]+$#';
@@ -116,10 +119,11 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
     }
 
     /**
-     * Renders the `<script defer>` tag that boots the editors.
+     * Renders the `<script defer>` tag that boots the editors (plus the editor stylesheet).
      *
-     * Eager (default): the full build. Lazy: the small loader, which injects the full build (URL in
-     * `data-ckeditor5-src`) once an editor root is visible; the loader copies its nonce onto the injected script.
+     * Eager (default): `<link rel="stylesheet">` for {@see self::BUILD_STYLESHEET} + the full build. Lazy: the
+     * small loader, which injects the stylesheet (URL in `data-ckeditor5-css`) and the full build (URL in
+     * `data-ckeditor5-src`) once an editor root is visible; the loader copies its nonce onto both.
      *
      * Accepts `true`/`false` (lazy) or an options hash: `{lazy: bool, nonce: string|null}`.
      *
@@ -144,12 +148,19 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
 
         $nonceAttr = $nonce !== null && $nonce !== '' ? ' nonce="' . $this->escape($nonce) . '"' : '';
         $buildUrl  = $this->escape($this->assetUrl(self::BUILD_SCRIPT));
+        $cssUrl    = is_file($this->publicDir . '/' . self::BUILD_STYLESHEET)
+            ? $this->escape($this->assetUrl(self::BUILD_STYLESHEET))
+            : null;
 
         if (!$lazy) {
-            return '<script src="' . $buildUrl . '" defer' . $nonceAttr . '></script>';
+            $link = $cssUrl !== null ? '<link rel="stylesheet" href="' . $cssUrl . '"' . $nonceAttr . '>' : '';
+
+            return $link . '<script src="' . $buildUrl . '" defer' . $nonceAttr . '></script>';
         }
 
-        return '<script src="' . $this->escape($this->assetUrl(self::LOADER_SCRIPT)) . '" defer data-ckeditor5-src="' . $buildUrl . '"' . $nonceAttr . '></script>';
+        $cssAttr = $cssUrl !== null ? ' data-ckeditor5-css="' . $cssUrl . '"' : '';
+
+        return '<script src="' . $this->escape($this->assetUrl(self::LOADER_SCRIPT)) . '" defer data-ckeditor5-src="' . $buildUrl . '"' . $cssAttr . $nonceAttr . '></script>';
     }
 
     private function assetVersion(string $path): ?string

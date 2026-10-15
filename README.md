@@ -15,7 +15,7 @@ This bundle is **FrankenPHP worker mode friendly** (including **`reset_kernel: f
 
 - Named YAML profiles (`toolbar`, `min_height`, `form_theme`, `preset`, `theme`, optional `upload_url`).
 - Twig themes for common layouts (Bootstrap 3–5, Foundation, Tailwind 2, table layout).
-- `nowo_ckeditor5_editor_script()` Twig function: eager build or **lazy loader** (injects the 1.2 MB build only when an editor becomes visible — dialog opened, panel expanded, scrolled into view), CSP nonce, content-hash versioned URLs for long-lived caching.
+- `nowo_ckeditor5_editor_script()` Twig function: eager build or **lazy loader** (injects the 1 MB build only when an editor becomes visible — dialog opened, panel expanded, scrolled into view), editor CSS as a linked file (`ckeditor5-editor.css`, no injected `<style>` — strict CSP), CSP nonce, content-hash versioned URLs for long-lived caching.
 - `nowo_ckeditor5_editor_asset_url()`, `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
 - **pnpm + Vite** frontend; **Vitest** coverage on `logger.ts` and the lazy loader.
 - **Dockerfile + Makefile** aligned with other Nowo bundles.

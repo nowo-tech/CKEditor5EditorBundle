@@ -17,6 +17,9 @@ export const ROOT_SELECTOR = '[data-ckeditor5-root="1"]';
 /** Attribute on the loader `<script>` tag holding the full build URL. */
 export const SRC_ATTRIBUTE = 'data-ckeditor5-src';
 
+/** Attribute on the loader `<script>` tag holding the editor stylesheet URL (`ckeditor5-editor.css`). */
+export const CSS_ATTRIBUTE = 'data-ckeditor5-css';
+
 /** Attributes whose change can reveal a widget (dialog/details `open`, `hidden`, class/style toggles). */
 const WATCHED_ATTRIBUTES = ['open', 'hidden', 'class', 'style'];
 
@@ -26,8 +29,10 @@ const ROOT_MARGIN = '200px';
 export type LoaderOptions = {
   /** Full build URL (`ckeditor5-editor.js`, versioned). */
   src: string | null;
-  /** CSP nonce copied onto the injected `<script>`. */
+  /** CSP nonce copied onto the injected `<script>` and `<link>`. */
   nonce?: string;
+  /** Editor stylesheet URL (`ckeditor5-editor.css`, versioned); injected as `<link>` before the build. */
+  css?: string | null;
 };
 
 export type Ckeditor5EditorLoader = {
@@ -161,6 +166,22 @@ export function createLoader(doc: Document, options: LoaderOptions): Ckeditor5Ed
     evaluate();
   }
 
+  /** Adds the editor `<link rel="stylesheet">` once (no runtime `<style>`, so strict CSP needs no exception). */
+  function injectStylesheet(): void {
+    const css = options.css;
+    if (!css || Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).some((l) => l.getAttribute('href') === css)) {
+      return;
+    }
+    const link = doc.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = css;
+    if (options.nonce) {
+      link.nonce = options.nonce;
+      link.setAttribute('nonce', options.nonce);
+    }
+    doc.head.appendChild(link);
+  }
+
   function load(): Promise<void> {
     if (loadPromise !== null) {
       return loadPromise;
@@ -179,6 +200,7 @@ export function createLoader(doc: Document, options: LoaderOptions): Ckeditor5Ed
       loadPromise = Promise.resolve();
       return loadPromise;
     }
+    injectStylesheet();
     const script = doc.createElement('script');
     script.src = src;
     script.async = true;
@@ -226,7 +248,7 @@ export function readOptions(doc: Document, current: Element | null): LoaderOptio
     return { src: null };
   }
   const nonce = (tag as HTMLScriptElement).nonce || tag.getAttribute('nonce') || undefined;
-  return { src: tag.getAttribute(SRC_ATTRIBUTE), nonce };
+  return { src: tag.getAttribute(SRC_ATTRIBUTE), nonce, css: tag.getAttribute(CSS_ATTRIBUTE) };
 }
 
 /**

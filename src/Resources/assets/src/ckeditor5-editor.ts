@@ -57,6 +57,14 @@ log.scriptLoaded();
 
 const ROOT_SELECTOR = '[data-ckeditor5-root="1"]';
 
+/**
+ * Emoji dataset shipped with the bundle (`Resources/public/emoji/16/en.json`), resolved next to this build so
+ * the picker never fetches cdn.ckeditor.com (blocked by `connect-src 'self'` and not self-hosted).
+ */
+const EMOJI_DEFINITIONS_PATH = 'emoji/16/en.json';
+const BUILD_SRC =
+  (document.currentScript as HTMLScriptElement | null)?.src || `${location.origin}/bundles/nowockeditor5editor/ckeditor5-editor.js`;
+
 export type EditorPreset =
   | 'standard'
   | 'simple'
@@ -345,6 +353,10 @@ function buildConfig(
       viewportOffset: { top: 0, bottom: 0, left: 0, right: 0 },
     },
   };
+
+  if (preset === 'emoji') {
+    config.emoji = { definitionsUrl: new URL(EMOJI_DEFINITIONS_PATH, BUILD_SRC).href };
+  }
 
   if (preset === 'variables') {
     config.mention = {

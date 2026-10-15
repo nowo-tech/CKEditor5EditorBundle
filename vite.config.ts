@@ -18,6 +18,9 @@ export default defineConfig({
         assetFileNames: 'ckeditor5-editor.[ext]',
       },
     },
+    // Emit the editor CSS as ckeditor5-editor.css (linked by the Twig helper / lazy loader) instead of a
+    // runtime-injected <style>: strict CSP (style-src-elem with a nonce) blocks injected styles.
+    cssCodeSplit: false,
     minify: true,
     sourcemap: false,
   },

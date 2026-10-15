@@ -437,7 +437,7 @@ final class Ckeditor5EditorTypeTest extends TestCase
                 'preset'     => 'minimal',
                 'upload_url' => '/api/upload',
             ],
-        ], 'default', null);
+        ], 'default');
 
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('requires a CSRF token manager');

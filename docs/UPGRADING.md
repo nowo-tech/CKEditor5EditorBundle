@@ -40,6 +40,9 @@
 
 ## Unreleased
 
+- Run `assets:install` (new public file `ckeditor5-editor.css`). If you render the widget through `nowo_ckeditor5_editor_script()`, nothing else changes. If you print your own `<script src="…/ckeditor5-editor.js">`, also link `nowo_ckeditor5_editor_asset_url('ckeditor5-editor.css')` (the build no longer injects its styles).
+- CSP: drop any per-route exception that removed the style nonce for CKEditor pages (for example HttpHardening `nonce_free_style_path_prefixes`) — `style-src-elem 'self' 'nonce-…'` is enough.
+
 ## To 1.8.0
 
 From **1.7.0** — widget CSS bundled instead of inline style; Symfony >=7.4; vitest 4.

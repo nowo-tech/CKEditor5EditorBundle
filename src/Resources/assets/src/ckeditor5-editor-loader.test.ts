@@ -5,6 +5,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   boot,
+  CSS_ATTRIBUTE,
   createLoader,
   isRendered,
   readOptions,
@@ -14,6 +15,7 @@ import {
 } from './ckeditor5-editor-loader';
 
 const BUILD_URL = '/bundles/nowockeditor5editor/ckeditor5-editor.js?v=abc';
+const CSS_URL = '/bundles/nowockeditor5editor/ckeditor5-editor.css?v=abc';
 
 type FakeEntry = { target: Element; isIntersecting: boolean };
 
@@ -118,14 +120,15 @@ describe('readOptions', () => {
     const tag = document.createElement('script');
     tag.setAttribute(SRC_ATTRIBUTE, BUILD_URL);
     tag.setAttribute('nonce', 'n0nce');
-    expect(readOptions(document, tag)).toEqual({ src: BUILD_URL, nonce: 'n0nce' });
+    tag.setAttribute(CSS_ATTRIBUTE, CSS_URL);
+    expect(readOptions(document, tag)).toEqual({ src: BUILD_URL, nonce: 'n0nce', css: CSS_URL });
   });
 
   it('falls back to querying the document (no nonce)', () => {
     const tag = document.createElement('script');
     tag.setAttribute(SRC_ATTRIBUTE, BUILD_URL);
     document.head.appendChild(tag);
-    expect(readOptions(document, document.createElement('script'))).toEqual({ src: BUILD_URL, nonce: undefined });
+    expect(readOptions(document, document.createElement('script'))).toEqual({ src: BUILD_URL, nonce: undefined, css: null });
   });
 });
 
@@ -159,6 +162,37 @@ describe('createLoader', () => {
       expect(scripts).toHaveLength(1);
       expect(scripts[0].getAttribute('nonce')).toBe('abc');
       expect(scripts[0].async).toBe(true);
+    });
+
+    it('links the editor stylesheet once, with the nonce, before the build', () => {
+      document.body.appendChild(root().parentElement!);
+      loader = createLoader(document, { src: BUILD_URL, nonce: 'abc', css: CSS_URL });
+      const links = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'));
+      expect(links).toHaveLength(1);
+      expect(links[0].getAttribute('href')).toBe(CSS_URL);
+      expect(links[0].getAttribute('nonce')).toBe('abc');
+      expect(document.head.lastElementChild?.tagName).toBe('SCRIPT');
+      expect(document.querySelectorAll('style')).toHaveLength(0);
+    });
+
+    it('links the stylesheet without a nonce when the loader has none', () => {
+      document.body.appendChild(root().parentElement!);
+      loader = createLoader(document, { src: BUILD_URL, css: CSS_URL });
+      const link = document.querySelector<HTMLLinkElement>('link[rel="stylesheet"]');
+      expect(link?.getAttribute('href')).toBe(CSS_URL);
+      expect(link?.hasAttribute('nonce')).toBe(false);
+    });
+
+    it('does not duplicate an already linked stylesheet', () => {
+      const existing = document.createElement('link');
+      existing.rel = 'stylesheet';
+      existing.href = CSS_URL;
+      existing.setAttribute('href', CSS_URL);
+      document.head.appendChild(existing);
+      document.body.appendChild(root().parentElement!);
+      loader = createLoader(document, { src: BUILD_URL, css: CSS_URL });
+      expect(document.querySelectorAll('link[rel="stylesheet"]')).toHaveLength(1);
+      expect(injectedScripts()[0].hasAttribute('nonce')).toBe(false);
     });
 
     it('does nothing without roots', async () => {

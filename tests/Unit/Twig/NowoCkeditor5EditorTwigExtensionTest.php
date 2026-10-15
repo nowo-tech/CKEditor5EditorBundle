@@ -93,7 +93,7 @@ final class NowoCkeditor5EditorTwigExtensionTest extends TestCase
         $ext  = new NowoCkeditor5EditorTwigExtension();
         $html = $ext->script();
 
-        self::assertMatchesRegularExpression('#^<script src="/bundles/nowockeditor5editor/ckeditor5-editor\.js\?v=[0-9a-f]{12}" defer></script>$#', $html);
+        self::assertMatchesRegularExpression('#^<link rel="stylesheet" href="/bundles/nowockeditor5editor/ckeditor5-editor\.css\?v=[0-9a-f]{12}"><script src="/bundles/nowockeditor5editor/ckeditor5-editor\.js\?v=[0-9a-f]{12}" defer></script>$#', $html);
         self::assertSame($html, $ext->script(false));
         self::assertSame($html, $ext->script(['lazy' => false]));
         self::assertSame($html, $ext->script(['nonce' => '']));
@@ -104,7 +104,7 @@ final class NowoCkeditor5EditorTwigExtensionTest extends TestCase
         $ext  = new NowoCkeditor5EditorTwigExtension();
         $html = $ext->script(true);
 
-        self::assertMatchesRegularExpression('#^<script src="/bundles/nowockeditor5editor/ckeditor5-editor-loader\.js\?v=[0-9a-f]{12}" defer data-ckeditor5-src="/bundles/nowockeditor5editor/ckeditor5-editor\.js\?v=[0-9a-f]{12}"></script>$#', $html);
+        self::assertMatchesRegularExpression('#^<script src="/bundles/nowockeditor5editor/ckeditor5-editor-loader\.js\?v=[0-9a-f]{12}" defer data-ckeditor5-src="/bundles/nowockeditor5editor/ckeditor5-editor\.js\?v=[0-9a-f]{12}" data-ckeditor5-css="/bundles/nowockeditor5editor/ckeditor5-editor\.css\?v=[0-9a-f]{12}"></script>$#', $html);
         self::assertSame($html, $ext->script(['lazy' => true]));
     }
 
@@ -117,9 +117,27 @@ final class NowoCkeditor5EditorTwigExtensionTest extends TestCase
         self::assertStringNotContainsString('loader', $ext->script(['lazy' => false]));
     }
 
+    public function testScriptWithoutBuiltStylesheetRendersNoLink(): void
+    {
+        $dir = sys_get_temp_dir() . '/ck5-no-css-' . bin2hex(random_bytes(4));
+        mkdir($dir);
+        try {
+            $ext = new NowoCkeditor5EditorTwigExtension(null, false, $dir);
+
+            self::assertStringStartsWith('<script src="/bundles/nowockeditor5editor/ckeditor5-editor.js"', $ext->script());
+            self::assertStringNotContainsString('data-ckeditor5-css', $ext->script(true));
+        } finally {
+            rmdir($dir);
+        }
+    }
+
     public function testScriptNonceIsEscaped(): void
     {
         $ext = new NowoCkeditor5EditorTwigExtension();
+
+        self::assertStringStartsWith('<link rel="stylesheet" href="', $ext->script(null, 'a"b'));
+        self::assertStringContainsString('.css?v=', $ext->script(null, 'a"b'));
+        self::assertMatchesRegularExpression('#<link [^>]* nonce="a&quot;b">#', $ext->script(null, 'a"b'));
 
         self::assertStringEndsWith(' defer nonce="a&quot;b"></script>', $ext->script(null, 'a"b'));
         self::assertStringEndsWith('" nonce="xyz"></script>', $ext->script(['lazy' => true, 'nonce' => 'xyz']));
@@ -136,7 +154,8 @@ final class NowoCkeditor5EditorTwigExtensionTest extends TestCase
         ]));
         $twig->addExtension(new NowoCkeditor5EditorTwigExtension(null, false, dirname(__DIR__, 3) . '/src/Resources/public'));
 
-        self::assertStringStartsWith('<script src="/bundles/nowockeditor5editor/ckeditor5-editor.js?v=', $twig->render('eager'));
+        self::assertStringStartsWith('<link rel="stylesheet" href="/bundles/nowockeditor5editor/ckeditor5-editor.css?v=', $twig->render('eager'));
+        self::assertStringContainsString('<script src="/bundles/nowockeditor5editor/ckeditor5-editor.js?v=', $twig->render('eager'));
         self::assertStringContainsString('data-ckeditor5-src="/bundles/nowockeditor5editor/ckeditor5-editor.js?v=', $twig->render('lazy'));
         self::assertStringEndsWith(' nonce="n1"></script>', $twig->render('lazy'));
         self::assertStringEndsWith(' nonce="n2"></script>', $twig->render('named'));
