@@ -17,7 +17,7 @@
     "ckeditor5": "^49.0.0"
   },
   "devDependencies": {
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^4.1.11",
     "happy-dom": "^21.0.3",
     "typescript": "^7.0.2",
