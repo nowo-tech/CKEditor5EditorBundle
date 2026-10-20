@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.10.0] - 2026-10-20](#1100---2026-10-20)
 - [[1.9.1] - 2026-10-20](#191---2026-10-20)
 - [[1.9.0] - 2026-10-15](#190---2026-10-15)
 - [[1.8.0] - 2026-10-13](#180---2026-10-13)
@@ -45,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-10-20
+
+Asset URLs always through the asset package, translation key-parity and raw-form gates, demo smoke workflow, security docs. See [UPGRADING](UPGRADING.md#to-1100).
+
 ### Changed
 
 - Asset URLs always go through the `nowo_ckeditor5_editor` asset package: without `framework.assets` the Twig extension registers the same named package itself (base path from `NowoCkeditor5EditorExtension::ASSET_BASE_PATH`), and the JS build resolves its own URL from the executing `<script>` instead of a hard-coded `/bundles/…` path (REQ-ASSETS-004). `NowoCkeditor5EditorTwigExtension::PUBLIC_BASE_PATH` is deprecated.
@@ -52,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Demo: `make up` reads `PORT` from `.env` then `.env.example` and waits for a real HTTP 200; `release-verify` / `demo-smoke` follow redirects and require a final 200; the demo `release-check` runs `update-bundle` first; new `Demo smoke` workflow (tags, weekly, manual) (REQ-DEMO-005, REQ-DEMO-007, REQ-TEST-011).
 - `docs/SECURITY.md` gains attack surface, threat model, logging and dependency policy sections; `.github/SECURITY.md` follows the canonical template (REQ-SEC-001, REQ-SEC-003).
 - PHPDoc on every public method (REQ-CS-001); `make help` in the standard block order (REQ-MAKE-001); composer.json homepage/support URLs use the `CKEditor5EditorBundle` repository name; the co-author check accepts git worktrees.
+
+[1.10.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.10.0
 
 ## [1.9.1] - 2026-10-20
 
@@ -442,7 +449,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.9.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.0...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
