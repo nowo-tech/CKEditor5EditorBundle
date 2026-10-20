@@ -57,7 +57,7 @@ The bundle provides a Symfony form type, Twig themes, translations, and a static
 | Grade | **Pass (good)** — overall **Low** |
 | Open residuals | Host must not disable prod recipe allowlist for UGC; production upload endpoints must enforce auth, CSRF, content validation, and safe storage; demo upload is not production-ready |
 
-See also the monorepo record in [`BUNDLES_SECURITY_ANALYSIS.md`](https://github.com/nowo-tech/bundles/blob/master/BUNDLES_SECURITY_ANALYSIS.md) (Ckeditor5EditorBundle entry).
+See also the maintainers' internal monorepo record `BUNDLES_SECURITY_ANALYSIS.md` (CKEditor5EditorBundle entry; not published).
 
 ## Supported versions
 

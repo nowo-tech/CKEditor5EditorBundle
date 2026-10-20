@@ -1,8 +1,8 @@
 # CKEditor 5 Editor Bundle
 
-[![CI](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/Ckeditor5EditorBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/ckeditor5-editor-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/ckeditor5-editor-bundle.svg)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-7.4%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/ckeditor5-editor-bundle.svg?style=social&label=Star)](https://github.com/nowo-tech/Ckeditor5EditorBundle) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
+[![CI](https://github.com/nowo-tech/CKEditor5EditorBundle/actions/workflows/ci.yml/badge.svg)](https://github.com/nowo-tech/CKEditor5EditorBundle/actions/workflows/ci.yml) [![Packagist Version](https://img.shields.io/packagist/v/nowo-tech/ckeditor5-editor-bundle.svg?style=flat)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![Packagist Downloads](https://img.shields.io/packagist/dt/nowo-tech/ckeditor5-editor-bundle.svg)](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)](https://php.net) [![Symfony](https://img.shields.io/badge/Symfony-7.4%20%7C%208.0%20%7C%208.1%2B-000000?logo=symfony)](https://symfony.com) [![GitHub stars](https://img.shields.io/github/stars/nowo-tech/ckeditor5-editor-bundle.svg?style=social&label=Star)](https://github.com/nowo-tech/CKEditor5EditorBundle) [![Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](#tests-and-coverage)
 
-> **Found this useful?** [Install from Packagist](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) · Star the repo on [GitHub](https://github.com/nowo-tech/Ckeditor5EditorBundle).
+> **Found this useful?** [Install from Packagist](https://packagist.org/packages/nowo-tech/ckeditor5-editor-bundle) · Star the repo on [GitHub](https://github.com/nowo-tech/CKEditor5EditorBundle).
 
 Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEditor 5 classic** (GPL open-source plugins only) runs in the browser. YAML profiles (FOS-style), **Vite** IIFE build (`ckeditor5-editor.js`) under `src/Resources/public/`.
 **FrankenPHP demos:** runtime is selected with **`FRANKENPHP_MODE`** (`worker` default, or `classic` for per-request PHP / hot-reload). See [docs/DEMO-FRANKENPHP.md](docs/DEMO-FRANKENPHP.md).
@@ -90,7 +90,6 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 
 - [Installation](docs/INSTALLATION.md)
 - [Configuration](docs/CONFIGURATION.md)
-- [PSR evaluation (REQ-CS-007)](docs/PSR.md)
 - [Usage](docs/USAGE.md)
 - [Contributing](docs/CONTRIBUTING.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
@@ -104,6 +103,7 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 
 ### Additional documentation
 
+- [PSR evaluation (REQ-CS-007)](docs/PSR.md)
 - [Demo with FrankenPHP (development and production)](docs/DEMO-FRANKENPHP.md)
 - [FrankenPHP worker audit (`reset_kernel: false`)](docs/FRANKENPHP-WORKER-AUDIT.md)
 - [GitHub Actions CI requirements](docs/GITHUB_CI.md)

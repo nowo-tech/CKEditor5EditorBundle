@@ -44,6 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Documentation: wave-1 REQ compliance — canonical issue templates, GitHub links use the `CKEditor5EditorBundle` repository slug, README documentation list order (PSR moved to Additional documentation), CONTRIBUTING Cursor Agent queue settings (REQ-IDE-006), TOCs on long docs, demo compose project name `ckeditor5-editor-bundle-demo-symfony-8` and commented `.env.example`, Spec Kit inventory refresh (42/42) with non-goals and validation commands.
+
 ## [1.9.0] - 2026-10-15
 
 ### Changed
@@ -152,7 +156,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **REQ-CS-008:** `igor-php/igor-php` (require-dev only), root `igor.json`, Composer/`Makefile` `igor` target, and `release-check` wiring for FrankenPHP worker-state audit.
 
-[1.4.9]: https://github.com/nowo-tech/Ckeditor5EditorBundle/releases/tag/v1.4.9
+[1.4.9]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.4.9
 
 ## [1.4.8] - 2026-09-24
 
@@ -418,20 +422,20 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.4.1...HEAD
-[1.4.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.1...v1.4.0
-[1.3.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.3.0...v1.3.1
-[1.3.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.3...v1.3.0
-[1.2.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.2...v1.2.3
-[1.2.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.1...v1.2.2
-[1.2.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.4...v1.2.0
-[1.1.4]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.3...v1.1.4
-[1.1.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.2...v1.1.3
-[1.1.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.1...v1.1.2
-[1.1.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.3...v1.1.0
-[1.0.3]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.2...v1.0.3
-[1.0.2]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/nowo-tech/Ckeditor5EditorBundle/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/nowo-tech/Ckeditor5EditorBundle/releases/tag/v1.0.0
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.4.1...HEAD
+[1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
+[1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
+[1.2.3]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.2...v1.2.3
+[1.2.2]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.1.4...v1.2.0
+[1.1.4]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.0.3...v1.1.0
+[1.0.3]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.0.0

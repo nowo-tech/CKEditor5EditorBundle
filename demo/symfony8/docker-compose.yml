@@ -1,4 +1,4 @@
-name: ckeditor5-editor-demo-symfony8
+name: ckeditor5-editor-bundle-demo-symfony-8
 
 services:
   php:

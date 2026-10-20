@@ -53,7 +53,9 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 - **FR-WORKER-001**: Bundle services are safe under FrankenPHP worker scenario B (`reset_kernel: false`); documented in [`docs/FRANKENPHP-WORKER-AUDIT.md`](../../docs/FRANKENPHP-WORKER-AUDIT.md). PHPStan includes `ruleset-classic` + `ruleset-worker-strict` (worker rules + request-superglobal flags).
 - **FR-TWIG-001–003**: Twig path pass, extension, and form theme variants.
 - **FR-UI-001 / FR-UI-002**: TypeScript initializer and logger under `Resources/assets/src/`.
-- **FR-BUILD-001**: `ckeditor5-editor.js` build output consumed by form themes.
+- **FR-UI-003**: Widget styles (`ckeditor5-editor-widget.css`: min-height, dark theme tokens) are bundled by Vite and injected once per page instead of an inline `<style>` per widget (CSP-safe).
+- **FR-BUILD-001**: `ckeditor5-editor.js` / `ckeditor5-editor-loader.js` / `ckeditor5-editor.css` build outputs consumed by form themes.
+- **FR-BUILD-002**: Emoji dataset `Resources/public/emoji/16/en.json` shipped locally and resolved next to the build (no CDN fetch).
 - **FR-I18N-001**: Seven locale YAML files with key parity.
 - **FR-TEST-TS-001**: Vitest coverage for client logger and lazy loader.
 - **FR-LAZY-001–005**: Lazy loading of the editor build — see [`../002-lazy-loader/spec.md`](../002-lazy-loader/spec.md).
@@ -62,12 +64,24 @@ Symfony form type and Twig themes that embed **CKEditor 5** with configurable pr
 
 ## Success Criteria
 
-- **SC-001**: **38/38** production files mapped in inventory.
+- **SC-001**: **42/42** files under `src/` mapped in [`code-inventory.md`](code-inventory.md) (13 PHP, 4 TS/CSS sources, 2 co-located Vitest files, 5 config/build outputs, 7 translations, 11 Twig themes; audited 2026-10-20).
 - **SC-002**: Config keys match `Configuration.php` and [`docs/CONFIGURATION.md`](../../docs/CONFIGURATION.md), including `html_sanitizer` (`null` / `allowlist` / `strict` / custom service id) and `lazy_load`.
 - **SC-003**: `composer qa` passes; PHPUnit line coverage on `src/` is **100%**; Vitest runs when TS changes.
+
+## Non-goals
+
+- Premium / commercial CKEditor 5 plugins (only GPL open-source plugins are bundled).
+- Server-side storage of uploads or images: hosts own upload endpoints (auth, CSRF, validation, storage); the demo upload is illustrative.
+- Sanitizing HTML when `html_sanitizer` is `null` (identity, backward compatible) — hosts with user-generated content must opt into `allowlist` / `strict` or a custom service.
+- `demo/` trees are illustrative and not part of the Packagist API.
+
+## Assumptions
+
+- The host renders the field through one of the shipped form themes and serves `Resources/public/` via `assets:install`.
+- The browser loads the Vite IIFE build; no host bundler is required.
 
 ---
 
 ## Validation
 
-`composer qa`, `pnpm test` (when applicable), PHPUnit, PHPStan.
+`composer qa` (PHP-CS-Fixer, PHPStan, PHPUnit with 100% line coverage on `src/`), `pnpm test` (Vitest, when TypeScript changes), `make release-check`. Inventory check: `git ls-files src | wc -l` must equal the inventory total (42).

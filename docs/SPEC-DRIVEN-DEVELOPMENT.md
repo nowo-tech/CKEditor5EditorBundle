@@ -15,9 +15,9 @@ There is no separate executable spec language (for example Gherkin); Spec Kit sp
 - [User stories](#user-stories)
 - [Bundle functional scope](#bundle-functional-scope)
 - [Validating the functional spec](#validating-the-functional-spec)
-- [Requirement identifiers (`REQ-*`)](#requirement-identifiers-req)
+- [Requirement identifiers (`REQ-*`)](#requirement-identifiers-req-)
 - [Suggested workflow for contributors](#suggested-workflow-for-contributors)
-- [Relationship to Engram / external checklists](#relationship-to-engram-external-checklists)
+- [Relationship to Engram / external checklists](#relationship-to-engram--external-checklists)
 - [GitHub Spec Kit (summary)](#github-spec-kit-summary)
 - [See also](#see-also)
 

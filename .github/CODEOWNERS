@@ -1,4 +1,5 @@
-# CODEOWNERS for Ckeditor5EditorBundle
+# CODEOWNERS for CKEditor5EditorBundle
+# Default owner for everything in the repository
 * @HecFranco
 
 /.github/ @HecFranco

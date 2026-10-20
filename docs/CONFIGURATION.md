@@ -5,7 +5,7 @@ Root key: `nowo_ckeditor5_editor`
 ## Contents
 
 - [Top-level](#top-level)
-- [Per profile (`profiles.<name>`)](#per-profile-profilesname)
+- [Per profile (`profiles.<name>`)](#per-profile-profiles)
 - [Legacy keys and flat YAML](#legacy-keys-and-flat-yaml)
 - [Form type `Ckeditor5EditorType` options](#form-type-ckeditor5editortype-options)
 - [Twig overrides](#twig-overrides)

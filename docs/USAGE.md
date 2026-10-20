@@ -6,6 +6,7 @@
 - [Frontend script](#frontend-script)
   - [Lazy loading (1.5.0+)](#lazy-loading-150)
   - [Versioned URLs and caching](#versioned-urls-and-caching)
+- [Dynamic mounts / MutationObserver](#dynamic-mounts--mutationobserver)
 - [Presets](#presets)
 - [Uploads (optional)](#uploads-optional)
 - [Overriding Twig templates (REQ-TWIG-001)](#overriding-twig-templates-req-twig-001)

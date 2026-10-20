@@ -7,6 +7,7 @@ This document describes how the **CKEditor 5 Editor Bundle** demos run under **F
 - [Overview](#overview)
   - [Demo smoke (REQ-TEST-011)](#demo-smoke-req-test-011)
 - [What each demo includes](#what-each-demo-includes)
+  - [FrankenPHP worker mode (compatibility)](#frankenphp-worker-mode-compatibility)
 - [Development](#development)
 - [Production / worker mode](#production--worker-mode)
 - [Ports and URLs](#ports-and-urls)

@@ -8,6 +8,17 @@
 | Method | Manual review of every file under `src/` (form type, data transformer, sanitizers, Twig extension, DI extension, compiler pass, `Resources/config/services.yaml`, form theme templates); PHPStan with `ruleset-classic` + `ruleset-worker` + `ruleset-worker-strict`; regression test for consecutive `buildView()` on the same form type instance |
 | **Verdict** | ✅ **Viable under scenario B** — 100% compatible with FrankenPHP worker mode when the kernel is **not** reset between requests (`reset_kernel: false` / no `services_resetter`). Safe under A and classic PHP-FPM as well |
 
+## Table of contents
+
+- [Execution model assumed](#execution-model-assumed)
+- [Summary](#summary)
+- [Services reviewed](#services-reviewed)
+- [Findings](#findings)
+  - [W-01 — Upload CSRF token is fetched per render (Info, good pattern)](#w-01--upload-csrf-token-is-fetched-per-render-info-good-pattern)
+  - [W-02 — Custom sanitizer services are shared (Info)](#w-02--custom-sanitizer-services-are-shared-info)
+- [Usage recommendations in worker mode](#usage-recommendations-in-worker-mode)
+- [Re-audit triggers](#re-audit-triggers)
+
 ## Execution model assumed
 
 FrankenPHP worker mode boots the Symfony kernel once per worker and serves many requests with the same container. This audit assumes the **strict** variant: the kernel is **not** rebooted between requests, so every shared service, static property and PHP global survives from one request to the next. Two scenarios are evaluated:

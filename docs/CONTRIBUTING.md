@@ -13,7 +13,9 @@ Thank you for contributing to **CKEditor 5 Editor Bundle**.
 - [Project layout](#project-layout)
 - [Code style](#code-style)
 - [Questions](#questions)
+- [Cursor Agent](#cursor-agent)
 - [Git hooks (REQ-GIT-001)](#git-hooks-req-git-001)
+- [Igor worker audit (REQ-CS-008)](#igor-worker-audit-req-cs-008)
 
 ## Code of Conduct
 
@@ -22,7 +24,7 @@ This project follows the [Contributor Covenant Code of Conduct](../CODE_OF_CONDU
 
 ### Reporting bugs
 
-1. Check [existing issues](https://github.com/nowo-tech/Ckeditor5EditorBundle/issues).
+1. Check [existing issues](https://github.com/nowo-tech/CKEditor5EditorBundle/issues).
 2. Open a new issue with steps to reproduce, expected vs actual behaviour, and versions (`composer info nowo-tech/ckeditor5-editor-bundle`, `php -v`, Symfony version).
 
 ### Suggesting enhancements
@@ -56,6 +58,21 @@ CI runs PHPUnit on **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1** (Symfony **8
 ## Questions
 
 Open a support issue from the issue templates or use repository Discussions if enabled.
+## Cursor Agent
+
+Contributors using Cursor Agent on this repository should enable these user-level settings (REQ-IDE-006):
+
+1. **Submit with Ctrl + Enter** (macOS: **⌘ + Enter**) — Cursor Settings → Agents / Chat → Submit with Ctrl + Enter. Enter inserts a newline; Ctrl/⌘+Enter submits the prompt.
+2. **Queue follow-ups while the agent is running** — in your user `settings.json` (Linux `~/.config/Cursor/User/settings.json`, Windows `%APPDATA%\Cursor\User\settings.json`, macOS `~/Library/Application Support/Cursor/User/settings.json`):
+
+```json
+{
+  "cursor.composer.queueMessageDefaultBehavior": "queue"
+}
+```
+
+Do not use `"steer"` as the default: it interrupts the running agent turn as soon as the follow-up is sent.
+
 ## Git hooks (REQ-GIT-001)
 
 Do **not** add `Co-authored-by: Cursor` or `cursoragent@cursor.com` trailers, nor `Co-Authored-By: Claude …` / `noreply@anthropic.com` ones, to commit messages.
