@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.9.1] - 2026-10-20](#191---2026-10-20)
 - [[1.9.0] - 2026-10-15](#190---2026-10-15)
 - [[1.8.0] - 2026-10-13](#180---2026-10-13)
 - [[1.7.0] - 2026-10-13](#170---2026-10-13)
@@ -44,6 +45,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.1] - 2026-10-20
+
+Dependency refresh (bundle and demos), php-cs-fixer ParallelConfig(2). See [UPGRADING](UPGRADING.md#to-191).
+
 ### Changed
 
 - Dependencies refreshed (Composer and pnpm/npm lock files of the bundle and its demos, campaign 2026-10-19); shipped assets rebuilt.
@@ -52,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 - Documentation: wave-1 REQ compliance — canonical issue templates, GitHub links use the `CKEditor5EditorBundle` repository slug, README documentation list order (PSR moved to Additional documentation), CONTRIBUTING Cursor Agent queue settings (REQ-IDE-006), TOCs on long docs, demo compose project name `ckeditor5-editor-bundle-demo-symfony-8` and commented `.env.example`, Spec Kit inventory refresh (42/42) with non-goals and validation commands.
+
+[1.9.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.9.1
 
 ## [1.9.0] - 2026-10-15
 
@@ -427,7 +434,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.9.1...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
