@@ -16,16 +16,19 @@ use function is_string;
  */
 final readonly class Ckeditor5HtmlSanitizeTransformer implements DataTransformerInterface
 {
+    /** Wraps the sanitizer applied to submitted editor HTML. */
     public function __construct(
         private Ckeditor5HtmlSanitizerInterface $sanitizer,
     ) {
     }
 
+    /** Returns the model value unchanged (HTML is sanitized on submit only). */
     public function transform(mixed $value): mixed
     {
         return $value;
     }
 
+    /** Sanitizes the submitted HTML string; non-string values pass through. */
     public function reverseTransform(mixed $value): mixed
     {
         if (!is_string($value)) {

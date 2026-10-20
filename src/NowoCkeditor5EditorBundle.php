@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class NowoCkeditor5EditorBundle extends Bundle
 {
+    /** Registers the bundle compiler passes. */
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new TwigPathsPass());

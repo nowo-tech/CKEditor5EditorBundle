@@ -32,6 +32,7 @@ enum EditorPreset: string
         return array_column(self::cases(), 'value');
     }
 
+    /** Resolves a preset from its configuration value. */
     public static function fromString(string $value): self
     {
         $v = strtolower(trim($value));

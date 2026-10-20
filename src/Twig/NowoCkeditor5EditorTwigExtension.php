@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Nowo\Ckeditor5EditorBundle\Twig;
 
+use Nowo\Ckeditor5EditorBundle\DependencyInjection\NowoCkeditor5EditorExtension;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -33,8 +36,12 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
     /** Symfony asset package registered by {@see NowoCkeditor5EditorExtension::prepend()}. */
     public const ASSET_PACKAGE = 'nowo_ckeditor5_editor';
 
-    /** Public base path used when the Asset component service is unavailable. */
-    public const PUBLIC_BASE_PATH = '/bundles/nowockeditor5editor/';
+    /**
+     * Public base path of the asset package.
+     *
+     * @deprecated since 1.10, use {@see NowoCkeditor5EditorExtension::ASSET_BASE_PATH}; URLs always go through the asset package
+     */
+    public const PUBLIC_BASE_PATH = NowoCkeditor5EditorExtension::ASSET_BASE_PATH . '/';
 
     /** Full editor build (~1.2 MB). */
     public const BUILD_SCRIPT = 'ckeditor5-editor.js';
@@ -53,16 +60,22 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
 
     private readonly string $publicDir;
 
+    private readonly Packages $packages;
+
     /**
      * @param Packages|null $packages Symfony asset packages (null when framework assets are disabled)
      * @param bool $lazyLoad Default for the `lazy` option of nowo_ckeditor5_editor_script() (config `lazy_load`)
      * @param string|null $publicDir Directory holding the built assets (defaults to Resources/public)
      */
     public function __construct(
-        private readonly ?Packages $packages = null,
+        ?Packages $packages = null,
         private readonly bool $lazyLoad = false,
         ?string $publicDir = null,
     ) {
+        // Without framework assets, register the same named package the extension prepends (REQ-ASSETS-004).
+        $this->packages = $packages ?? new Packages(null, [
+            self::ASSET_PACKAGE => new PathPackage(NowoCkeditor5EditorExtension::ASSET_BASE_PATH, new EmptyVersionStrategy()),
+        ]);
         $this->publicDir = rtrim($publicDir ?? __DIR__ . '/../Resources/public', '/');
     }
 
@@ -106,9 +119,7 @@ final class NowoCkeditor5EditorTwigExtension extends AbstractExtension
     public function assetUrl(string $filename = self::BUILD_SCRIPT): string
     {
         $path = $this->assetPath($filename);
-        $url  = $this->packages instanceof Packages
-            ? $this->packages->getUrl($path, self::ASSET_PACKAGE)
-            : self::PUBLIC_BASE_PATH . $path;
+        $url  = $this->packages->getUrl($path, self::ASSET_PACKAGE);
 
         $version = $this->assetVersion($path);
         if ($version === null) {

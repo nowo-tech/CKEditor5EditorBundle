@@ -45,6 +45,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Asset URLs always go through the `nowo_ckeditor5_editor` asset package: without `framework.assets` the Twig extension registers the same named package itself (base path from `NowoCkeditor5EditorExtension::ASSET_BASE_PATH`), and the JS build resolves its own URL from the executing `<script>` instead of a hard-coded `/bundles/…` path (REQ-ASSETS-004). `NowoCkeditor5EditorTwigExtension::PUBLIC_BASE_PATH` is deprecated.
+- `make validate-translations` checks key parity of every catalogue against `en`; `release-check` starts with `ensure-up` and runs `check-no-raw-html-form` and `validate-translations` (REQ-MAKE-002, REQ-MAKE-004).
+- Demo: `make up` reads `PORT` from `.env` then `.env.example` and waits for a real HTTP 200; `release-verify` / `demo-smoke` follow redirects and require a final 200; the demo `release-check` runs `update-bundle` first; new `Demo smoke` workflow (tags, weekly, manual) (REQ-DEMO-005, REQ-DEMO-007, REQ-TEST-011).
+- `docs/SECURITY.md` gains attack surface, threat model, logging and dependency policy sections; `.github/SECURITY.md` follows the canonical template (REQ-SEC-001, REQ-SEC-003).
+- PHPDoc on every public method (REQ-CS-001); `make help` in the standard block order (REQ-MAKE-001); composer.json homepage/support URLs use the `CKEditor5EditorBundle` repository name; the co-author check accepts git worktrees.
+
 ## [1.9.1] - 2026-10-20
 
 Dependency refresh (bundle and demos), php-cs-fixer ParallelConfig(2). See [UPGRADING](UPGRADING.md#to-191).

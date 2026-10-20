@@ -22,6 +22,9 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class NowoCkeditor5EditorExtension extends Extension implements PrependExtensionInterface
 {
+    /** Public directory created by assets:install; base path of the {@see Configuration::ALIAS} asset package (REQ-ASSETS-004). */
+    public const ASSET_BASE_PATH = '/bundles/nowockeditor5editor';
+
     /** @var array<string, string> */
     private const FORM_THEME_MAP = [
         'form_div_layout.html.twig'               => '@NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig',
@@ -37,6 +40,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         'tailwind_2_layout.html.twig'             => '@NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme_tailwind2.html.twig',
     ];
 
+    /** Loads the bundle services and exposes the processed configuration as container parameters. */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -97,6 +101,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         $typeDefinition->setArgument('$htmlSanitizer', new Reference(Ckeditor5HtmlSanitizerInterface::class));
     }
 
+    /** Prepends Twig and asset configuration required by the editor. */
     public function prepend(ContainerBuilder $container): void
     {
         if ($container->hasExtension('framework')) {
@@ -104,7 +109,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
                 'assets' => [
                     'packages' => [
                         Configuration::ALIAS => [
-                            'base_path' => '/bundles/nowockeditor5editor',
+                            'base_path' => self::ASSET_BASE_PATH,
                         ],
                     ],
                 ],
@@ -151,6 +156,7 @@ final class NowoCkeditor5EditorExtension extends Extension implements PrependExt
         return array_merge([$defaultPath], $rest);
     }
 
+    /** Returns the configuration alias (nowo_ckeditor5_editor). */
     public function getAlias(): string
     {
         return Configuration::ALIAS;

@@ -16,6 +16,7 @@ final class TwigPathsPass implements CompilerPassInterface
 {
     private const TWIG_NAMESPACE = 'NowoCkeditor5EditorBundle';
 
+    /** Registers the bundle Twig namespace, preferring app-level template overrides. */
     public function process(ContainerBuilder $container): void
     {
         $loaderId = $this->getNativeLoaderServiceId($container);

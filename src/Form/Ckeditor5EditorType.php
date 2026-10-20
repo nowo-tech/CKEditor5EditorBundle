@@ -54,6 +54,7 @@ final class Ckeditor5EditorType extends AbstractType
     ) {
     }
 
+    /** Adds the HTML sanitizer transformer when sanitizing is enabled. */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($this->htmlSanitizer instanceof Ckeditor5HtmlSanitizerInterface) {
@@ -61,6 +62,7 @@ final class Ckeditor5EditorType extends AbstractType
         }
     }
 
+    /** Exposes the editor settings (toolbar, preset, theme, upload URL and CSRF token) to the form view. */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $profile                                 = $this->mergeYamlProfileWithEditorConfig($options);
@@ -88,6 +90,7 @@ final class Ckeditor5EditorType extends AbstractType
         return $this->csrfTokenManager->getToken(self::CSRF_UPLOAD_TOKEN_ID)->getValue();
     }
 
+    /** Declares the editor options and their defaults from the bundle configuration. */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -197,11 +200,13 @@ final class Ckeditor5EditorType extends AbstractType
         ]);
     }
 
+    /** The editor renders as a textarea enhanced on the client. */
     public function getParent(): string
     {
         return TextareaType::class;
     }
 
+    /** Returns the form theme block prefix. */
     public function getBlockPrefix(): string
     {
         return 'ckeditor5_editor';

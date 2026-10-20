@@ -42,7 +42,7 @@ make demo-smoke
 # or: make -C demo release-verify
 ```
 
-This starts `demo/symfony8`, curls `http://127.0.0.1:$PORT` (default **8021**), expects **200**, then tears the stack down. Included in `make -C demo release-check` / root `make release-check`.
+This starts `demo/symfony8`, requests `http://127.0.0.1:$PORT/` (default **8021**) following redirects, expects a final **HTTP 200**, then tears the stack down. Included in `make -C demo release-check` / root `make release-check`, and run by the `Demo smoke` GitHub workflow on version tags, every Monday and on demand.
 
 ## What each demo includes
 

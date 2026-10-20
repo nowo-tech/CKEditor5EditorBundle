@@ -7,7 +7,7 @@ COMPOSE ?= $(shell docker compose version >/dev/null 2>&1 && echo "docker compos
 .PHONY: help up down build install shell logs test test-coverage cache-clear link-bundle update-bundle ensure-up restart
 
 help:
-	@echo "Symfony 8.0 Demo - Tiptap Editor Bundle"
+	@echo "Symfony 8 Demo - CKEditor 5 Editor Bundle"
 	@echo ""
 	@echo "  make up             Start containers"
 	@echo "  make down           Stop containers"
@@ -33,12 +33,16 @@ up:
 	@echo "Starting server..."
 	$(COMPOSE) up -d
 	@echo "Waiting for app to respond..."
-	@PORT=$$(grep -E '^PORT=' .env 2>/dev/null | cut -d= -f2); PORT=$${PORT:-8021}; \
+	@PORT=$$(grep "^PORT=" .env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
+	[ -z "$$PORT" ] && PORT=$$(grep "^PORT=" .env.example 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
+	code=000; \
 	for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do \
-		curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:$$PORT/" 2>/dev/null | grep -qE '^[23]' && echo "Demo started at: http://localhost:$$PORT"; exit 0; \
-		echo "  waiting... $$i/15"; sleep 2; \
+		code=$$(curl -sL -o /dev/null -w "%{http_code}" "http://127.0.0.1:$$PORT/" 2>/dev/null || true); \
+		[ "$$code" = "200" ] && break; \
+		echo "  waiting... $$i/15 (HTTP $$code)"; sleep 2; \
 	done; \
-	echo "App did not respond in time. Check: $(COMPOSE) logs php"; exit 1
+	if [ "$$code" != "200" ]; then echo "App did not respond in time (HTTP $$code). Check: $(COMPOSE) logs php"; exit 1; fi; \
+	echo "Demo started at: http://localhost:$$PORT"
 
 down:
 	$(COMPOSE) down

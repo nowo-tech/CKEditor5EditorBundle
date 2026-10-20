@@ -10,6 +10,7 @@ namespace Nowo\Ckeditor5EditorBundle\Security;
  */
 final class IdentityCkeditor5HtmlSanitizer implements Ckeditor5HtmlSanitizerInterface
 {
+    /** Returns the HTML unchanged (sanitizing disabled). */
     public function sanitize(string $html): string
     {
         return $html;

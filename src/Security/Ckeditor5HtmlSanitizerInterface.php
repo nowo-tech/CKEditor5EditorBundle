@@ -10,5 +10,6 @@ namespace Nowo\Ckeditor5EditorBundle\Security;
  */
 interface Ckeditor5HtmlSanitizerInterface
 {
+    /** Returns a safe version of the given editor HTML. */
     public function sanitize(string $html): string;
 }

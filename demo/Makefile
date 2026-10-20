@@ -6,7 +6,7 @@ COMPOSE ?= $(shell docker compose version >/dev/null 2>&1 && echo "docker compos
 
 DEMOS := symfony8
 
-.PHONY: help clean test-all test-coverage-all verify-all release-check release-verify demo-smoke
+.PHONY: help clean test-all test-coverage-all verify-all release-check release-verify demo-smoke update-bundle-all
 .PHONY: $(foreach demo,$(DEMOS),up-$(demo) down-$(demo) restart-$(demo) build-$(demo) install-$(demo) update-bundle-$(demo) shell-$(demo) logs-$(demo) test-$(demo) test-coverage-$(demo) verify-$(demo))
 .PHONY: up down restart build install update-bundle test shell logs test-coverage verify
 
@@ -30,7 +30,7 @@ help:
 		echo "  test-coverage-$$demo  Run tests with coverage for $$version demo"; \
 		echo ""; \
 	done
-	@echo "  release-check    Pre-release: test-coverage-all, release-verify"
+	@echo "  release-check    Pre-release: update-bundle-all, test-coverage-all, release-verify"
 	@echo "  release-verify   For each demo: up → healthcheck HTTP 200 → down"
 	@echo "  demo-smoke       Alias of release-verify (REQ-TEST-011)"
 	@echo ""
@@ -93,9 +93,9 @@ define verify-target-template
 verify-$(1):
 	@$(MAKE) -C $(1) ensure-up
 	@port=$$(grep "^PORT=" $(1)/.env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
-		[ -z "$$port" ] && port="8021"; \
-	code=$$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port 2>/dev/null || echo "000"); \
-	if echo "$$code" | grep -qE '^[23][0-9][0-9]$$'; then echo "✅ $(1) OK (HTTP $$code)"; else echo "❌ $(1) HTTP $$code"; exit 1; fi
+		[ -z "$$port" ] && port=$$(grep "^PORT=" $(1)/.env.example 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
+	code=$$(curl -sL -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port/ 2>/dev/null || echo "000"); \
+	if [ "$$code" = "200" ]; then echo "✅ $(1) OK (HTTP $$code)"; else echo "❌ $(1) HTTP $$code"; exit 1; fi
 endef
 
 $(foreach demo,$(DEMOS),$(eval $(call up-target-template,$(demo))))
@@ -164,23 +164,27 @@ verify:
 	@[ -n "$(DEMO)" ] || { echo "Usage: make verify DEMO=symfony8"; exit 1; }
 	@$(MAKE) verify-$(DEMO)
 
-# release-verify: for each demo up → sleep → healthcheck HTTP 2xx/3xx → down
+# release-verify: for each demo up → GET / following redirects, expect a final HTTP 200 → down (REQ-TEST-011)
 release-verify:
 	@for demo in $(DEMOS); do \
 		port=$$(grep '^PORT=' $$demo/.env 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
-		[ -z "$$port" ] && port=8021; \
+		[ -z "$$port" ] && port=$$(grep '^PORT=' $$demo/.env.example 2>/dev/null | cut -d= -f2 | tr -d '\r'); \
 		echo "Release verify: $$demo (port $$port)..."; \
-		$(MAKE) up-$$demo; sleep 12; \
-		code=$$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port 2>/dev/null || echo "000"); \
+		$(MAKE) up-$$demo || { $(MAKE) down-$$demo 2>/dev/null; exit 1; }; \
+		code=$$(curl -sL -o /dev/null -w "%{http_code}" http://127.0.0.1:$$port/ 2>/dev/null || echo "000"); \
 		$(MAKE) down-$$demo 2>/dev/null || true; \
-		if ! echo "$$code" | grep -qE '^[23][0-9][0-9]$$'; then echo "$$demo healthcheck failed (HTTP $$code)"; exit 1; fi; \
+		if [ "$$code" != "200" ]; then echo "$$demo healthcheck failed (HTTP $$code)"; exit 1; fi; \
 		echo "OK $$demo (HTTP $$code)"; \
 	done
 	@echo "All demos passed release-verify."
-# REQ-TEST-011 — boot + one HTTP 2xx/3xx
+# REQ-TEST-011 — boot + one HTTP 200 (final response after redirects)
 demo-smoke: release-verify
 
-release-check: test-coverage-all release-verify
+# REQ-DEMO-007 — sync the bundle into every demo before its tests
+update-bundle-all:
+	@$(foreach demo,$(DEMOS),$(MAKE) update-bundle-$(demo);)
+
+release-check: update-bundle-all test-coverage-all release-verify
 	@echo "All demos passed release-check."
 
 clean:

@@ -2,12 +2,47 @@
 
 ## Table of contents
 
+- [Attack surface](#attack-surface)
+- [Threat model](#threat-model)
+- [Logging](#logging)
+- [Dependencies](#dependencies)
 - [Security considerations for integrators](#security-considerations-for-integrators)
 - [Bundle responsibility](#bundle-responsibility)
 - [AI security audit](#ai-security-audit)
 - [Supported versions](#supported-versions)
 - [Reporting a vulnerability](#reporting-a-vulnerability)
 - [Release security checklist (12.4.1)](#release-security-checklist-1241)
+
+## Attack surface
+
+| Input | Where | Notes |
+| --- | --- | --- |
+| Editor HTML submitted with a form | `Ckeditor5EditorType` (textarea) | Untrusted user content; sanitized on submit when `html_sanitizer` is `allowlist` / `strict` |
+| Bundle configuration | `nowo_ckeditor5_editor` YAML profiles | Trusted (developer-controlled); validated by the config tree |
+| `upload_url` endpoint | Host application route | The bundle only posts files there with a CSRF token; validation is the host's job |
+| Published JS/CSS | `public/bundles/nowockeditor5editor/` via the `nowo_ckeditor5_editor` asset package | Static files built from the bundle sources |
+
+The bundle exposes **no HTTP routes or controllers** and performs no outbound HTTP, subprocess or file-system writes at runtime.
+
+## Threat model
+
+| Threat | Mitigation |
+| --- | --- |
+| Stored XSS through editor HTML | Server-side allowlist sanitizer (`symfony/html-sanitizer`, DOM-based) enabled in `when@prod` by the Flex recipe; `strict` profile drops every iframe; Twig escapes attribute values |
+| Malicious embeds (iframe) | Only `https://` YouTube/Vimeo hosts survive; the iframe keeps `src` only |
+| Script injection by the widget | No `eval`, `document.write` or unsanitized `innerHTML`; CSS shipped as a file, so strict CSP with nonces works |
+| CSRF on uploads | Upload requests carry a token for `Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID`; a profile with `upload_url` refuses to render without a CSRF token manager |
+| Malicious uploads | Out of scope of the bundle: the host endpoint must check auth, MIME (magic bytes), size and storage |
+| Supply chain (CKEditor build) | Build committed from locked `pnpm` dependencies (Dependabot `npm` updates); `composer audit` in CI |
+
+## Logging
+
+The bundle has no server-side logger: it logs nothing on the server, so no HTML content, tokens or personal data reach application logs from it. The browser widget prints diagnostic messages to the console only when the profile `debug: true` is set (never editor content or CSRF tokens); keep `debug: false` in production.
+
+## Dependencies
+
+- PHP dependencies are checked with `composer audit` in CI (`ci.yml`, Critical/High) and before every release; JS build dependencies are pinned in `pnpm-lock.yaml` and refreshed with Dependabot.
+- Security fixes are released as patch versions of the supported major (see [Supported versions](#supported-versions)); upgrade with `composer update nowo-tech/ckeditor5-editor-bundle`.
 
 ## Security considerations for integrators
 

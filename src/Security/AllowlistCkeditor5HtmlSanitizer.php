@@ -93,6 +93,7 @@ final readonly class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSan
 
     private HtmlSanitizerInterface $sanitizer;
 
+    /** Builds the allowlist sanitizer; iframes from known embed hosts are kept only when embeds are allowed. */
     public function __construct(
         private bool $allowEmbeds = true,
     ) {
@@ -118,6 +119,7 @@ final readonly class AllowlistCkeditor5HtmlSanitizer implements Ckeditor5HtmlSan
         $this->sanitizer = new HtmlSanitizer($config);
     }
 
+    /** Removes every element and attribute that is not allowlisted. */
     public function sanitize(string $html): string
     {
         $html = $this->sanitizer->sanitize($html);

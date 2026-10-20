@@ -27,6 +27,7 @@ final class Configuration implements ConfigurationInterface
 {
     public const ALIAS = 'nowo_ckeditor5_editor';
 
+    /** Builds the nowo_ckeditor5_editor configuration tree. */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::ALIAS);

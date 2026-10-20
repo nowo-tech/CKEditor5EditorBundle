@@ -32,16 +32,19 @@ final readonly class EmbedIframeSrcAttributeSanitizer implements AttributeSaniti
     ) {
     }
 
+    /** Applies only to iframe elements. */
     public function getSupportedElements(): array
     {
         return ['iframe'];
     }
 
+    /** Applies only to the src attribute. */
     public function getSupportedAttributes(): array
     {
         return ['src'];
     }
 
+    /** Keeps the iframe src only when it points at an allowed embed host. */
     public function sanitizeAttribute(string $element, string $attribute, string $value, HtmlSanitizerConfig $config): ?string
     {
         $src = trim($value);

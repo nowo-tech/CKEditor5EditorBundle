@@ -110,9 +110,9 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 
 ## Tests and coverage
 
-- Tests: PHPUnit (unit + integration) and Vitest (`logger.ts`). Run `make test` / `composer test` and `make test-ts`.
+- Tests: PHPUnit (unit + integration) and Vitest (`logger.ts`, lazy loader). Run `make test` / `composer test` and `make test-ts`.
 - PHP: **100%**
-- TS/JS: **100%** (Vitest on `src/Resources/assets/src/logger.ts`; see `vitest.config.ts`)
+- TS/JS: **100%** (Vitest on `src/Resources/assets/src/logger.ts` and `ckeditor5-editor-loader.ts`; see `vitest.config.ts`). The CKEditor build entry `ckeditor5-editor.ts` is excluded from the gate: it boots the real CKEditor 5 classic editor and is exercised through the demo instead (`make demo-smoke` and the `/demo/variants` pages).
 - Python: N/A
 
 CI runs PHPUnit (matrix **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1**), PHPStan, PHP-CS-Fixer dry-run, and Vitest coverage on pushes and pull requests.

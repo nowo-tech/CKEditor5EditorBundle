@@ -14,12 +14,12 @@
         "editor",
         "vite"
     ],
-    "homepage": "https://github.com/nowo-tech/Ckeditor5EditorBundle",
+    "homepage": "https://github.com/nowo-tech/CKEditor5EditorBundle",
     "support": {
-        "issues": "https://github.com/nowo-tech/Ckeditor5EditorBundle/issues",
-        "source": "https://github.com/nowo-tech/Ckeditor5EditorBundle",
-        "docs": "https://github.com/nowo-tech/Ckeditor5EditorBundle/tree/main/docs",
-        "changelog": "https://github.com/nowo-tech/Ckeditor5EditorBundle/blob/main/docs/CHANGELOG.md"
+        "issues": "https://github.com/nowo-tech/CKEditor5EditorBundle/issues",
+        "source": "https://github.com/nowo-tech/CKEditor5EditorBundle",
+        "docs": "https://github.com/nowo-tech/CKEditor5EditorBundle/tree/main/docs",
+        "changelog": "https://github.com/nowo-tech/CKEditor5EditorBundle/blob/main/docs/CHANGELOG.md"
     },
     "authors": [
         {

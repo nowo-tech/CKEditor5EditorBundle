@@ -62,8 +62,14 @@ const ROOT_SELECTOR = '[data-ckeditor5-root="1"]';
  * the picker never fetches cdn.ckeditor.com (blocked by `connect-src 'self'` and not self-hosted).
  */
 const EMOJI_DEFINITIONS_PATH = 'emoji/16/en.json';
+/**
+ * URL of this build, used to resolve files shipped next to it. The asset package decides where the build lives
+ * (REQ-ASSETS-004), so the URL is read from the executing `<script>` (or the tag that loaded it), never hard-coded.
+ */
 const BUILD_SRC =
-  (document.currentScript as HTMLScriptElement | null)?.src || `${location.origin}/bundles/nowockeditor5editor/ckeditor5-editor.js`;
+  (document.currentScript as HTMLScriptElement | null)?.src ||
+  document.querySelector<HTMLScriptElement>('script[src*="ckeditor5-editor.js"]')?.src ||
+  location.href;
 
 export type EditorPreset =
   | 'standard'
