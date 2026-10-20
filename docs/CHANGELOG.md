@@ -44,6 +44,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Dependencies refreshed (Composer and pnpm/npm lock files of the bundle and its demos, campaign 2026-10-19); shipped assets rebuilt.
+- `.php-cs-fixer.dist.php`: `new ParallelConfig(2)` (REQ-CS-001).
+
 ### Documentation
 
 - Documentation: wave-1 REQ compliance — canonical issue templates, GitHub links use the `CKEditor5EditorBundle` repository slug, README documentation list order (PSR moved to Additional documentation), CONTRIBUTING Cursor Agent queue settings (REQ-IDE-006), TOCs on long docs, demo compose project name `ckeditor5-editor-bundle-demo-symfony-8` and commented `.env.example`, Spec Kit inventory refresh (42/42) with non-goals and validation commands.
