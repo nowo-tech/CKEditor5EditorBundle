@@ -195,7 +195,7 @@
             "dist": {
                 "type": "path",
                 "url": "/var/ckeditor5-editor-bundle",
-                "reference": "b5642e7c5550010885be431516cdadf4fde81265"
+                "reference": "5996af2154d5d7c4fcf3a19498657ea1e055243f"
             },
             "require": {
                 "php": ">=8.2 <8.6",
@@ -298,7 +298,7 @@
                 }
             ],
             "description": "Symfony form type for rich text using CKEditor 5 (GPL OSS build via Vite). FOS-style YAML profiles, Docker makefile workflow.",
-            "homepage": "https://github.com/nowo-tech/Ckeditor5EditorBundle",
+            "homepage": "https://github.com/nowo-tech/CKEditor5EditorBundle",
             "keywords": [
                 "ckeditor",
                 "ckeditor5",
@@ -311,10 +311,10 @@
                 "wysiwyg"
             ],
             "support": {
-                "issues": "https://github.com/nowo-tech/Ckeditor5EditorBundle/issues",
-                "source": "https://github.com/nowo-tech/Ckeditor5EditorBundle",
-                "docs": "https://github.com/nowo-tech/Ckeditor5EditorBundle/tree/main/docs",
-                "changelog": "https://github.com/nowo-tech/Ckeditor5EditorBundle/blob/main/docs/CHANGELOG.md"
+                "issues": "https://github.com/nowo-tech/CKEditor5EditorBundle/issues",
+                "source": "https://github.com/nowo-tech/CKEditor5EditorBundle",
+                "docs": "https://github.com/nowo-tech/CKEditor5EditorBundle/tree/main/docs",
+                "changelog": "https://github.com/nowo-tech/CKEditor5EditorBundle/blob/main/docs/CHANGELOG.md"
             },
             "transport-options": {
                 "relative": false
@@ -4562,16 +4562,16 @@
     "packages-dev": [
         {
             "name": "nowo-tech/hot-reload-bundle",
-            "version": "v1.6.1",
+            "version": "v1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nowo-tech/HotReloadBundle.git",
-                "reference": "6d3117328bd9d7f55a70743567d04ee25d6bc366"
+                "reference": "cf84e69a6f93f95f06876638337f9f792b2bcb0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nowo-tech/HotReloadBundle/zipball/6d3117328bd9d7f55a70743567d04ee25d6bc366",
-                "reference": "6d3117328bd9d7f55a70743567d04ee25d6bc366",
+                "url": "https://api.github.com/repos/nowo-tech/HotReloadBundle/zipball/cf84e69a6f93f95f06876638337f9f792b2bcb0a",
+                "reference": "cf84e69a6f93f95f06876638337f9f792b2bcb0a",
                 "shasum": ""
             },
             "require": {
@@ -4649,7 +4649,7 @@
                 "issues": "https://github.com/nowo-tech/HotReloadBundle/issues",
                 "source": "https://github.com/nowo-tech/HotReloadBundle"
             },
-            "time": "2026-10-13T10:57:34+00:00"
+            "time": "2026-10-21T05:26:17+00:00"
         },
         {
             "name": "nowo-tech/twig-inspector-bundle",
