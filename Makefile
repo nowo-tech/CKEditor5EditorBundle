@@ -124,7 +124,7 @@ qa: ensure-up
 
 composer-sync: ensure-up
 	$(COMPOSE) exec -T $(SERVICE_PHP) composer validate --strict
-	$(COMPOSE) exec -T $(SERVICE_PHP) composer update --lock --no-install --no-interaction
+	$(COMPOSE) exec -T $(SERVICE_PHP) composer install --no-interaction --prefer-dist
 
 # REQ-GIT-001 — see docs/GITHUB_CI.md
 check-no-cursor-coauthor:
