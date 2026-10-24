@@ -23,7 +23,11 @@
 
     <dialog id="ckeditor5-lazy-dialog" class="border rounded p-4" style="width: min(90vw, 760px);">
         {{ form_start(form) }}
-            {{ form_row(form.content) }}
+            {% for child in form %}
+                {% if not child.rendered %}
+                    {{ form_row(child) }}
+                {% endif %}
+            {% endfor %}
             <button type="submit" class="btn btn-primary">{{ 'demo.submit'|trans({}, 'messages') }}</button>
             <button type="button" class="btn btn-outline-secondary" id="ckeditor5-lazy-close">{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
         {{ form_end(form) }}

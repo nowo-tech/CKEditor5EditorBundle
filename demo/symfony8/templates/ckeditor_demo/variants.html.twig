@@ -21,20 +21,23 @@
 
     {{ form_start(form) }}
 
-    <h2 class="h5 mt-4">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
-    <p class="small text-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
-    {{ form_row(form.content_compact) }}
-    {{ form_row(form.content_folio) }}
-    {{ form_row(form.content_folio_env) }}
-
-    <h2 class="h5 mt-4">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
-    <p class="small text-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
-    {{ form_row(form.content_dark) }}
-    {{ form_row(form.content_auto) }}
-
-    <h2 class="h5 mt-4">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
-    <p class="small text-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
-    {{ form_row(form.content_reading) }}
+    {% for child in form %}
+        {% if not child.rendered %}
+            {% if child.vars.name == 'content_compact' %}
+                <h2 class="h5 mt-4">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
+                <p class="small text-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
+            {% endif %}
+            {% if child.vars.name == 'content_dark' %}
+                <h2 class="h5 mt-4">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
+                <p class="small text-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
+            {% endif %}
+            {% if child.vars.name == 'content_reading' %}
+                <h2 class="h5 mt-4">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
+                <p class="small text-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
+            {% endif %}
+            {{ form_row(child) }}
+        {% endif %}
+    {% endfor %}
 
     <button type="submit" class="btn btn-primary mt-3">{{ 'demo.submit_all'|trans({}, 'messages') }}</button>
     {{ form_end(form) }}

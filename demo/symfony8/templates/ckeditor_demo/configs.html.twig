@@ -15,17 +15,23 @@
     {% endfor %}
 
     {{ form_start(form) }}
-        <h2 class="h5 mt-4">{{ 'demo.section_standard'|trans({}, 'messages') }}</h2>
-        <p class="small text-muted">{{ 'demo.section_standard_hint'|trans({}, 'messages') }}</p>
-        {{ form_row(form.content_standard) }}
-
-        <h2 class="h5 mt-4">{{ 'demo.section_simple'|trans({}, 'messages') }}</h2>
-        <p class="small text-muted">{{ 'demo.section_simple_hint'|trans({}, 'messages') }}</p>
-        {{ form_row(form.content_simple) }}
-
-        <h2 class="h5 mt-4">{{ 'demo.section_minimal'|trans({}, 'messages') }}</h2>
-        <p class="small text-muted">{{ 'demo.section_minimal_hint'|trans({}, 'messages') }}</p>
-        {{ form_row(form.content_minimal) }}
+        {% for child in form %}
+            {% if not child.rendered %}
+                {% if child.vars.name == 'content_standard' %}
+                    <h2 class="h5 mt-4">{{ 'demo.section_standard'|trans({}, 'messages') }}</h2>
+                    <p class="small text-muted">{{ 'demo.section_standard_hint'|trans({}, 'messages') }}</p>
+                {% endif %}
+                {% if child.vars.name == 'content_simple' %}
+                    <h2 class="h5 mt-4">{{ 'demo.section_simple'|trans({}, 'messages') }}</h2>
+                    <p class="small text-muted">{{ 'demo.section_simple_hint'|trans({}, 'messages') }}</p>
+                {% endif %}
+                {% if child.vars.name == 'content_minimal' %}
+                    <h2 class="h5 mt-4">{{ 'demo.section_minimal'|trans({}, 'messages') }}</h2>
+                    <p class="small text-muted">{{ 'demo.section_minimal_hint'|trans({}, 'messages') }}</p>
+                {% endif %}
+                {{ form_row(child) }}
+            {% endif %}
+        {% endfor %}
 
         <button type="submit" class="btn btn-primary mt-3">{{ 'demo.submit_all'|trans({}, 'messages') }}</button>
     {{ form_end(form) }}

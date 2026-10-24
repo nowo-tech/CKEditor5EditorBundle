@@ -46,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Demo (REQ-TWIG-003):** the `ckeditor_demo/*` templates (show, emoji, inline_config, lazy, typography, upload_images, variables, configs, variants) render their forms through the child loop (`{% for child in form %}` + `form_row(child)`) instead of `form_row(form.content*)`; the configs/variants section headings are emitted before the first field of each section.
+
 ## [1.10.0] - 2026-10-20
 
 Asset URLs always through the asset package, translation key-parity and raw-form gates, demo smoke workflow, security docs. See [UPGRADING](UPGRADING.md#to-1100).
