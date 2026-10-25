@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.10.1] - 2026-10-25](#1101---2026-10-25)
 - [[1.10.0] - 2026-10-20](#1100---2026-10-20)
 - [[1.9.1] - 2026-10-20](#191---2026-10-20)
 - [[1.9.0] - 2026-10-15](#190---2026-10-15)
@@ -46,10 +47,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.1] - 2026-10-25
+
+Reproducible JS bundle: the build stamp is a hash of the sources instead of the build time. See [UPGRADING](UPGRADING.md#to-1101).
+
 ### Changed
 
 - **Assets:** reproducible bundle build. `__CKEDITOR5_EDITOR_BUILD_TIME__` now holds a build id (a hash of the TypeScript/CSS sources and `pnpm-lock.yaml`) instead of the build time, so rebuilding unchanged sources (`make assets`, `make release-check`) no longer rewrites the committed JS; the console line reads `script loaded, build: <id>`.
 - **Demo (REQ-TWIG-003):** the `ckeditor_demo/*` templates (show, emoji, inline_config, lazy, typography, upload_images, variables, configs, variants) render their forms through the child loop (`{% for child in form %}` + `form_row(child)`) instead of `form_row(form.content*)`; the configs/variants section headings are emitted before the first field of each section.
+
+[1.10.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.10.1
 
 ## [1.10.0] - 2026-10-20
 
@@ -454,7 +461,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.1...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
