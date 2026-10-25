@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Assets:** reproducible bundle build. `__CKEDITOR5_EDITOR_BUILD_TIME__` now holds a build id (a hash of the TypeScript/CSS sources and `pnpm-lock.yaml`) instead of the build time, so rebuilding unchanged sources (`make assets`, `make release-check`) no longer rewrites the committed JS; the console line reads `script loaded, build: <id>`.
 - **Demo (REQ-TWIG-003):** the `ckeditor_demo/*` templates (show, emoji, inline_config, lazy, typography, upload_images, variables, configs, variants) render their forms through the child loop (`{% for child in form %}` + `form_row(child)`) instead of `form_row(form.content*)`; the configs/variants section headings are emitted before the first field of each section.
 
 ## [1.10.0] - 2026-10-20

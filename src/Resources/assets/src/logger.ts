@@ -22,7 +22,7 @@ export type BundleLoggerOptions = {
 };
 
 export type BundleLogger = {
-  /** Call once at startup. Logs "script loaded" and optional build time. */
+  /** Call once at startup. Logs "script loaded" and optional build id. */
   scriptLoaded: () => void;
   /** When false (default), `debug`/`info`/`warn`/`error` are no-ops. */
   setDebug: (enabled: boolean) => void;
@@ -76,7 +76,7 @@ export function createBundleLogger(name: string, options: BundleLoggerOptions = 
     scriptLoaded(): void {
       if (buildTime !== undefined && buildTime !== '') {
         console.log(
-          `%c${EMOJI.script} ${prefix} script loaded, build time: %c${buildTime}`,
+          `%c${EMOJI.script} ${prefix} script loaded, build: %c${buildTime}`,
           STYLES.script,
           'color:#059669',
         );
