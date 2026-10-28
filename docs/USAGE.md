@@ -126,6 +126,10 @@ templates/bundles/NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twi
 
 Full procedure, logical names (`@NowoCkeditor5EditorBundle/...`), and the complete subpath list: [CONFIGURATION.md — Twig overrides](CONFIGURATION.md#twig-overrides).
 
+**Override vs upgrade (freeze rule).** An application file at the override path always wins and does not pick up vendor changes for that path until you remove or merge it: a full-file override freezes that `<subpath>` on every `composer update` while the rest of the bundle keeps upgrading. Prefer the upgrade-safe options first: toolbar, plugins and height in the YAML profiles (`nowo_ckeditor5_editor.profiles.<name>`), widget options on the form field, and a form theme that only overrides the block you need (`{% extends '@!NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig' %}`).
+
+**Recovering upstream after a freeze:** delete (or rename aside) the application override, clear the cache (`php bin/console cache:clear`) and re-apply only the customisation you still need. Diff your copy against the new vendor file under `vendor/nowo-tech/ckeditor5-editor-bundle/src/Resources/views/` before re-copying.
+
 ## Translation overrides
 
 Translations use the domain **`NowoCkeditor5EditorBundle`**. Override from your app with files under `translations/` using the same domain (e.g. `translations/NowoCkeditor5EditorBundle.en.yaml`). See [CONFIGURATION.md — Translation overrides](CONFIGURATION.md#translation-overrides).
