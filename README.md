@@ -11,6 +11,19 @@ Symfony bundle: **`Ckeditor5EditorType`** stores HTML in a textarea while **CKEd
 
 This bundle is **FrankenPHP worker mode friendly** (including **`reset_kernel: false`** / no kernel reset between requests). See [FRANKENPHP-WORKER-AUDIT.md](docs/FRANKENPHP-WORKER-AUDIT.md).
 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/images/demo/editor.webp" alt="CKEditor 5 form field with a heading, bold text, a list and a quote, saved through a Symfony form" />
+      <br /><sub>Ckeditor5EditorType — rich HTML saved through a Symfony form</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/images/demo/presets.webp" alt="Three CKEditor 5 editors with standard, simple and minimal toolbars" />
+      <br /><sub>Named YAML profiles — standard, simple and minimal toolbars</sub>
+    </td>
+  </tr>
+</table>
+
 ## Features
 
 - Named YAML profiles (`toolbar`, `min_height`, `form_theme`, `preset`, `theme`, optional `upload_url`).
@@ -83,6 +96,8 @@ Demos:
 make -C demo up-symfony8
 # http://localhost:8021 (see demo/README.md and PORT in .env)
 ```
+
+Playwright e2e: `make -C demo/symfony8 test-e2e`; refresh the README screenshots with `make -C demo/symfony8 demo-screenshots` (see [CONTRIBUTING](docs/CONTRIBUTING.md#end-to-end-tests-and-screenshots-req-demo-013)).
 
 Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typography`**, **`variables`** — see [USAGE.md](docs/USAGE.md).
 
