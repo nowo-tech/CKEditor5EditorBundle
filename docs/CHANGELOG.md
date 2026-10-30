@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.10.2] - 2026-10-30](#1102---2026-10-30)
 - [[1.10.1] - 2026-10-25](#1101---2026-10-25)
 - [[1.10.0] - 2026-10-20](#1100---2026-10-20)
 - [[1.9.1] - 2026-10-20](#191---2026-10-20)
@@ -47,10 +48,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.2] - 2026-10-30
+
+Full Vitest coverage gate over all TS sources; rebuilt editor asset See [UPGRADING](UPGRADING.md#to-1102).
+
 ### Changed
 
 - **Tests (REQ-TEST-003):** the Vitest 100% coverage gate (lines, branches, functions, statements) now covers every TypeScript source, including the CKEditor build entry `ckeditor5-editor.ts` (presets, toolbar/plugin lists, upload + CSRF header, emoji dataset URL, theme, min height, textarea sync, mount lock, auto-init and the debounced `MutationObserver`). `ckeditor5` is replaced by a test double, so the gate measures the bundle's own glue code.
 - **Assets:** `ckeditor5-editor.ts` boots without the dead `typeof document` guard (the module already reads `document` at load time); rebuilt `ckeditor5-editor.js`. No behaviour change.
+
+[1.10.2]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.10.2
 
 ## [1.10.1] - 2026-10-25
 
@@ -466,7 +473,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.2...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
