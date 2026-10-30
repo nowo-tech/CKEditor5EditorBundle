@@ -30,7 +30,7 @@ This bundle is **FrankenPHP worker mode friendly** (including **`reset_kernel: f
 - Twig themes for common layouts (Bootstrap 3–5, Foundation, Tailwind 2, table layout).
 - `nowo_ckeditor5_editor_script()` Twig function: eager build or **lazy loader** (injects the 1 MB build only when an editor becomes visible — dialog opened, panel expanded, scrolled into view), editor CSS as a linked file (`ckeditor5-editor.css`, no injected `<style>` — strict CSP), CSP nonce, content-hash versioned URLs for long-lived caching.
 - `nowo_ckeditor5_editor_asset_url()`, `nowo_ckeditor5_editor_asset_path()` and `nowo_ckeditor5_editor_asset_package()` Twig helpers for published assets (Symfony asset package).
-- **pnpm + Vite** frontend; **Vitest** coverage on `logger.ts` and the lazy loader.
+- **pnpm + Vite** frontend; **Vitest** 100% coverage gate on every TypeScript source (editor build, lazy loader, logger).
 - **Dockerfile + Makefile** aligned with other Nowo bundles.
 - **Demos**: Symfony **8.1** FrankenPHP app under `demo/symfony8` (port **8021**).
 
@@ -125,9 +125,9 @@ Presets include **`standard`**, **`simple`**, **`minimal`**, **`emoji`**, **`typ
 
 ## Tests and coverage
 
-- Tests: PHPUnit (unit + integration) and Vitest (`logger.ts`, lazy loader). Run `make test` / `composer test` and `make test-ts`.
+- Tests: PHPUnit (unit + integration) and Vitest (editor build, lazy loader, logger). Run `make test` / `composer test` and `make test-ts`.
 - PHP: **100%**
-- TS/JS: **100%** (Vitest on `src/Resources/assets/src/logger.ts` and `ckeditor5-editor-loader.ts`; see `vitest.config.ts`). The CKEditor build entry `ckeditor5-editor.ts` is excluded from the gate: it boots the real CKEditor 5 classic editor and is exercised through the demo instead (`make demo-smoke` and the `/demo/variants` pages).
+- TS/JS: **100%** lines, branches, functions and statements on every file in `src/Resources/assets/src/` (`ckeditor5-editor.ts`, `ckeditor5-editor-loader.ts`, `logger.ts`; gate in `vitest.config.ts`, CI fails below it). The editor tests replace `ckeditor5` with a test double; the real CKEditor 5 classic editor is exercised by the demo (`make demo-smoke`, `make test-e2e` and the `/demo/variants` pages).
 - Python: N/A
 
 CI runs PHPUnit (matrix **PHP 8.2–8.5** × **Symfony 7.4 / 8.0 / 8.1**), PHPStan, PHP-CS-Fixer dry-run, and Vitest coverage on pushes and pull requests.

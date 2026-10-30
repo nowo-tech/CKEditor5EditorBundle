@@ -27,7 +27,7 @@ Use this when suggesting code, tests, documentation, or CI changes for this repo
 
 ### Tests
 
-- Add or update tests for new behaviour; keep coverage in line with README and CI (PHP 100% on `src/`; Vitest on `logger.ts`).
+- Add or update tests for new behaviour; keep coverage in line with README and CI (PHP 100% on `src/`; Vitest 100% on every file in `src/Resources/assets/src/`).
 
 ## Commits
 
