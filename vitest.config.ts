@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 /**
- * Vitest: happy-dom, coverage focused on `logger.ts` and the lazy loader (100% threshold) per bundle standard.
+ * Vitest: happy-dom, 100% coverage gate on every TypeScript source (logger, lazy loader and the CKEditor build entry).
  */
 export default defineConfig({
   test: {
@@ -19,7 +19,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'text-summary', 'html'],
       reportsDirectory: './coverage-ts',
-      include: ['src/Resources/assets/src/logger.ts', 'src/Resources/assets/src/ckeditor5-editor-loader.ts'],
+      include: ['src/Resources/assets/src/**/*.ts'],
       exclude: ['**/*.test.ts', '**/node_modules/**'],
       thresholds: {
         lines: 100,

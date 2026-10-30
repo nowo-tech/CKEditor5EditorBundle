@@ -573,17 +573,16 @@ if (typeof window !== 'undefined') {
   };
 }
 
-if (typeof document !== 'undefined') {
-  const boot = (): void => {
-    if (isAutoObserveEnabled()) {
-      runInitAndObserve();
-    } else {
-      void runInit();
-    }
-  };
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+// Browser-only build: `document` is already required above (BUILD_SRC), so boot unconditionally.
+const boot = (): void => {
+  if (isAutoObserveEnabled()) {
+    runInitAndObserve();
   } else {
-    boot();
+    void runInit();
   }
+};
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
 }

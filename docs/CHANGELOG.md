@@ -47,6 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Tests (REQ-TEST-003):** the Vitest 100% coverage gate (lines, branches, functions, statements) now covers every TypeScript source, including the CKEditor build entry `ckeditor5-editor.ts` (presets, toolbar/plugin lists, upload + CSRF header, emoji dataset URL, theme, min height, textarea sync, mount lock, auto-init and the debounced `MutationObserver`). `ckeditor5` is replaced by a test double, so the gate measures the bundle's own glue code.
+- **Assets:** `ckeditor5-editor.ts` boots without the dead `typeof document` guard (the module already reads `document` at load time); rebuilt `ckeditor5-editor.js`. No behaviour change.
+
 ## [1.10.1] - 2026-10-25
 
 Reproducible JS bundle: the build stamp is a hash of the sources instead of the build time. See [UPGRADING](UPGRADING.md#to-1101).
