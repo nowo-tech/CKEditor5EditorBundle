@@ -14,7 +14,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "ckeditor5": "^49.0.0"
+    "ckeditor5": "^49.0.1"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
