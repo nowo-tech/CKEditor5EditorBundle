@@ -71,6 +71,14 @@ final class BundleIntegrationTest extends KernelTestCase
         self::assertStringContainsString('data-ckeditor5-root="1"', $html);
         // Widget CSS ships in the built asset (injected once per page), never as a per-instance inline <style>.
         self::assertStringNotContainsString('<style', $html);
+        // Default chrome (utilities): today's markup.
+        self::assertStringContainsString('<div class="ckeditor5-editor-chrome border rounded bg-white shadow-sm">', $html);
+        self::assertStringContainsString('<div class="ckeditor5-editor-mount p-1" data-ckeditor5-mount="1">', $html);
+
+        $tokens = $twig->createTemplate('{{ form_widget(form) }}')->render(['form' => $factory->createNamed('body', Ckeditor5EditorType::class, null, ['chrome' => 'tokens'])->createView()]);
+        self::assertStringContainsString('<div class="ckeditor5-editor-chrome ckeditor5-editor-chrome--tokens">', $tokens);
+        self::assertStringContainsString('<div class="ckeditor5-editor-mount" data-ckeditor5-mount="1">', $tokens);
+        self::assertStringNotContainsString('bg-white', $tokens);
     }
 
     public function testCsrfTokenManagerExists(): void

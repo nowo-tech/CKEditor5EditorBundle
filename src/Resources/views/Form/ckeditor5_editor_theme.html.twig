@@ -1,6 +1,8 @@
 {#
   CKEditor 5 classic widget (form_div): hidden textarea + mount; HTML synced on change (FOS-style textarea mapping).
   Presets (ckeditor5_preset): standard | simple | minimal | emoji | typography | variables — plugins + toolbar in the built bundle script.
+  Chrome (ckeditor5_chrome, CKE-1): utilities (default: Bootstrap-style utility classes) | tokens (ckeditor5-editor-chrome--tokens,
+  painted from the UiKit --nowo-ui-* tokens by ckeditor5-editor.css, content typography included).
 #}
 {% use "form_div_layout.html.twig" %}
 
@@ -28,8 +30,14 @@
         'aria-hidden': 'true',
     }) %}
     {{- block('textarea_widget') -}}
+    {% if ckeditor5_chrome|default('utilities') == 'tokens' %}
+    <div class="ckeditor5-editor-chrome ckeditor5-editor-chrome--tokens">
+        <div class="ckeditor5-editor-mount" data-ckeditor5-mount="1"></div>
+    </div>
+    {% else %}
     <div class="ckeditor5-editor-chrome border rounded bg-white shadow-sm">
         <div class="ckeditor5-editor-mount p-1" data-ckeditor5-mount="1"></div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

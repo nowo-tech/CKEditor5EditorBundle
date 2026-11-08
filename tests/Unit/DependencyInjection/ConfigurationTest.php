@@ -27,6 +27,17 @@ final class ConfigurationTest extends TestCase
         self::assertFalse($profile['debug']);
         self::assertSame('standard', $profile['preset']);
         self::assertSame('light', $profile['theme']);
+        self::assertSame('utilities', $profile['chrome']);
+    }
+
+    public function testChromeTokensAndFlatKey(): void
+    {
+        $processor = new Processor();
+        self::assertSame('tokens', $processor->processConfiguration(new Configuration(), [['chrome' => 'tokens']])['profiles']['default']['chrome']);
+        self::assertSame('tokens', $processor->processConfiguration(new Configuration(), [['profiles' => ['default' => ['chrome' => 'tokens']]]])['profiles']['default']['chrome']);
+
+        $this->expectException(InvalidConfigurationException::class);
+        $processor->processConfiguration(new Configuration(), [['profiles' => ['default' => ['chrome' => 'bootstrap']]]]);
     }
 
     public function testCustomConfigurationFlatNormalization(): void
