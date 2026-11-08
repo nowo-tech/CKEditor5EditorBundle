@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.11.0] - 2026-11-08](#1110---2026-11-08)
 - [[1.10.2] - 2026-10-30](#1102---2026-10-30)
 - [[1.10.1] - 2026-10-25](#1101---2026-10-25)
 - [[1.10.0] - 2026-10-20](#1100---2026-10-20)
@@ -48,9 +49,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-11-08
+
+`chrome: tokens` paints the editor frame, toolbar, panels and content typography from `--nowo-ui-*` tokens (Beacon CKE-1). Audit: Appendix IN, Pass.
+
 ### Added
 
 - **Token chrome (CKE-1):** profile key / `editor_config` key / form option `chrome: utilities|tokens` (`EditorChrome`, default `utilities`: today's `border rounded bg-white shadow-sm` markup). `tokens` renders `ckeditor5-editor-chrome--tokens` and `ckeditor5-editor.css` paints the frame, toolbar, editable, CKEditor panels (`.ck-body-wrapper` included) and the content typography (headings, lists, quotes, links) from the UiKit `--nowo-ui-*` tokens, with light / dark fallbacks for hosts without UiKit. See [CONFIGURATION](CONFIGURATION.md#token-chrome). Assets rebuilt.
+
+[1.11.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.11.0
 
 ## [1.10.2] - 2026-10-30
 
@@ -477,7 +484,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.10.2...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.11.0...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0

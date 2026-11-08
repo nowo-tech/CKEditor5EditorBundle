@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.11.0](#to-1110)
 - [To 1.10.2](#to-1102)
 - [To 1.10.1](#to-1101)
 - [To 1.10.0](#to-1100)
@@ -44,6 +45,8 @@
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## Unreleased
+
+## To 1.11.0
 
 Nothing to do: `chrome` defaults to `utilities` (same markup and CSS). A host that restyled `.ckeditor5-editor-chrome`
 (utility leftovers, double frame, dark panels, content typography under a CSS reset) can set `chrome: tokens` on the
