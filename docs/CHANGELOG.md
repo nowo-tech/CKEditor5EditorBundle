@@ -48,6 +48,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Token chrome (CKE-1):** profile key / `editor_config` key / form option `chrome: utilities|tokens` (`EditorChrome`, default `utilities`: today's `border rounded bg-white shadow-sm` markup). `tokens` renders `ckeditor5-editor-chrome--tokens` and `ckeditor5-editor.css` paints the frame, toolbar, editable, CKEditor panels (`.ck-body-wrapper` included) and the content typography (headings, lists, quotes, links) from the UiKit `--nowo-ui-*` tokens, with light / dark fallbacks for hosts without UiKit. See [CONFIGURATION](CONFIGURATION.md#token-chrome). Assets rebuilt.
+
 ## [1.10.2] - 2026-10-30
 
 Full Vitest coverage gate over all TS sources; rebuilt editor asset See [UPGRADING](UPGRADING.md#to-1102).

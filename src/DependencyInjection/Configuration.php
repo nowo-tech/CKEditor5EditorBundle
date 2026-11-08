@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nowo\Ckeditor5EditorBundle\DependencyInjection;
 
+use Nowo\Ckeditor5EditorBundle\EditorChrome;
 use Nowo\Ckeditor5EditorBundle\EditorPreset;
 use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -55,7 +56,7 @@ final class Configuration implements ConfigurationInterface
 
                 $defaultProfile = $v['default_profile'] ?? 'default';
                 $profile        = [];
-                foreach (['toolbar', 'min_height', 'form_theme', 'debug', 'preset', 'theme', 'upload_url'] as $key) {
+                foreach (['toolbar', 'min_height', 'form_theme', 'debug', 'preset', 'theme', 'chrome', 'upload_url'] as $key) {
                     if (array_key_exists($key, $v)) {
                         $profile[$key] = $v[$key];
                     }
@@ -125,6 +126,14 @@ final class Configuration implements ConfigurationInterface
                                 ->validate()
                                     ->ifNotInArray(EditorTheme::values())
                                     ->thenInvalid('Invalid nowo_ckeditor5_editor theme %s.')
+                                ->end()
+                            ->end()
+                            ->scalarNode('chrome')
+                                ->info('Editor frame: utilities (default: Bootstrap-style utility classes, today\'s markup) or tokens (frame, toolbar, panels and content typography from the UiKit --nowo-ui-* tokens, dark mode included; EditorChrome).')
+                                ->defaultValue(EditorChrome::Utilities->value)
+                                ->validate()
+                                    ->ifNotInArray(EditorChrome::values())
+                                    ->thenInvalid('Invalid nowo_ckeditor5_editor chrome %s.')
                                 ->end()
                             ->end()
                             ->scalarNode('upload_url')

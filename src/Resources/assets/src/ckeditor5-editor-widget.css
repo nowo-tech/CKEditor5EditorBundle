@@ -22,7 +22,7 @@
     box-sizing: border-box;
 }
 /* Theme tokens for dark chrome — CKEditor SVG/icons follow --ck-color-* (see CK theme customization docs) */
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) {
     background: #0f172a !important;
     border-color: #334155 !important;
     --ck-color-base-text: #f1f5f9;
@@ -42,28 +42,28 @@
     --ck-color-shadow-drop: rgba(0, 0, 0, 0.45);
     --ck-color-shadow-inner: rgba(0, 0, 0, 0.25);
 }
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-toolbar {
     background: var(--ck-color-toolbar-background);
     border-color: #334155;
     color: #f1f5f9;
 }
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-button,
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-button .ck-button__label {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-button,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-button .ck-button__label {
     color: #f1f5f9;
 }
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar .ck-icon,
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-toolbar svg {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-toolbar .ck-icon,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-toolbar svg {
     color: #f1f5f9;
     fill: currentColor;
 }
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor > .ck-editor__main,
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck-editor__main > .ck.ck-content.ck-editor__editable,
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__main .ck-editor__editable:not(.ck-editor__nested-editable),
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__editable_inline {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-editor > .ck-editor__main,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck-editor__main > .ck.ck-content.ck-editor__editable,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-editor__main .ck-editor__editable:not(.ck-editor__nested-editable),
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-editor__editable_inline {
     min-height: var(--ckeditor5-min-height, 240px) !important;
 }
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__main .ck-editor__editable,
-.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome .ck.ck-editor__editable_inline {
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-editor__main .ck-editor__editable,
+.ckeditor5-editor-widget.ckeditor5-theme-dark .ckeditor5-editor-chrome:where(:not(.ckeditor5-editor-chrome--tokens)) .ck.ck-editor__editable_inline {
     background: #0f172a;
     color: #e2e8f0;
     border-color: #334155;
@@ -94,4 +94,192 @@ body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck.ck-editor .ck-editor__main
 body.ckeditor5-demo-dark .ckeditor5-editor-widget .ck.ck-editor .ck-editor__main .ck-editor__editable {
     background: #0f172a;
     color: #e2e8f0;
+}
+
+/*
+ * Token chrome (CKE-1, profile key / form option `chrome: tokens`, class ckeditor5-editor-chrome--tokens): the frame,
+ * toolbar, editable, CKEditor panels (also those rendered in .ck-body-wrapper at the end of the body) and the content
+ * typography (headings, paragraphs, lists, quotes, links: a CSS reset such as Tailwind's preflight flattens them) from
+ * the UiKit --nowo-ui-* tokens, so the editor follows the host's light / dark palette. Fallbacks for hosts without
+ * UiKit: light, or dark with the widget theme `dark` (and `auto` under prefers-color-scheme: dark). Hooks:
+ * --ckeditor5-surface, --ckeditor5-surface-muted, --ckeditor5-text, --ckeditor5-muted, --ckeditor5-border,
+ * --ckeditor5-primary, --ckeditor5-link, --ckeditor5-radius, --ckeditor5-border-width, --ckeditor5-focus-ring,
+ * --ckeditor5-font, --ckeditor5-font-display, --ckeditor5-content-font-size. The default chrome (`utilities`) is unchanged.
+ */
+.ckeditor5-editor-chrome--tokens,
+html:has(.ckeditor5-editor-chrome--tokens) .ck-body-wrapper {
+    --ckeditor5-surface: var(--nowo-ui-surface, #fff);
+    --ckeditor5-surface-muted: var(--nowo-ui-surface-muted, #f8fafc);
+    --ckeditor5-text: var(--nowo-ui-text, #0f172a);
+    --ckeditor5-muted: var(--nowo-ui-muted, #64748b);
+    --ckeditor5-border: var(--nowo-ui-border, #d1d5db);
+    --ckeditor5-primary: var(--nowo-ui-primary, #2563eb);
+    --ckeditor5-link: var(--nowo-ui-link, var(--ckeditor5-primary));
+    --ckeditor5-radius: var(--nowo-ui-radius, 0.375rem);
+    --ckeditor5-border-width: var(--nowo-ui-border-width, 1px);
+    --ckeditor5-focus-ring: var(--nowo-ui-focus-ring-color, color-mix(in srgb, var(--ckeditor5-primary) 25%, transparent));
+}
+.ckeditor5-theme-dark .ckeditor5-editor-chrome--tokens,
+html:has(.ckeditor5-theme-dark .ckeditor5-editor-chrome--tokens) .ck-body-wrapper {
+    --ckeditor5-surface: var(--nowo-ui-surface, #0f172a);
+    --ckeditor5-surface-muted: var(--nowo-ui-surface-muted, #1e293b);
+    --ckeditor5-text: var(--nowo-ui-text, #f1f5f9);
+    --ckeditor5-muted: var(--nowo-ui-muted, #94a3b8);
+    --ckeditor5-border: var(--nowo-ui-border, #334155);
+    --ckeditor5-primary: var(--nowo-ui-primary, #60a5fa);
+}
+@media (prefers-color-scheme: dark) {
+    .ckeditor5-theme-auto .ckeditor5-editor-chrome--tokens,
+    html:has(.ckeditor5-theme-auto .ckeditor5-editor-chrome--tokens) .ck-body-wrapper {
+        --ckeditor5-surface: var(--nowo-ui-surface, #0f172a);
+        --ckeditor5-surface-muted: var(--nowo-ui-surface-muted, #1e293b);
+        --ckeditor5-text: var(--nowo-ui-text, #f1f5f9);
+        --ckeditor5-muted: var(--nowo-ui-muted, #94a3b8);
+        --ckeditor5-border: var(--nowo-ui-border, #334155);
+        --ckeditor5-primary: var(--nowo-ui-primary, #60a5fa);
+    }
+}
+/* CKEditor's own colour variables (toolbar, buttons, dropdowns, lists, inputs, balloons, tooltips). */
+.ckeditor5-editor-chrome--tokens,
+.ckeditor5-editor-chrome--tokens .ck,
+html:has(.ckeditor5-editor-chrome--tokens) .ck-body-wrapper,
+html:has(.ckeditor5-editor-chrome--tokens) .ck-body-wrapper .ck {
+    --ck-color-base-background: var(--ckeditor5-surface);
+    --ck-color-base-foreground: var(--ckeditor5-surface-muted);
+    --ck-color-base-border: var(--ckeditor5-border);
+    --ck-color-base-text: var(--ckeditor5-text);
+    --ck-color-text: var(--ckeditor5-text);
+    --ck-color-icon: var(--ckeditor5-text);
+    --ck-color-focus-border: var(--ckeditor5-primary);
+    --ck-color-panel-background: var(--ckeditor5-surface);
+    --ck-color-panel-border: var(--ckeditor5-border);
+    --ck-color-dropdown-panel-background: var(--ckeditor5-surface);
+    --ck-color-dropdown-panel-border: var(--ckeditor5-border);
+    --ck-color-list-background: var(--ckeditor5-surface);
+    --ck-color-list-button-hover-background: color-mix(in srgb, var(--ckeditor5-primary) 12%, var(--ckeditor5-surface));
+    --ck-color-list-button-on-background: color-mix(in srgb, var(--ckeditor5-primary) 22%, var(--ckeditor5-surface));
+    --ck-color-list-button-on-background-focus: color-mix(in srgb, var(--ckeditor5-primary) 28%, var(--ckeditor5-surface));
+    --ck-color-list-button-on-text: var(--ckeditor5-text);
+    --ck-color-input-background: var(--ckeditor5-surface);
+    --ck-color-input-border: var(--ckeditor5-border);
+    --ck-color-input-text: var(--ckeditor5-text);
+    --ck-color-input-disabled-background: var(--ckeditor5-surface-muted);
+    --ck-color-labeled-field-label-background: var(--ckeditor5-surface);
+    --ck-color-button-default-background: transparent;
+    --ck-color-button-default-hover-background: color-mix(in srgb, var(--ckeditor5-border) 35%, var(--ckeditor5-surface));
+    --ck-color-button-default-active-background: color-mix(in srgb, var(--ckeditor5-border) 45%, var(--ckeditor5-surface));
+    --ck-color-button-on-background: color-mix(in srgb, var(--ckeditor5-primary) 18%, var(--ckeditor5-surface));
+    --ck-color-button-on-hover-background: color-mix(in srgb, var(--ckeditor5-primary) 26%, var(--ckeditor5-surface));
+    --ck-color-button-on-color: var(--ckeditor5-text);
+    --ck-color-split-button-hover-background: color-mix(in srgb, var(--ckeditor5-border) 35%, var(--ckeditor5-surface));
+    --ck-color-split-button-hover-border: var(--ckeditor5-border);
+    --ck-color-toolbar-background: var(--ckeditor5-surface-muted);
+    --ck-color-toolbar-border: var(--ckeditor5-border);
+    --ck-color-tooltip-background: var(--ckeditor5-text);
+    --ck-color-tooltip-text: var(--ckeditor5-surface);
+    --ck-color-shadow-drop: color-mix(in srgb, #000 18%, transparent);
+    --ck-color-shadow-inner: color-mix(in srgb, #000 10%, transparent);
+    --ck-color-link-default: var(--ckeditor5-link);
+}
+/* The frame: one border on the chrome (no double frame from ClassicEditor); visible overflow so toolbar dropdowns are
+   not cut at the editor's edge, the corners are rounded on the toolbar and the editable instead. */
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens {
+    box-sizing: border-box;
+    overflow: visible;
+    border: var(--ckeditor5-border-width) solid var(--ckeditor5-border);
+    border-radius: var(--ckeditor5-radius);
+    background: var(--ckeditor5-surface);
+    color: var(--ckeditor5-text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ckeditor5-editor-widget:focus-within .ckeditor5-editor-chrome--tokens {
+    border-color: var(--ckeditor5-primary);
+    box-shadow: 0 0 0 2px var(--ckeditor5-focus-ring);
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor {
+    border: 0;
+    box-shadow: none;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content {
+    border: 0;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-toolbar,
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor > .ck-editor__top .ck-toolbar.ck-toolbar {
+    background: var(--ckeditor5-surface-muted);
+    border: 0;
+    border-block-end: var(--ckeditor5-border-width) solid var(--ckeditor5-border);
+    border-radius: calc(var(--ckeditor5-radius) - 1px) calc(var(--ckeditor5-radius) - 1px) 0 0;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-toolbar .ck-toolbar__separator {
+    background: var(--ckeditor5-border);
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-button,
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-dropdown__button,
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-toolbar .ck-icon {
+    color: var(--ckeditor5-text);
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor__main > .ck-editor__editable.ck-editor__editable,
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-editor__editable_inline.ck-editor__editable_inline {
+    background: var(--ckeditor5-surface);
+    color: var(--ckeditor5-text);
+    border: 0;
+    box-shadow: none;
+    border-radius: 0 0 calc(var(--ckeditor5-radius) - 1px) calc(var(--ckeditor5-radius) - 1px);
+    font-family: var(--ckeditor5-font, var(--nowo-ui-font-family, inherit));
+    font-size: var(--ckeditor5-content-font-size, 0.9375rem);
+    line-height: 1.6;
+}
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck-placeholder::before,
+.ckeditor5-editor-widget .ckeditor5-editor-chrome--tokens .ck.ck-placeholder::before {
+    color: var(--ckeditor5-muted);
+}
+/* Content typography (the editable is .ck-content). */
+.ckeditor5-editor-chrome--tokens .ck-content h1,
+.ckeditor5-editor-chrome--tokens .ck-content h2,
+.ckeditor5-editor-chrome--tokens .ck-content h3,
+.ckeditor5-editor-chrome--tokens .ck-content h4 {
+    color: var(--ckeditor5-text);
+    font-family: var(--ckeditor5-font-display, var(--nowo-ui-font-display, inherit));
+    font-weight: var(--nowo-ui-heading-weight, 700);
+    line-height: 1.3;
+    margin: 1.25rem 0 0.5rem;
+}
+.ckeditor5-editor-chrome--tokens .ck-content h1 { font-size: 1.75em; margin-block-start: 0; }
+.ckeditor5-editor-chrome--tokens .ck-content h2 { font-size: 1.375em; }
+.ckeditor5-editor-chrome--tokens .ck-content h3 { font-size: 1.15em; }
+.ckeditor5-editor-chrome--tokens .ck-content h4 { font-size: 1em; }
+.ckeditor5-editor-chrome--tokens .ck-content :is(h1, h2, h3, h4):first-child { margin-block-start: 0; }
+.ckeditor5-editor-chrome--tokens .ck-content p {
+    margin: 0 0 0.75rem;
+}
+.ckeditor5-editor-chrome--tokens .ck-content ul,
+.ckeditor5-editor-chrome--tokens .ck-content ol {
+    margin: 0.5rem 0 0.75rem;
+    padding-inline-start: 1.5rem;
+}
+.ckeditor5-editor-chrome--tokens .ck-content ul { list-style: disc; }
+.ckeditor5-editor-chrome--tokens .ck-content ol { list-style: decimal; }
+.ckeditor5-editor-chrome--tokens .ck-content ul ul { list-style: circle; }
+.ckeditor5-editor-chrome--tokens .ck-content li { margin: 0.125rem 0; }
+.ckeditor5-editor-chrome--tokens .ck-content blockquote {
+    margin: 0.75rem 0;
+    padding: 0.25rem 0 0.25rem 0.875rem;
+    border-inline-start: 3px solid var(--ckeditor5-border);
+    color: var(--ckeditor5-muted);
+}
+.ckeditor5-editor-chrome--tokens .ck-content a {
+    color: var(--ckeditor5-link);
+    text-decoration: underline;
+}
+.ckeditor5-editor-chrome--tokens .ck-content :is(strong, b) { font-weight: 700; }
+.ckeditor5-editor-chrome--tokens .ck-content :is(em, i) { font-style: italic; }
+.ckeditor5-editor-chrome--tokens .ck-content hr {
+    border: 0;
+    border-block-start: var(--ckeditor5-border-width) solid var(--ckeditor5-border);
+    margin: 1rem 0;
+}
+.ckeditor5-editor-chrome--tokens .ck-content code {
+    background: var(--ckeditor5-surface-muted);
+    border-radius: calc(var(--ckeditor5-radius) / 2);
+    padding: 0.1em 0.3em;
 }

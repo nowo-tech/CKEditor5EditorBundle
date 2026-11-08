@@ -142,6 +142,7 @@ final class Ckeditor5EditorTypeTest extends TestCase
         self::assertSame('300px', $view->vars['ckeditor5_min_height']);
         self::assertSame('custom_ph', $view->vars['ckeditor5_placeholder_key']);
         self::assertTrue($view->vars['ckeditor5_debug']);
+        self::assertSame('utilities', $view->vars['ckeditor5_chrome'], 'options without chrome (pre-CKE-1 callers)');
     }
 
     public function testConstructorDefaultsPassedToOptions(): void
@@ -153,6 +154,28 @@ final class Ckeditor5EditorTypeTest extends TestCase
 
         self::assertFalse($options['toolbar']);
         self::assertSame('120px', $options['min_height']);
+    }
+
+    public function testChromeDefaultsToUtilitiesAndFollowsProfileEditorConfigAndOption(): void
+    {
+        $resolver = new OptionsResolver();
+        $this->createType()->configureOptions($resolver);
+        self::assertSame('utilities', $resolver->resolve([])['chrome']);
+        self::assertSame('tokens', $resolver->resolve(['editor_config' => ['chrome' => 'tokens']])['chrome']);
+        self::assertSame('tokens', $resolver->resolve(['chrome' => 'tokens'])['chrome']);
+
+        $profiles    = ['default' => ['toolbar' => true, 'min_height' => '240px', 'form_theme' => 'form_div_layout.html.twig', 'debug' => false, 'preset' => 'standard', 'chrome' => 'tokens']];
+        $fromProfile = new OptionsResolver();
+        (new Ckeditor5EditorType($profiles, 'default'))->configureOptions($fromProfile);
+        $options = $fromProfile->resolve([]);
+        self::assertSame('tokens', $options['chrome']);
+
+        $view = new FormView();
+        (new Ckeditor5EditorType($profiles, 'default'))->buildView($view, $this->createStub(FormInterface::class), $options);
+        self::assertSame('tokens', $view->vars['ckeditor5_chrome']);
+
+        $this->expectException(InvalidOptionsException::class);
+        $resolver->resolve(['chrome' => 'bootstrap']);
     }
 
     public function testResolveUsesProfileThemeFromYaml(): void

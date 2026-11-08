@@ -45,6 +45,12 @@
 
 ## Unreleased
 
+Nothing to do: `chrome` defaults to `utilities` (same markup and CSS). A host that restyled `.ckeditor5-editor-chrome`
+(utility leftovers, double frame, dark panels, content typography under a CSS reset) can set `chrome: tokens` on the
+profile and drop most of that stylesheet ([CONFIGURATION](CONFIGURATION.md#token-chrome)); keep only what maps its own
+tokens to `--nowo-ui-*` (or set the `--ckeditor5-*` hooks). The default dark-theme rules no longer apply to the token
+chrome (same specificity, through `:where()`).
+
 ## To 1.10.2
 
 From **1.10.1**:

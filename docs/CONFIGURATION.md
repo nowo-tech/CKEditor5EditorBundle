@@ -8,6 +8,7 @@ Root key: `nowo_ckeditor5_editor`
 - [Per profile (`profiles.<name>`)](#per-profile-profiles)
 - [Legacy keys and flat YAML](#legacy-keys-and-flat-yaml)
 - [Form type `Ckeditor5EditorType` options](#form-type-ckeditor5editortype-options)
+- [Token chrome](#token-chrome)
 - [Twig overrides](#twig-overrides)
   - [Procedure](#procedure)
   - [Overridable templates](#overridable-templates)
@@ -33,6 +34,7 @@ Root key: `nowo_ckeditor5_editor`
 | `debug`       | bool   | `false`                     | Verbose browser console logging from the bundle script. |
 | `preset`      | string | —                           | Build preset: `standard`, `simple`, `minimal`, `emoji`, `typography`, `variables`, … (see `EditorPreset`). |
 | `theme`       | string | `light`                     | Chrome palette: `light`, `dark`, or `auto` (`EditorTheme` backed enum). |
+| `chrome`      | string | `utilities`                 | Editor frame: `utilities` (Bootstrap-style utility classes `border rounded bg-white shadow-sm`, `p-1`: today's markup) or `tokens` (UiKit `--nowo-ui-*` tokens, dark mode and content typography included; `EditorChrome`). See [Token chrome](#token-chrome). |
 | `upload_url`  | string | `null`                      | Optional URL for Simple Upload Adapter (demo/apps provide POST endpoints). Requires `framework.csrf_protection` (the upload token is rendered with the field). |
 
 ## Legacy keys and flat YAML
@@ -40,7 +42,7 @@ Root key: `nowo_ckeditor5_editor`
 - **Renamed keys:** `default_config` / `configs` were renamed to `default_profile` / `profiles`. Legacy keys are still accepted via normalization (mapped when the new keys are absent).
 - **Flat layout:** If the root has no `profiles` (nor legacy `configs`) key, the extension maps flat keys into a single profile under `profiles` using `default_profile` (default `default`):
 
-- `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`
+- `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `chrome`, `upload_url`
 
 Global keys `html_sanitizer` and `lazy_load` stay at the root in both layouts.
 
@@ -49,14 +51,36 @@ Global keys `html_sanitizer` and `lazy_load` stay at the root in both layouts.
 | Option          | Type | Description |
 | --------------- | ---- | ----------- |
 | `config`        | `string\|null` | Profile name under `nowo_ckeditor5_editor.profiles`. `null`/empty uses `default_profile`. (Form option key remains `config` for BC.) |
-| `editor_config` | `array` | Keys merged over the YAML profile: `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`. |
+| `editor_config` | `array` | Keys merged over the YAML profile: `toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `chrome`, `upload_url`. |
 | `toolbar`       | bool | Field-level override. |
 | `min_height`    | string | Field-level override. |
 | `height`        | `string\|null` | Alias for min-height when `min_height` is not set. |
 | `theme`         | string | Field-level palette (`light` / `dark` / `auto`; `EditorTheme`). |
+| `chrome`        | string | Field-level frame (`utilities` / `tokens`; `EditorChrome`). |
 | `placeholder`   | `string\|bool\|null` | Translation key in domain `NowoCkeditor5EditorBundle`, or `false` to disable. |
 
 Standard Symfony options (`label`, `required`, `translation_domain`, `attr`, …) work as usual.
+
+## Token chrome
+
+`chrome: tokens` renders `<div class="ckeditor5-editor-chrome ckeditor5-editor-chrome--tokens">` (no utility classes, no
+`p-1` on the mount). `ckeditor5-editor.css` then paints, from the UiKit tokens:
+
+- the frame (`--nowo-ui-border`, `--nowo-ui-border-width`, `--nowo-ui-radius`, `--nowo-ui-surface`, `--nowo-ui-text`)
+  and its focus ring (`--nowo-ui-primary`, `--nowo-ui-focus-ring-color`), with one border (no ClassicEditor double
+  frame) and visible overflow so toolbar dropdowns are not cut;
+- the toolbar (`--nowo-ui-surface-muted`), the editable and CKEditor's own `--ck-color-*` variables, also for the panels
+  CKEditor renders in `.ck-body-wrapper` at the end of the body (dropdowns, balloons, tooltips);
+- the content typography of the editable (headings, paragraphs, lists, quotes, links, `hr`, inline `code`), which a CSS
+  reset such as Tailwind's preflight flattens otherwise (`--nowo-ui-font-family`, `--nowo-ui-font-display`,
+  `--nowo-ui-heading-weight`, `--nowo-ui-link`).
+
+UiKit switches its tokens in dark mode, so the editor follows the host. Without UiKit the fallbacks are light, or dark
+with `theme: dark` (and `auto` under `prefers-color-scheme: dark`). Hooks: `--ckeditor5-surface`,
+`--ckeditor5-surface-muted`, `--ckeditor5-text`, `--ckeditor5-muted`, `--ckeditor5-border`, `--ckeditor5-primary`,
+`--ckeditor5-link`, `--ckeditor5-radius`, `--ckeditor5-border-width`, `--ckeditor5-focus-ring`, `--ckeditor5-font`,
+`--ckeditor5-font-display`, `--ckeditor5-content-font-size` (default `0.9375rem`). The default `utilities` chrome and its
+CSS are unchanged.
 
 ## Twig overrides
 

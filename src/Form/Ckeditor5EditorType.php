@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nowo\Ckeditor5EditorBundle\Form;
 
 use LogicException;
+use Nowo\Ckeditor5EditorBundle\EditorChrome;
 use Nowo\Ckeditor5EditorBundle\EditorPreset;
 use Nowo\Ckeditor5EditorBundle\EditorTheme;
 use Nowo\Ckeditor5EditorBundle\Form\DataTransformer\Ckeditor5HtmlSanitizeTransformer;
@@ -31,7 +32,8 @@ use function sprintf;
  * Options:
  * - `min_height` (string): CSS min-height for the editable area (e.g. `320px`, `min(40vh, 480px)`). Overrides the named YAML profile value when set on the field.
  * - `height` (string|null): Alias for `min_height`. If only `height` is passed, it sets min-height. When both are passed, `min_height` wins.
- * - `editor_config` (array): Optional keys (`toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `upload_url`) merged **over** the named YAML profile (`config`). Field-level `toolbar`, `min_height`, `height`, `theme` still win over merged values when set explicitly.
+ * - `editor_config` (array): Optional keys (`toolbar`, `min_height`, `form_theme`, `debug`, `preset`, `theme`, `chrome`, `upload_url`) merged **over** the named YAML profile (`config`). Field-level `toolbar`, `min_height`, `height`, `theme`, `chrome` still win over merged values when set explicitly.
+ * - `chrome` (string): `utilities` (default, Bootstrap-style utility classes) or `tokens` (UiKit `--nowo-ui-*` tokens; {@see EditorChrome}).
  *
  * @extends AbstractType<string>
  *
@@ -43,7 +45,7 @@ final class Ckeditor5EditorType extends AbstractType
     public const CSRF_UPLOAD_TOKEN_ID = 'ckeditor_upload';
 
     /**
-     * @param array<string, array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}> $profiles
+     * @param array<string, array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, chrome?: string, upload_url?: string|null}> $profiles
      * @param CsrfTokenManagerInterface|null $csrfTokenManager Null when the host app disables CSRF; only required by profiles with `upload_url`
      */
     public function __construct(
@@ -62,7 +64,7 @@ final class Ckeditor5EditorType extends AbstractType
         }
     }
 
-    /** Exposes the editor settings (toolbar, preset, theme, upload URL and CSRF token) to the form view. */
+    /** Exposes the editor settings (toolbar, preset, theme, chrome, upload URL and CSRF token) to the form view. */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $profile                                 = $this->mergeYamlProfileWithEditorConfig($options);
@@ -72,6 +74,7 @@ final class Ckeditor5EditorType extends AbstractType
         $view->vars['ckeditor5_debug']           = $profile['debug'];
         $view->vars['ckeditor5_preset']          = EditorPreset::fromString((string) $profile['preset'])->value;
         $view->vars['ckeditor5_theme']           = $options['theme'];
+        $view->vars['ckeditor5_chrome']          = $options['chrome'] ?? EditorChrome::Utilities->value;
 
         $uploadRaw                           = $profile['upload_url'] ?? null;
         $uploadUrl                           = is_string($uploadRaw) ? trim($uploadRaw) : '';
@@ -122,6 +125,8 @@ final class Ckeditor5EditorType extends AbstractType
         $resolver->setAllowedTypes('height', ['null', 'string']);
         $resolver->setAllowedTypes('placeholder', ['null', 'string', 'bool']);
         $resolver->setAllowedTypes('theme', ['string']);
+        $resolver->setDefault('chrome', fn (Options $options): string => EditorChrome::fromString((string) ($this->mergeYamlProfileWithEditorConfigFromOptions($options)['chrome'] ?? EditorChrome::Utilities->value))->value);
+        $resolver->setAllowedValues('chrome', EditorChrome::values());
 
         $resolver->setNormalizer('theme', fn (Options $options, string $value): string => $this->normalizeTheme($value));
 
@@ -132,7 +137,7 @@ final class Ckeditor5EditorType extends AbstractType
         });
 
         $resolver->setNormalizer('editor_config', static function (Options $options, array $value): array {
-            $allowed = ['toolbar', 'min_height', 'form_theme', 'debug', 'preset', 'theme', 'upload_url'];
+            $allowed = ['toolbar', 'min_height', 'form_theme', 'debug', 'preset', 'theme', 'chrome', 'upload_url'];
             foreach (array_keys($value) as $key) {
                 if (!in_array($key, $allowed, true)) {
                     throw new InvalidOptionsException(sprintf('Unknown key "%s" in editor_config. Allowed: %s.', $key, implode(', ', $allowed)));
@@ -164,7 +169,7 @@ final class Ckeditor5EditorType extends AbstractType
      *
      * @param array<string, mixed> $options
      *
-     * @return array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}
+     * @return array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, chrome?: string, upload_url?: string|null}
      */
     private function mergeYamlProfileWithEditorConfig(array $options): array
     {
@@ -179,7 +184,7 @@ final class Ckeditor5EditorType extends AbstractType
             return $base;
         }
 
-        /** @var array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null} $merged */
+        /** @var array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, chrome?: string, upload_url?: string|null} $merged */
         $merged = array_replace($base, $over);
 
         $merged['preset'] = EditorPreset::fromString((string) $merged['preset'])->value;
@@ -190,7 +195,7 @@ final class Ckeditor5EditorType extends AbstractType
     /**
      * @param Options<array<string, mixed>> $options
      *
-     * @return array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, upload_url?: string|null}
+     * @return array{toolbar: bool, min_height: string, form_theme: string, debug: bool, preset: string, theme?: string, chrome?: string, upload_url?: string|null}
      */
     private function mergeYamlProfileWithEditorConfigFromOptions(Options $options): array
     {
