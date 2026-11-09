@@ -12,6 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Twig\Environment;
 
+use const ENT_HTML5;
+use const ENT_QUOTES;
+use const JSON_THROW_ON_ERROR;
+
 /**
  * Integration tests: kernel boots with the bundle and core services are wired.
  */
@@ -79,6 +83,29 @@ final class BundleIntegrationTest extends KernelTestCase
         self::assertStringContainsString('<div class="ckeditor5-editor-chrome ckeditor5-editor-chrome--tokens">', $tokens);
         self::assertStringContainsString('<div class="ckeditor5-editor-mount" data-ckeditor5-mount="1">', $tokens);
         self::assertStringNotContainsString('bg-white', $tokens);
+    }
+
+    public function testWidgetExposesLanguageAndHeadingLabels(): void
+    {
+        self::bootKernel();
+        $container = self::getContainer();
+        $factory   = $container->get('test.nowo_ckeditor5_editor.form_factory');
+        self::assertInstanceOf(FormFactoryInterface::class, $factory);
+        $twig = $container->get('twig');
+        self::assertInstanceOf(Environment::class, $twig);
+
+        $html = $twig->createTemplate('{{ form_widget(form) }}')->render(['form' => $factory->createNamed('body', Ckeditor5EditorType::class)->createView()]);
+
+        // No request in this context: the UI language falls back to English.
+        self::assertStringContainsString('data-ckeditor5-language-value="en"', $html);
+        self::assertSame(1, preg_match('/data-ckeditor5-labels-value="([^"]*)"/', $html, $m));
+        $labels = json_decode(html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5), true, 512, JSON_THROW_ON_ERROR);
+        self::assertIsArray($labels);
+        self::assertSame(['paragraph', 'heading1', 'heading2', 'heading3', 'heading', 'chooseHeading', 'showMoreItems'], array_keys($labels));
+        foreach ($labels as $label) {
+            self::assertIsString($label);
+            self::assertNotSame('', $label);
+        }
     }
 
     public function testCsrfTokenManagerExists(): void

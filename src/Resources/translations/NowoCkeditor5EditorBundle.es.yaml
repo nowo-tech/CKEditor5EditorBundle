@@ -1,1 +1,8 @@
 ckeditor5_placeholder: 'Empieza a escribir…'
+ckeditor5_heading_paragraph: 'Párrafo'
+ckeditor5_heading_1: 'Encabezado 1'
+ckeditor5_heading_2: 'Encabezado 2'
+ckeditor5_heading_3: 'Encabezado 3'
+ckeditor5_heading: 'Encabezado'
+ckeditor5_choose_heading: 'Elegir encabezado'
+ckeditor5_toolbar_show_more_items: 'Mostrar más elementos'

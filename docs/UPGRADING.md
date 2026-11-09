@@ -46,6 +46,15 @@
 
 ## Unreleased
 
+Next minor: 1.12.0. Nothing to do for most hosts.
+
+- **Phones:** below 768 px the toolbar no longer wraps; the items that do not fit go behind CKEditor's "⋮" *Show more items* button. The breakpoint is read once, when the editor mounts. Desktop is unchanged.
+- **Heading picker labels:** translated from the `NowoCkeditor5EditorBundle` domain (7 locales). A host that overrides
+  `Form/ckeditor5_editor_theme.html.twig` as a full copy does not render the new `data-ckeditor5-language-value` /
+  `data-ckeditor5-labels-value` attributes and keeps the English labels: merge them from the vendor template (or extend
+  `@!NowoCkeditor5EditorBundle/Form/ckeditor5_editor_theme.html.twig`). Hosts that translate the domain add the 7 new
+  `ckeditor5_heading_*` / `ckeditor5_choose_heading` / `ckeditor5_toolbar_show_more_items` keys.
+
 ## To 1.11.0
 
 Nothing to do: `chrome` defaults to `utilities` (same markup and CSS). A host that restyled `.ckeditor5-editor-chrome`
