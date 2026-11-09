@@ -9,6 +9,7 @@
 - [Dynamic mounts / MutationObserver](#dynamic-mounts--mutationobserver)
 - [Presets](#presets)
 - [Uploads (optional)](#uploads-optional)
+- [Using it from a DDD / hexagonal application](#using-it-from-a-ddd--hexagonal-application)
 - [Overriding Twig templates (REQ-TWIG-001)](#overriding-twig-templates-req-twig-001)
 - [Translation overrides](#translation-overrides)
 
@@ -107,6 +108,41 @@ YAML **`preset`** selects which OSS CKEditor build variant is used (`standard`, 
 ## Uploads (optional)
 
 If `upload_url` is set in the profile or merged via `editor_config`, the widget may send multipart uploads with CSRF (`Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID`). Your application must expose a compatible endpoint (see demo controllers for reference).
+
+## Using it from a DDD / hexagonal application
+
+**Layer:** presentation. `Ckeditor5EditorType` is a form type whose model data is a plain HTML `string`. Bind it to
+a form DTO or command property, never to a domain entity. The bundle has no Doctrine dependency, no entities and
+no events, and it stores nothing.
+
+**Keeping the domain clean**
+
+- Map the submitted string into your own value object in the application layer.
+- Run untrusted HTML through `Nowo\Ckeditor5EditorBundle\Security\Ckeditor5HtmlSanitizerInterface` at that
+  boundary. Configure `html_sanitizer: allowlist`, `strict` or your own service id, which also adds a sanitising
+  model transformer to the form. HTML that does not come through the form (API, import, CLI) still has to go
+  through the port, so call it in the application service:
+
+```php
+final class UpdateArticleBodyHandler
+{
+    public function __construct(private Ckeditor5HtmlSanitizerInterface $sanitizer, private Articles $articles) {}
+
+    public function __invoke(UpdateArticleBody $command): void
+    {
+        $article = $this->articles->get($command->articleId);
+        $article->changeBody(ArticleBody::fromHtml($this->sanitizer->sanitize($command->html)));
+    }
+}
+```
+
+- Image uploads (`upload_url`) go to an endpoint you own. Validate the `X-CSRF-TOKEN` header against
+  `Ckeditor5EditorType::CSRF_UPLOAD_TOKEN_ID` and store files through your own storage port.
+
+**Known limitations**
+
+- The sanitizer is off by default and is only applied automatically to form submissions.
+- There is no server-side upload contract; the endpoint is yours to write.
 
 ## Overriding Twig templates (REQ-TWIG-001)
 
