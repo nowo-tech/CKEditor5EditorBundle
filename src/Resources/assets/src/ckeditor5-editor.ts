@@ -172,21 +172,33 @@ function pluginsForPreset(preset: EditorPreset): NonNullable<EditorConfig['plugi
   ];
 }
 
+/**
+ * Narrow viewports (phones) where the toolbar groups the items that do not fit behind CKEditor's "⋮"
+ * (*Show more items*) button instead of wrapping to several rows (MUX-41). Wider viewports keep the wrapping toolbar.
+ */
+export const TOOLBAR_GROUP_MEDIA_QUERY = '(max-width: 767.98px)';
+
+function shouldGroupToolbar(): boolean {
+  return window.matchMedia(TOOLBAR_GROUP_MEDIA_QUERY).matches;
+}
+
 function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): EditorConfig['toolbar'] {
   if (!toolbarEnabled) {
     return { items: [] };
   }
 
+  const group = shouldGroupToolbar();
+
   if (preset === 'minimal') {
     return {
-      shouldNotGroupWhenFull: true,
+      shouldNotGroupWhenFull: !group,
       items: ['bold', 'italic', '|', 'link', 'bulletedList', 'numberedList'],
     };
   }
 
   if (preset === 'emoji') {
     return {
-      shouldNotGroupWhenFull: true,
+      shouldNotGroupWhenFull: !group,
       items: [
         'undo',
         'redo',
@@ -213,7 +225,7 @@ function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): E
 
   if (preset === 'variables') {
     return {
-      shouldNotGroupWhenFull: true,
+      shouldNotGroupWhenFull: !group,
       items: [
         'undo',
         'redo',
@@ -239,7 +251,7 @@ function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): E
 
   if (preset === 'typography') {
     return {
-      shouldNotGroupWhenFull: true,
+      shouldNotGroupWhenFull: !group,
       items: [
         'undo',
         'redo',
@@ -267,7 +279,7 @@ function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): E
 
   if (preset === 'simple') {
     return {
-      shouldNotGroupWhenFull: true,
+      shouldNotGroupWhenFull: !group,
       items: [
         'undo',
         'redo',
@@ -291,7 +303,7 @@ function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): E
   }
 
   return {
-    shouldNotGroupWhenFull: true,
+    shouldNotGroupWhenFull: !group,
     items: [
       'undo',
       'redo',
@@ -322,12 +334,91 @@ function toolbarItemsForPreset(preset: EditorPreset, toolbarEnabled: boolean): E
   };
 }
 
+/** UI labels the bundle translates (`data-ckeditor5-labels-value`, JSON from the bundle's translation catalogue). */
+export type EditorLabels = {
+  paragraph: string;
+  heading1: string;
+  heading2: string;
+  heading3: string;
+  heading: string;
+  chooseHeading: string;
+  showMoreItems: string;
+};
+
+const DEFAULT_LABELS: EditorLabels = {
+  paragraph: 'Paragraph',
+  heading1: 'Heading 1',
+  heading2: 'Heading 2',
+  heading3: 'Heading 3',
+  heading: 'Heading',
+  chooseHeading: 'Choose heading',
+  showMoreItems: 'Show more items',
+};
+
+/** CKEditor's own UI strings (English keys) replaced by the bundle labels. */
+const CKEDITOR_DICTIONARY_KEYS: Record<string, keyof EditorLabels> = {
+  Paragraph: 'paragraph',
+  'Heading 1': 'heading1',
+  'Heading 2': 'heading2',
+  'Heading 3': 'heading3',
+  Heading: 'heading',
+  'Choose heading': 'chooseHeading',
+  'Show more items': 'showMoreItems',
+};
+
+/**
+ * Parses `data-ckeditor5-labels-value`; missing, blank or non-string entries (and invalid JSON) fall back to English.
+ *
+ * @param raw - JSON object rendered by the form theme.
+ * @returns Complete label set.
+ */
+export function parseLabels(raw: string | undefined): EditorLabels {
+  const labels: EditorLabels = { ...DEFAULT_LABELS };
+  if (!raw) {
+    return labels;
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    log.warn('ignored invalid data-ckeditor5-labels-value');
+    return labels;
+  }
+  if (parsed === null || typeof parsed !== 'object') {
+    return labels;
+  }
+
+  for (const key of Object.keys(DEFAULT_LABELS) as (keyof EditorLabels)[]) {
+    const value = (parsed as Record<string, unknown>)[key];
+    if (typeof value === 'string' && value.trim() !== '') {
+      labels[key] = value;
+    }
+  }
+
+  return labels;
+}
+
+/** UI language code (`data-ckeditor5-language-value`, the request locale): `es_ES` → `es`; blank → `en`. */
+function parseLanguage(raw: string | undefined): string {
+  const lang = (raw ?? '').trim().toLowerCase().split(/[-_]/)[0];
+
+  return /^[a-z]{2,3}$/.test(lang) ? lang : 'en';
+}
+
 function buildConfig(
   preset: EditorPreset,
   toolbarEnabled: boolean,
   placeholder: string,
   upload?: { url: string; csrf?: string },
+  labels: EditorLabels = DEFAULT_LABELS,
+  language = 'en',
 ): EditorConfig {
+  const dictionary: Record<string, string> = {};
+  for (const [ckKey, labelKey] of Object.entries(CKEDITOR_DICTIONARY_KEYS)) {
+    dictionary[ckKey] = labels[labelKey];
+  }
+
   const placeholderCfg = placeholder.trim() === '' ? undefined : placeholder;
 
   let pluginList = pluginsForPreset(preset);
@@ -341,12 +432,14 @@ function buildConfig(
     plugins: pluginList,
     toolbar: toolbarItemsForPreset(preset, toolbarEnabled),
     placeholder: placeholderCfg,
+    language,
+    translations: { [language]: { dictionary } },
     heading: {
       options: [
-        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+        { model: 'paragraph', title: labels.paragraph, class: 'ck-heading_paragraph' },
+        { model: 'heading1', view: 'h1', title: labels.heading1, class: 'ck-heading_heading1' },
+        { model: 'heading2', view: 'h2', title: labels.heading2, class: 'ck-heading_heading2' },
+        { model: 'heading3', view: 'h3', title: labels.heading3, class: 'ck-heading_heading3' },
       ],
     },
     image: {
@@ -477,7 +570,10 @@ export async function initCkeditor5Root(root: HTMLElement): Promise<void> {
     const upload =
       uploadUrl && uploadUrl !== '' ? { url: uploadUrl, csrf: uploadCsrf || undefined } : undefined;
 
-    const config = buildConfig(preset, toolbar, placeholder, upload);
+    const labels = parseLabels(root.dataset.ckeditor5LabelsValue);
+    const language = parseLanguage(root.dataset.ckeditor5LanguageValue);
+
+    const config = buildConfig(preset, toolbar, placeholder, upload, labels, language);
 
     const editor = await ClassicEditor.create(mount, config);
 

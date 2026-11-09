@@ -13,6 +13,7 @@ Root key: `nowo_ckeditor5_editor`
   - [Procedure](#procedure)
   - [Overridable templates](#overridable-templates)
 - [Translation overrides](#translation-overrides)
+- [Phone toolbar](#phone-toolbar)
 - [Parameters exposed to the container](#parameters-exposed-to-the-container)
 
 ## Top-level
@@ -121,6 +122,24 @@ Pick the row that matches the profile `form_theme` (or your app `twig.form_theme
 ## Translation overrides
 
 Translations use the domain **`NowoCkeditor5EditorBundle`** (`src/Resources/translations/`). Override from your app with YAML/XLF under **`translations/`** using the same domain, e.g. `translations/NowoCkeditor5EditorBundle.en.yaml`.
+
+| Key | English | Used for |
+|-----|---------|----------|
+| `ckeditor5_placeholder` | Start writing… | Default placeholder (`placeholder` option) |
+| `ckeditor5_heading_paragraph` | Paragraph | Heading picker option (and its label on a paragraph) |
+| `ckeditor5_heading_1` … `ckeditor5_heading_3` | Heading 1 … Heading 3 | Heading picker options |
+| `ckeditor5_heading` / `ckeditor5_choose_heading` | Heading / Choose heading | Heading picker name and tooltip |
+| `ckeditor5_toolbar_show_more_items` | Show more items | The "⋮" button that holds the grouped toolbar items on phones |
+
+The heading and toolbar labels always come from this domain (not from the field's `translation_domain`), in the request
+locale; the form theme passes them to the script as `data-ckeditor5-labels-value` with `data-ckeditor5-language-value`.
+
+## Phone toolbar
+
+On viewports up to **767.98 px** the toolbar of every preset groups the items that do not fit on one row behind
+CKEditor's "⋮" *Show more items* dropdown (`toolbar.shouldNotGroupWhenFull: false`); the dropdown is CKEditor's own
+(`aria-expanded`, arrow keys, Esc). Wider viewports keep the wrapping toolbar. The media query is evaluated once, when the
+editor mounts (CKEditor cannot switch grouping on a live toolbar).
 
 ## Parameters exposed to the container
 

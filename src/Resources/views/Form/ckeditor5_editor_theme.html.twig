@@ -12,6 +12,17 @@
 {% set placeholder_text = ph_key is not null and ph_key is not same as(false) and ph_key != '' ? ph_key|trans({}, trans_domain == false ? 'messages' : trans_domain) : '' %}
 {% set preset = ckeditor5_preset|default('standard') %}
 {% set theme = ckeditor5_theme|default('light') %}
+{# MUX-41: heading picker + toolbar overflow labels, always from the bundle catalogue (not the field's translation_domain). #}
+{% set ui_labels = {
+    paragraph: 'ckeditor5_heading_paragraph'|trans({}, 'NowoCkeditor5EditorBundle'),
+    heading1: 'ckeditor5_heading_1'|trans({}, 'NowoCkeditor5EditorBundle'),
+    heading2: 'ckeditor5_heading_2'|trans({}, 'NowoCkeditor5EditorBundle'),
+    heading3: 'ckeditor5_heading_3'|trans({}, 'NowoCkeditor5EditorBundle'),
+    heading: 'ckeditor5_heading'|trans({}, 'NowoCkeditor5EditorBundle'),
+    chooseHeading: 'ckeditor5_choose_heading'|trans({}, 'NowoCkeditor5EditorBundle'),
+    showMoreItems: 'ckeditor5_toolbar_show_more_items'|trans({}, 'NowoCkeditor5EditorBundle'),
+} %}
+{% set ui_locale = app.request.locale ?? 'en' %}
 <div class="ckeditor5-editor-widget ckeditor5-preset-{{ preset|e('html_attr') }} {% if theme == 'auto' %}ckeditor5-theme-auto{% elseif theme == 'dark' %}ckeditor5-theme-dark{% else %}ckeditor5-theme-light{% endif %}"
      style="--ckeditor5-min-height: {{ ckeditor5_min_height|default('240px')|e('html_attr') }};"
      data-ckeditor5-root="1"
@@ -21,6 +32,8 @@
      data-ckeditor5-min-height-value="{{ ckeditor5_min_height|default('240px')|e('html_attr') }}"
      data-ckeditor5-debug-value="{{ ckeditor5_debug ? '1' : '0' }}"
      data-ckeditor5-theme-value="{{ theme|e('html_attr') }}"
+     data-ckeditor5-language-value="{{ ui_locale|e('html_attr') }}"
+     data-ckeditor5-labels-value="{{ ui_labels|json_encode|e('html_attr') }}"
      {% if placeholder_text != '' %}data-ckeditor5-placeholder-value="{{ placeholder_text|e('html_attr') }}"{% endif %}
      {% if ckeditor5_upload_url is defined and ckeditor5_upload_url %}data-ckeditor5-upload-url-value="{{ ckeditor5_upload_url|e('html_attr') }}" data-ckeditor5-upload-csrf-value="{{ ckeditor5_upload_csrf|default('')|e('html_attr') }}"{% endif %}>
     {% set attr = attr|merge({

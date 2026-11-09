@@ -95,6 +95,9 @@ type Config = {
   toolbar: { items: string[]; shouldNotGroupWhenFull?: boolean };
   placeholder?: string;
   licenseKey: string;
+  language: string;
+  translations: Record<string, { dictionary: Record<string, string> }>;
+  heading?: { options: { model: string; title: string }[] };
   emoji?: { definitionsUrl: string };
   mention?: { feeds: { marker: string; feed: { id: string }[] }[] };
   fontFamily?: { options: string[] };
@@ -114,6 +117,7 @@ class TrackedMutationObserver extends RealMutationObserver {
 
 type MediaListener = () => void;
 let darkScheme = false;
+let narrowViewport = false;
 const mediaListeners: MediaListener[] = [];
 
 const tick = (): Promise<void> => new Promise((r) => setTimeout(r, 5));
@@ -158,13 +162,14 @@ beforeEach(() => {
   ck.editors = [];
   ck.editable = 'main';
   darkScheme = false;
+  narrowViewport = false;
   mediaListeners.length = 0;
   vi.stubGlobal('MutationObserver', TrackedMutationObserver);
   vi.stubGlobal(
     'matchMedia',
-    vi.fn(() => ({
+    vi.fn((query: string) => ({
       get matches() {
-        return darkScheme;
+        return query.includes('prefers-color-scheme') ? darkScheme : narrowViewport;
       },
       addEventListener: (_: string, cb: MediaListener) => mediaListeners.push(cb),
     })),
@@ -418,6 +423,74 @@ describe('editor config', () => {
     expect(config.toolbar.items).toEqual(expect.arrayContaining(['fontFamily', 'fontSize', 'removeFormat']));
     expect(config.fontFamily?.options[0]).toBe('default');
     expect(config.fontSize?.options).toContain('default');
+  });
+
+  it('keeps the wrapping toolbar on wide viewports (desktop unchanged)', async () => {
+    for (const preset of ['standard', 'simple', 'minimal', 'emoji', 'typography', 'variables']) {
+      const { config } = await configFor({ 'preset-value': preset, 'toolbar-value': '1' });
+      expect(config.toolbar.shouldNotGroupWhenFull).toBe(true);
+    }
+  });
+
+  it('groups overflowing toolbar items behind "Show more items" on narrow viewports (MUX-41)', async () => {
+    narrowViewport = true;
+    for (const preset of ['standard', 'simple', 'minimal', 'emoji', 'typography', 'variables']) {
+      const { config } = await configFor({ 'preset-value': preset, 'toolbar-value': '1' });
+      expect(config.toolbar.shouldNotGroupWhenFull).toBe(false);
+    }
+    expect(window.matchMedia).toHaveBeenCalledWith('(max-width: 767.98px)');
+  });
+
+  it('defaults the UI language and heading labels to English', async () => {
+    const { config } = await configFor({});
+    expect(config.language).toBe('en');
+    expect(config.heading?.options.map((o) => o.title)).toEqual(['Paragraph', 'Heading 1', 'Heading 2', 'Heading 3']);
+    expect(config.translations.en.dictionary).toMatchObject({ Paragraph: 'Paragraph', 'Show more items': 'Show more items' });
+  });
+
+  it('translates the heading picker and the overflow button from the bundle labels (MUX-41)', async () => {
+    const labels = {
+      paragraph: 'Párrafo',
+      heading1: 'Encabezado 1',
+      heading2: 'Encabezado 2',
+      heading3: 'Encabezado 3',
+      heading: 'Encabezado',
+      chooseHeading: 'Elegir encabezado',
+      showMoreItems: 'Mostrar más elementos',
+    };
+    const { config } = await configFor({ 'language-value': 'es_ES', 'labels-value': JSON.stringify(labels) });
+    expect(config.language).toBe('es');
+    expect(config.heading?.options.map((o) => o.title)).toEqual(['Párrafo', 'Encabezado 1', 'Encabezado 2', 'Encabezado 3']);
+    expect(config.translations).toEqual({
+      es: {
+        dictionary: {
+          Paragraph: 'Párrafo',
+          'Heading 1': 'Encabezado 1',
+          'Heading 2': 'Encabezado 2',
+          'Heading 3': 'Encabezado 3',
+          Heading: 'Encabezado',
+          'Choose heading': 'Elegir encabezado',
+          'Show more items': 'Mostrar más elementos',
+        },
+      },
+    });
+  });
+
+  it('falls back to English for missing, blank or invalid labels and bad language codes', async () => {
+    expect((await configFor({ 'labels-value': '{"paragraph":"  ","heading1":3,"heading2":"Kop 2"}' })).config.heading?.options.map((o) => o.title))
+      .toEqual(['Paragraph', 'Heading 1', 'Kop 2', 'Heading 3']);
+    expect((await configFor({ 'labels-value': '{not json' })).config.heading?.options[0].title).toBe('Paragraph');
+    expect((await configFor({ 'labels-value': 'null' })).config.heading?.options[0].title).toBe('Paragraph');
+    expect((await configFor({ 'labels-value': '"Paragraph"' })).config.heading?.options[0].title).toBe('Paragraph');
+    expect((await configFor({ 'language-value': '  ' })).config.language).toBe('en');
+    expect((await configFor({ 'language-value': '<x>' })).config.language).toBe('en');
+    expect((await configFor({ 'language-value': 'PT-br' })).config.language).toBe('pt');
+  });
+
+  it('exports parseLabels', async () => {
+    const mod = await load();
+    expect(mod.parseLabels(undefined).showMoreItems).toBe('Show more items');
+    expect(mod.parseLabels('{"showMoreItems":"Meer"}').showMoreItems).toBe('Meer');
   });
 
   it('hides the toolbar when disabled', async () => {

@@ -49,6 +49,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Next minor: **1.12.0**. Phone toolbar groups its overflow behind "⋮"; the heading picker is translated (Beacon MUX-41). See [UPGRADING](UPGRADING.md#unreleased).
+
+### Added
+
+- **Phone toolbar (MUX-41):** on viewports up to 767.98 px (`TOOLBAR_GROUP_MEDIA_QUERY`, checked when the editor mounts) every preset sets `toolbar.shouldNotGroupWhenFull: false`, so the items that do not fit on one row go behind CKEditor's built-in "⋮" *Show more items* dropdown (button with `aria-expanded`, keyboard and Esc handled by CKEditor) instead of wrapping to three rows at 390 px. Wider viewports keep today's wrapping toolbar.
+- **Translated heading picker (MUX-41):** the form theme renders `data-ckeditor5-language-value` (the request locale, `en` without a request) and `data-ckeditor5-labels-value` (JSON). The heading options (*Paragraph*, *Heading 1–3*), the picker's *Heading* / *Choose heading* names and the *Show more items* button now come from the `NowoCkeditor5EditorBundle` catalogue: new keys `ckeditor5_heading_paragraph`, `ckeditor5_heading_1`, `ckeditor5_heading_2`, `ckeditor5_heading_3`, `ckeditor5_heading`, `ckeditor5_choose_heading`, `ckeditor5_toolbar_show_more_items` in de, en, es, fr, it, nl, pt. Missing or invalid labels fall back to English. Assets rebuilt.
+
 ## [1.11.0] - 2026-11-08
 
 `chrome: tokens` paints the editor frame, toolbar, panels and content typography from `--nowo-ui-*` tokens (Beacon CKE-1). Audit: Appendix IN, Pass.

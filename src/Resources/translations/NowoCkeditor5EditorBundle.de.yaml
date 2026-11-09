@@ -1,1 +1,8 @@
 ckeditor5_placeholder: 'Schreiben beginnen…'
+ckeditor5_heading_paragraph: 'Absatz'
+ckeditor5_heading_1: 'Überschrift 1'
+ckeditor5_heading_2: 'Überschrift 2'
+ckeditor5_heading_3: 'Überschrift 3'
+ckeditor5_heading: 'Überschrift'
+ckeditor5_choose_heading: 'Überschrift wählen'
+ckeditor5_toolbar_show_more_items: 'Weitere Elemente anzeigen'
