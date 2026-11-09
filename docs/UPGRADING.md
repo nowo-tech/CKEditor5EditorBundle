@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.12.1](#to-1121)
 - [To 1.12.0](#to-1120)
 - [To 1.11.0](#to-1110)
 - [To 1.10.2](#to-1102)
@@ -46,6 +47,16 @@
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## Unreleased
+
+## To 1.12.1
+
+From **1.12.0**:
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
+
+No configuration or API change. The shipped assets were rebuilt with the updated front-end dependencies; clear the asset cache (`assets:install`) after updating.
 
 ## To 1.12.0
 
