@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.12.0](#to-1120)
 - [To 1.11.0](#to-1110)
 - [To 1.10.2](#to-1102)
 - [To 1.10.1](#to-1101)
@@ -45,6 +46,14 @@
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## Unreleased
+
+## To 1.12.0
+
+From **1.11.0**:
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
 
 Next minor: 1.12.0. Nothing to do for most hosts.
 
