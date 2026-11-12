@@ -2,36 +2,29 @@
 
 {% block title %}{{ 'demo.variables_page_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
 
+{% block nowo_ui_page_header %}
+    {{ include(nowo_ui_partial('page_header'), {
+        title: 'demo.variables_page_title'|trans({}, 'messages'),
+        intro: 'demo.variables_page_lead'|trans({}, 'messages'),
+    }) }}
+{% endblock %}
+
 {% block body %}
-<div class="container py-4">
-    <h1>{{ 'demo.variables_page_title'|trans({}, 'messages') }}</h1>
-    <p class="lead text-muted">{{ 'demo.variables_page_lead'|trans({}, 'messages') }}</p>
-
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-
     {{ form_start(form) }}
         {% for child in form %}
             {% if not child.rendered %}
                 {{ form_row(child) }}
             {% endif %}
         {% endfor %}
-        <button type="submit" class="btn btn-primary">{{ 'demo.submit'|trans({}, 'messages') }}</button>
     {{ form_end(form) }}
 
     {% if saved_value is defined and saved_value != '' %}
-        <hr class="my-4">
-        <p class="text-muted small">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
-        <pre class="border rounded p-3 bg-light small">{{ saved_value|e }}</pre>
+        <p class="nowo-ui-muted">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
+        <pre class="nowo-ui-code-block">{{ saved_value|e }}</pre>
     {% endif %}
 
-    <div class="alert alert-light border mt-4 small" role="note">
+    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
         <strong>{{ 'demo.variables_config_note_title'|trans({}, 'messages') }}</strong>
-        <pre class="mb-0 mt-2 bg-white border rounded p-3">{{ 'demo.variables_config_snippet'|trans({}, 'messages') }}</pre>
+        <pre class="nowo-ui-code-block">{{ 'demo.variables_config_snippet'|trans({}, 'messages') }}</pre>
     </div>
-</div>
 {% endblock %}

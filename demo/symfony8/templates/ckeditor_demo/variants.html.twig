@@ -2,21 +2,17 @@
 
 {% block title %}{{ 'demo.variants_page_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
 
+{% block nowo_ui_page_header %}
+    {{ include(nowo_ui_partial('page_header'), {
+        title: 'demo.variants_page_title'|trans({}, 'messages'),
+        intro: 'demo.variants_page_lead'|trans({}, 'messages'),
+    }) }}
+{% endblock %}
+
 {% block body %}
-<div class="container py-4">
-    <h1>{{ 'demo.variants_page_title'|trans({}, 'messages') }}</h1>
-    <p class="lead text-muted">{{ 'demo.variants_page_lead'|trans({}, 'messages') }}</p>
-
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-
-    <div class="alert alert-secondary small mb-4" role="note">
+    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
         <strong>{{ 'demo.variants_yaml_note_title'|trans({}, 'messages') }}</strong>
-        <pre class="mb-0 mt-2 small bg-white border rounded p-3 overflow-auto">{{ 'demo.variants_yaml_snippet'|trans({}, 'messages') }}</pre>
+        <pre class="nowo-ui-code-block">{{ 'demo.variants_yaml_snippet'|trans({}, 'messages') }}</pre>
     </div>
 
     {{ form_start(form) }}
@@ -24,22 +20,19 @@
     {% for child in form %}
         {% if not child.rendered %}
             {% if child.vars.name == 'content_compact' %}
-                <h2 class="h5 mt-4">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
-                <p class="small text-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
+                <h2 class="nowo-ui-card__title">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
+        <p class="nowo-ui-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
             {% endif %}
             {% if child.vars.name == 'content_dark' %}
-                <h2 class="h5 mt-4">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
-                <p class="small text-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
+                <h2 class="nowo-ui-card__title">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
+        <p class="nowo-ui-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
             {% endif %}
             {% if child.vars.name == 'content_reading' %}
-                <h2 class="h5 mt-4">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
-                <p class="small text-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
+                <h2 class="nowo-ui-card__title">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
+        <p class="nowo-ui-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
             {% endif %}
             {{ form_row(child) }}
         {% endif %}
     {% endfor %}
-
-    <button type="submit" class="btn btn-primary mt-3">{{ 'demo.submit_all'|trans({}, 'messages') }}</button>
     {{ form_end(form) }}
-</div>
 {% endblock %}

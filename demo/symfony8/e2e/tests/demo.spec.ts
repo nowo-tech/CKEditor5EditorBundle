@@ -21,7 +21,7 @@ test.describe('CKEditor 5 demo', () => {
     await page.keyboard.type('bold text');
     await expect(root.locator('strong')).toContainText('bold text');
     await page.getByRole('button', { name: 'Save', exact: true }).click();
-    await expect(page.locator('.alert-success')).toContainText('Content saved.');
+    await expect(page.locator('.nowo-ui-flash--success')).toContainText('Content saved.');
     await expect(page.locator('pre')).toContainText('<p>Plain and <strong>bold text</strong></p>');
   });
 

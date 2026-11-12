@@ -4,46 +4,39 @@
 
 {% block ckeditor5_script %}{{ nowo_ckeditor5_editor_script({lazy: true}) }}{% endblock %}
 
+{% block nowo_ui_page_header %}
+    {{ include(nowo_ui_partial('page_header'), {
+        title: 'demo.lazy_page_title'|trans({}, 'messages'),
+        intro: 'demo.lazy_page_lead'|trans({}, 'messages'),
+    }) }}
+{% endblock %}
+
 {% block body %}
-<div class="container py-4">
-    <h1>{{ 'demo.lazy_page_title'|trans({}, 'messages') }}</h1>
-    <p class="lead text-muted">{{ 'demo.lazy_page_lead'|trans({}, 'messages') }}</p>
-
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-
     <p>
-        <button type="button" class="btn btn-primary" id="ckeditor5-lazy-open">{{ 'demo.lazy_open'|trans({}, 'messages') }}</button>
-        <span class="ms-2 small text-muted" id="ckeditor5-lazy-status" data-loaded="{{ 'demo.lazy_status_loaded'|trans({}, 'messages') }}">{{ 'demo.lazy_status_waiting'|trans({}, 'messages') }}</span>
+        <button type="button" class="nowo-ui-btn nowo-ui-btn--primary" id="ckeditor5-lazy-open">{{ 'demo.lazy_open'|trans({}, 'messages') }}</button>
+        <span class="nowo-ui-muted" id="ckeditor5-lazy-status" data-loaded="{{ 'demo.lazy_status_loaded'|trans({}, 'messages') }}">{{ 'demo.lazy_status_waiting'|trans({}, 'messages') }}</span>
     </p>
 
-    <dialog id="ckeditor5-lazy-dialog" class="border rounded p-4" style="width: min(90vw, 760px);">
+    <dialog id="ckeditor5-lazy-dialog" class="nowo-ui-dialog nowo-ui-dialog--lg">
         {{ form_start(form) }}
             {% for child in form %}
                 {% if not child.rendered %}
                     {{ form_row(child) }}
                 {% endif %}
             {% endfor %}
-            <button type="submit" class="btn btn-primary">{{ 'demo.submit'|trans({}, 'messages') }}</button>
-            <button type="button" class="btn btn-outline-secondary" id="ckeditor5-lazy-close">{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
+            <button type="button" class="nowo-ui-btn nowo-ui-btn--outline" id="ckeditor5-lazy-close">{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
         {{ form_end(form) }}
     </dialog>
 
     {% if saved_value is defined and saved_value != '' %}
-        <hr class="my-4">
-        <p class="text-muted small">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
-        <pre class="border rounded p-3 bg-light small">{{ saved_value|e }}</pre>
+        <p class="nowo-ui-muted">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
+        <pre class="nowo-ui-code-block">{{ saved_value|e }}</pre>
     {% endif %}
 
-    <div class="alert alert-light border mt-4 small" role="note">
+    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
         <strong>{{ 'demo.lazy_snippet_title'|trans({}, 'messages') }}</strong>
-        <pre class="mb-0 mt-2 bg-white border rounded p-3">{{ '{{ nowo_ckeditor5_editor_script({lazy: true}) }}' }}</pre>
+        <pre class="nowo-ui-code-block">{{ '{{ nowo_ckeditor5_editor_script({lazy: true}) }}' }}</pre>
     </div>
-</div>
 <script>
 (function () {
     var dialog = document.getElementById('ckeditor5-lazy-dialog');
