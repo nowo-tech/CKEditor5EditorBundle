@@ -28,7 +28,7 @@ test.describe('CKEditor 5 screenshots', () => {
       (el as unknown as { ckeditorInstance: { setData(h: string): void } }).ckeditorInstance.setData(html);
     }, RICH_HTML);
     await page.getByRole('button', { name: 'Save', exact: true }).click();
-    await expect(page.locator('.alert-success')).toBeVisible();
+    await expect(page.locator('.nowo-ui-flash--success')).toBeVisible();
     await expect(page.locator('pre')).toContainText('<h2>Release notes</h2>');
     // Put the caret in the editor so the toolbar shows its active state.
     await (await editable(page)).locator('strong').first().click();
