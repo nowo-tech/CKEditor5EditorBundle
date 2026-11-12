@@ -168,7 +168,7 @@ class CkeditorDemoController extends AbstractController
     /**
      * Builds the FormKit form of a demo page, handles the submit and renders the page.
      *
-     * @param array<string, string>               $data    Initial HTML per field
+     * @param array<string, string> $data Initial HTML per field
      * @param array<string, array<string, mixed>> $editors Ckeditor5EditorType options per field
      */
     private function handle(Request $request, string $template, array $data, array $editors, string $flash, string $submitLabel = 'demo.submit'): Response

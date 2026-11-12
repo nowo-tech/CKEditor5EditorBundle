@@ -21,7 +21,7 @@ return [
     NowoCkeditor5EditorBundle::class => ['all' => true],
     NowoHotReloadBundle::class       => ['dev' => true, 'test' => true],
     NowoTwigInspectorBundle::class   => ['dev' => true, 'test' => true],
-    NowoFormKitBundle::class       => ['all' => true],
-    NowoUiKitBundle::class         => ['all' => true],
+    NowoFormKitBundle::class         => ['all' => true],
+    NowoUiKitBundle::class           => ['all' => true],
     TwigExtraBundle::class           => ['all' => true],
 ];
