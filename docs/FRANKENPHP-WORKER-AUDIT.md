@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | Package | `nowo-tech/ckeditor5-editor-bundle` (`symfony-bundle`) |
-| Audited revision | `v1.4.8` (pre-tag) |
-| Audit date | 2026-09-24 |
+| Audited revision | `v1.12.1` (kept-alive test and rule-7 note added 2026-11-12; earlier manual review kept below) |
+| Audit date | 2026-11-12 (first audit 2026-09) |
 | Method | Manual review of every file under `src/` (form type, data transformer, sanitizers, Twig extension, DI extension, compiler pass, `Resources/config/services.yaml`, form theme templates); PHPStan with `ruleset-classic` + `ruleset-worker` + `ruleset-worker-strict`; regression test for consecutive `buildView()` on the same form type instance |
 | **Verdict** | ✅ **Viable under scenario B** — 100% compatible with FrankenPHP worker mode when the kernel is **not** reset between requests (`reset_kernel: false` / no `services_resetter`). Safe under A and classic PHP-FPM as well |
 
@@ -16,6 +16,7 @@
 - [Findings](#findings)
   - [W-01 — Upload CSRF token is fetched per render (Info, good pattern)](#w-01--upload-csrf-token-is-fetched-per-render-info-good-pattern)
   - [W-02 — Custom sanitizer services are shared (Info)](#w-02--custom-sanitizer-services-are-shared-info)
+- [Kept-alive test (REQ-RUNTIME-002)](#kept-alive-test-req-runtime-002)
 - [Usage recommendations in worker mode](#usage-recommendations-in-worker-mode)
 - [Re-audit triggers](#re-audit-triggers)
 
@@ -72,6 +73,20 @@ No findings above Info.
 - **Where:** `src/DependencyInjection/NowoCkeditor5EditorExtension.php:67-95` lets `html_sanitizer` point to any service id, aliased to `Ckeditor5HtmlSanitizerInterface` and injected into the shared form type.
 - **Worker impact:** the built-in sanitizers are stateless. A custom implementation that keeps per-request data (for example the current user's allowed tags, or a buffer of removed fragments) would keep it across requests under scenario B.
 - **Recommendation:** custom sanitizers must be stateless, or implement `ResetInterface` **and** clear state at the start of every request (ResetInterface alone is insufficient when `reset_kernel: false` if the app disables resetters). Prefer reading request context at call time.
+
+## Kept-alive test (REQ-RUNTIME-002)
+
+Test: `Nowo\Ckeditor5EditorBundle\Tests\Integration\Worker\WorkerKeptAliveKernelTest` (`tests/Integration/Worker/WorkerKeptAliveKernelTest.php`). It uses one booted production-like kernel (`TestKernel` with the fixture app, debug off: with debug on Symfony itself retains about 25 KB per rendered form, also for core fields, which is a development-only cost), a host form with the editor built, submitted and rendered through the shared form factory and Twig for two users that each have their own session (own upload CSRF token), locale and editor value. `services_resetter` / `kernel.reset` is **never** called. It runs 1,200 iterations alternating the two inputs, asserts every response carries its own upload CSRF token, UI locale and editor value (no value, token or locale of the other user appears), and that memory growth after a 100-iteration warm-up stays below 4 MiB.
+
+| Service | State kept between requests | Reset mechanism |
+|---------|-----------------------------|-----------------|
+| `Form\Ckeditor5EditorType` | none (`readonly` profiles; the CSRF token is read from the manager in `buildView()` on every render) | none needed |
+| `Security\*Ckeditor5HtmlSanitizer` | none (immutable allowlists) | none needed |
+| `Twig\NowoCkeditor5EditorTwigExtension` | none | none needed |
+
+Result: no request data is carried between requests, so the bundle is **safe with kernel reset false**.
+
+Rule 7: the bundle never clears or resets the host's default EntityManager (it uses no persistence).
 
 ## Usage recommendations in worker mode
 
