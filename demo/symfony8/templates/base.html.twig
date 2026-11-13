@@ -9,7 +9,7 @@
     {% set _route = app.request.attributes.get('_route') %}
     <header class="nowo-ui-header" data-testid="demo-masthead">
         <a class="nowo-ui-brand" href="{{ path('app_home', { _locale: _locale }) }}">{{ 'demo.title'|trans({}, 'messages') }}</a>
-        <nav class="nowo-ui-menu" aria-label="{{ 'demo.title'|trans({}, 'messages') }}">
+        <nav class="nowo-ui-header__nav" aria-label="{{ 'demo.title'|trans({}, 'messages') }}">
             {% for item in [
                 {route: 'app_home', label: 'demo.menu_home'},
                 {route: 'app_demo', label: 'demo.menu_demo'},
