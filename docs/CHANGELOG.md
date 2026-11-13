@@ -53,6 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- docs: demo screenshots regenerated on the UiKit base style
+
+### Changed
+
 - Demo uses the UiKit base style and FormKit forms (REQ-DEMO-014/015)
 
 ### Tests
