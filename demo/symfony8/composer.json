@@ -6,7 +6,7 @@
     "require": {
         "nowo-tech/ckeditor5-editor-bundle": "@dev",
         "nowo-tech/form-kit-bundle": "^2.22",
-        "nowo-tech/ui-kit-bundle": "^2.49",
+        "nowo-tech/ui-kit-bundle": "^2.51",
         "php": ">=8.4",
         "symfony/asset": "^8.0",
         "symfony/console": "^8.0",
