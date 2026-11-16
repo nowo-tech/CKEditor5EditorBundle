@@ -2,7 +2,7 @@
 
 **Baseline spec**: [`spec.md`](spec.md)  
 **Package**: `nowo-tech/ckeditor5-editor-bundle`  
-**Last audited**: 2026-10-20
+**Last audited**: 2026-11-16 (sweep: 2026-10-20 baseline + later sources)
 
 ## PHP classes
 
@@ -76,6 +76,15 @@
 | `Resources/views/Form/ckeditor5_editor_theme_table.html.twig` | Table layout theme | FR-TWIG-003 |
 | `Resources/views/Form/ckeditor5_editor_theme_tailwind2.html.twig` | Tailwind 2 theme | FR-TWIG-003 |
 
+## Sources added after the last baseline review (sweep 2026-11-16)
+
+These 2 `src/` files were added by releases after the last review. Each row maps the file to the requirement already used for its neighbours in the same directory; the description comes from the class docblock. With them, every file under `src/` is listed in this inventory.
+
+| Source file | Spec section | Requirement IDs |
+| --- | --- | --- |
+| `EditorChrome.php` | How the editor frame is painted (1.x CKE-1, profile key / form option `chrome`) | FR-BUNDLE-001 |
+| `Resources/assets/src/ckeditor5-editor.test.ts` | Vitest test `ckeditor5-editor.test.ts` (ships no runtime code) | FR-UI-001 |
+
 ## Coverage summary
 
 | Category | Files | Mapped |
@@ -86,6 +95,6 @@
 | Config & build outputs | 5 | 5 |
 | Translations | 7 | 7 |
 | Twig themes | 11 | 11 |
-| **Total files under `src/`** | **42** | **42** |
+| **Total files under `src/`** | **44** | **44** |
 
 Audit command: `git ls-files src | wc -l` → 42. Co-located Vitest files are included as `FR-TEST-*` / `FR-LAZY-005` rows; `Resources/public/*` files are build outputs of the named TypeScript/CSS sources (`FR-BUILD-*`), not orphan files.
