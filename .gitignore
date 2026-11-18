@@ -32,3 +32,4 @@
 .cursor/sandbox.json
 
 package-lock.json
+!demo/symfony8/e2e/package-lock.json
