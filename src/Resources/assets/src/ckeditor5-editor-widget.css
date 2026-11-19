@@ -283,3 +283,41 @@ html:has(.ckeditor5-editor-chrome--tokens) .ck-body-wrapper .ck {
     border-radius: calc(var(--ckeditor5-radius) / 2);
     padding: 0.1em 0.3em;
 }
+
+/* CKEditor's own theme sets scrollbar-color on .ck, which disables the ::-webkit-scrollbar pseudo-elements below; reset it. */
+.ck.ck {
+  scrollbar-color: auto;
+}
+
+/*
+ * Scrollbars: thin 6px bar matching UiKit. Hosts restyle only through the --nowo-ui-scrollbar-* tokens.
+ * The ::-webkit-scrollbar rules apply when the engine supports them; otherwise the standard properties are used.
+ */
+.ck.ck::-webkit-scrollbar {
+  width: var(--nowo-ui-scrollbar-size, 6px);
+  height: var(--nowo-ui-scrollbar-size, 6px);
+}
+
+.ck.ck::-webkit-scrollbar-track {
+  background: var(--nowo-ui-scrollbar-track, transparent);
+}
+
+.ck.ck::-webkit-scrollbar-thumb {
+  background: var(--nowo-ui-scrollbar-thumb, color-mix(in srgb, currentColor 28%, transparent));
+  border-radius: 999px;
+}
+
+.ck.ck::-webkit-scrollbar-thumb:hover {
+  background: var(--nowo-ui-scrollbar-thumb-hover, color-mix(in srgb, currentColor 45%, transparent));
+}
+
+.ck.ck::-webkit-scrollbar-button {
+  display: none;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .ck.ck {
+    scrollbar-width: thin;
+    scrollbar-color: var(--nowo-ui-scrollbar-thumb, color-mix(in srgb, currentColor 28%, transparent)) var(--nowo-ui-scrollbar-track, transparent);
+  }
+}

@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Scrollbars: every scrollable CKEditor surface (`.ck`: dropdown panels, lists, the editable area) now use the UiKit thin scrollbar (6px, `::-webkit-scrollbar` rules with the `--nowo-ui-scrollbar-size`, `-thumb`, `-thumb-hover` and `-track` tokens and fallbacks, standard `scrollbar-width`/`scrollbar-color` only where `::-webkit-scrollbar` is unsupported). Behaviour of the content is unchanged; see the "Scrollbars" section of the docs.
 - docs: demo screenshots regenerated on the UiKit base style
 - demo: opt into UiKit 2.51 `nowo_ui_kit.base_stylesheet`, use `nowo-ui-header__nav` for the masthead nav, screenshots regenerated with the themed shell
 - Canonical `.scrutinizer.yml` (PHP coverage + Vitest) (REQ-CI-002)
