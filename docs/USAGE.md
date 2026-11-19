@@ -169,3 +169,12 @@ Full procedure, logical names (`@NowoCkeditor5EditorBundle/...`), and the comple
 ## Translation overrides
 
 Translations use the domain **`NowoCkeditor5EditorBundle`**. Override from your app with files under `translations/` using the same domain (e.g. `translations/NowoCkeditor5EditorBundle.en.yaml`). See [CONFIGURATION.md — Translation overrides](CONFIGURATION.md#translation-overrides).
+
+## Scrollbars
+
+Scrollable areas of this bundle (every scrollable CKEditor surface (`.ck`: dropdown panels, lists, the editable area)) use the same thin scrollbar as UiKit: 6px wide, thumb in the text colour at
+28 % (45 % on hover), transparent track, no arrow buttons. Hosts restyle them **only** through the shared tokens
+`--nowo-ui-scrollbar-size`, `--nowo-ui-scrollbar-thumb`, `--nowo-ui-scrollbar-thumb-hover` and
+`--nowo-ui-scrollbar-track`; each has a fallback, so nothing is needed without UiKit. Do not set `scrollbar-width` or
+`scrollbar-color` on these elements: on Chromium 121+ they disable the `::-webkit-scrollbar` rules (the standard
+properties are only applied by the bundle where `::-webkit-scrollbar` is unsupported).
