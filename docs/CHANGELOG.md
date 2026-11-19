@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.13.0] - 2026-11-19](#1130---2026-11-19)
 - [[1.12.1] - 2026-11-09](#1121---2026-11-09)
 - [[1.12.0] - 2026-11-09](#1120---2026-11-09)
 - [[1.11.0] - 2026-11-08](#1110---2026-11-08)
@@ -51,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.13.0] - 2026-11-19
+
 ### Changed
 
 - Scrollbars: every scrollable CKEditor surface (`.ck`: dropdown panels, lists, the editable area) now use the UiKit thin scrollbar (6px, `::-webkit-scrollbar` rules with the `--nowo-ui-scrollbar-size`, `-thumb`, `-thumb-hover` and `-track` tokens and fallbacks, standard `scrollbar-width`/`scrollbar-color` only where `::-webkit-scrollbar` is unsupported). Behaviour of the content is unchanged; see the "Scrollbars" section of the docs.
@@ -70,6 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 - USAGE: new section "Using it from a DDD / hexagonal application" (where the bundle sits in a hexagonal host, the ports, events and DTOs to build an anti-corruption layer on, and the known limitations).
+
+[1.13.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.13.0
 
 ## [1.12.1] - 2026-11-09
 
@@ -527,7 +532,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.12.1...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.13.0...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0

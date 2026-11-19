@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Unreleased](#unreleased)
+- [To 1.13.0](#to-1130)
 - [To 1.12.1](#to-1121)
 - [To 1.12.0](#to-1120)
 - [To 1.11.0](#to-1110)
@@ -47,6 +48,14 @@
 - [To 1.x (first documented stable line)](#to-1x-first-documented-stable-line)
 
 ## Unreleased
+
+## To 1.13.0
+
+From **1.12.1**:
+
+```bash
+composer update nowo-tech/ckeditor5-editor-bundle
+```
 
 ## To 1.12.1
 
