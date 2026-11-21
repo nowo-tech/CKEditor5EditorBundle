@@ -3,21 +3,36 @@
 {% block title %}{{ 'demo.page_home_title'|trans({}, 'messages') }} – {{ 'demo.title'|trans({}, 'messages') }}{% endblock %}
 
 {% block nowo_ui_page_header %}
+    {% set _toolbar %}
+        <a class="nowo-ui-btn nowo-ui-btn--primary" href="{{ path('app_demo', { _locale: app.request.locale }) }}">{{ 'demo.menu_demo'|trans({}, 'messages') }}</a>
+    {% endset %}
     {{ include(nowo_ui_partial('page_header'), {
         title: 'demo.page_home_title'|trans({}, 'messages'),
+        toolbar: _toolbar,
     }) }}
 {% endblock %}
 
 {% block body %}
-    <p>{{ 'demo.page_home_lead'|trans({}, 'messages')|raw }}</p>
-    <div class="nowo-ui-page-actions">
-        <a class="nowo-ui-btn nowo-ui-btn--primary" href="{{ path('app_demo', { _locale: app.request.locale }) }}">{{ 'demo.menu_demo'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_configs', { _locale: app.request.locale }) }}">{{ 'demo.menu_configs'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_inline_config', { _locale: app.request.locale }) }}">{{ 'demo.menu_inline_config'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_variants', { _locale: app.request.locale }) }}">{{ 'demo.menu_variants'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_emoji', { _locale: app.request.locale }) }}">{{ 'demo.menu_emoji'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_typography', { _locale: app.request.locale }) }}">{{ 'demo.menu_typography'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_variables', { _locale: app.request.locale }) }}">{{ 'demo.menu_variables'|trans({}, 'messages') }}</a>
-        <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path('app_demo_upload_images', { _locale: app.request.locale }) }}">{{ 'demo.menu_upload_images'|trans({}, 'messages') }}</a>
-    </div>
+    {% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: 'demo.about_title'|trans({}, 'messages'), kind: 'content'} %}
+        {% block section_body %}<p>{{ 'demo.page_home_lead'|trans({}, 'messages')|raw }}</p>{% endblock %}
+    {% endembed %}
+
+    {% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: 'demo.explore_title'|trans({}, 'messages'), kind: 'list'} %}
+        {% block section_body %}
+            <div class="nowo-ui-page-actions">
+                {% for item in [
+                    {route: 'app_demo_configs', label: 'demo.menu_configs'},
+                    {route: 'app_demo_inline_config', label: 'demo.menu_inline_config'},
+                    {route: 'app_demo_variants', label: 'demo.menu_variants'},
+                    {route: 'app_demo_emoji', label: 'demo.menu_emoji'},
+                    {route: 'app_demo_typography', label: 'demo.menu_typography'},
+                    {route: 'app_demo_variables', label: 'demo.menu_variables'},
+                    {route: 'app_demo_upload_images', label: 'demo.menu_upload_images'},
+                    {route: 'app_demo_lazy', label: 'demo.menu_lazy'},
+                ] %}
+                    <a class="nowo-ui-btn nowo-ui-btn--outline" href="{{ path(item.route, { _locale: app.request.locale }) }}">{{ item.label|trans({}, 'messages') }}</a>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

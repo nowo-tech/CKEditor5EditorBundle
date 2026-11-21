@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { editable, waitForToolbar } from './helpers';
+import { editable } from './helpers';
+import { frameShot } from './frame';
 
 /** REQ-DEMO-013 — README screenshots (captured as PNG, converted to WebP by scripts/to-webp.mjs). */
 const outDir = process.env.SCREENSHOT_DIR
@@ -29,18 +30,16 @@ test.describe('CKEditor 5 screenshots', () => {
     }, RICH_HTML);
     await page.getByRole('button', { name: 'Save', exact: true }).click();
     await expect(page.locator('.nowo-ui-flash--success')).toBeVisible();
-    await expect(page.locator('pre')).toContainText('<h2>Release notes</h2>');
+    await expect(page.locator('[data-testid="demo-submitted-html"] pre')).toContainText('<h2>Release notes</h2>');
     // Put the caret in the editor so the toolbar shows its active state.
     await (await editable(page)).locator('strong').first().click();
-    await waitForToolbar(page);
-    await page.screenshot({ path: resolve(outDir, 'editor.png') });
+    await frameShot(page, resolve(outDir, 'editor.png'));
   });
 
   test('presets — standard, simple and minimal toolbars from YAML profiles', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 1560 });
     await page.goto('/en/demo/configs');
     await editable(page, 2);
-    await waitForToolbar(page);
-    await page.screenshot({ path: resolve(outDir, 'presets.png') });
+    await frameShot(page, resolve(outDir, 'presets.png'));
   });
 });

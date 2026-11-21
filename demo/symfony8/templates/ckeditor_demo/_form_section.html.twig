@@ -1,0 +1,17 @@
+{#- One form card: the editors, the groups' headings and the submit in the card footer (form="demo-editor-form"). -#}
+{% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: section_title, intro: section_intro|default(null), kind: 'form', testid: 'demo-editor-section'} %}
+    {% block section_body %}
+        {{ form_start(form, {attr: {id: 'demo-editor-form', class: 'nowo-ui-form'}}) }}
+            {% for child in form %}
+                {% if child.vars.name != 'submit' %}
+                    {% if (groups|default({}))[child.vars.name] is defined %}
+                        <h3 class="nowo-ui-card__title">{{ groups[child.vars.name].title|trans({}, 'messages') }}</h3>
+                        <p class="nowo-ui-muted">{{ groups[child.vars.name].hint|trans({}, 'messages') }}</p>
+                    {% endif %}
+                    {{ form_row(child) }}
+                {% endif %}
+            {% endfor %}
+        {{ form_end(form, {render_rest: false}) }}
+    {% endblock %}
+    {% block section_footer %}{% if form.submit is defined %}{{ form_widget(form.submit) }}{% endif %}{% endblock %}
+{% endembed %}

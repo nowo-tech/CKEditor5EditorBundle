@@ -10,21 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {% for child in form %}
-            {% if not child.rendered %}
-                {{ form_row(child) }}
-            {% endif %}
-        {% endfor %}
-    {{ form_end(form) }}
-
-    {% if saved_value is defined and saved_value != '' %}
-        <p class="nowo-ui-muted">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
-        <pre class="nowo-ui-code-block">{{ saved_value|e }}</pre>
-    {% endif %}
-
-    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
-        <strong>{{ 'demo.typography_config_note_title'|trans({}, 'messages') }}</strong>
-        <pre class="nowo-ui-code-block">{{ 'demo.typography_config_snippet'|trans({}, 'messages') }}</pre>
-    </div>
+    {{ include('ckeditor_demo/_form_section.html.twig', {section_title: 'demo.editors_title'|trans({}, 'messages'), section_intro: null}) }}
+    {{ include('ckeditor_demo/_preview.html.twig') }}
+    {{ include('ckeditor_demo/_snippet.html.twig', {snippet_title: 'demo.typography_config_note_title', snippet: 'demo.typography_config_snippet'}) }}
 {% endblock %}

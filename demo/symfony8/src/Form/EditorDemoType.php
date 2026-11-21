@@ -37,7 +37,7 @@ final class EditorDemoType extends AbstractType
         $this->addWithDefaults($builder, 'submit', SubmitType::class, [
             'label'              => $options['submit_label'],
             'translation_domain' => 'messages',
-            'attr'               => ['class' => 'nowo-ui-btn nowo-ui-btn--primary'],
+            'attr'               => ['class' => 'nowo-ui-btn nowo-ui-btn--primary', 'form' => 'demo-editor-form'],
         ]);
     }
 

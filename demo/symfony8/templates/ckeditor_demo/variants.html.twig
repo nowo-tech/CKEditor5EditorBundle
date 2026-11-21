@@ -10,29 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
-        <strong>{{ 'demo.variants_yaml_note_title'|trans({}, 'messages') }}</strong>
-        <pre class="nowo-ui-code-block">{{ 'demo.variants_yaml_snippet'|trans({}, 'messages') }}</pre>
-    </div>
-
-    {{ form_start(form) }}
-
-    {% for child in form %}
-        {% if not child.rendered %}
-            {% if child.vars.name == 'content_compact' %}
-                <h2 class="nowo-ui-card__title">{{ 'demo.section_heights'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_heights_hint'|trans({}, 'messages') }}</p>
-            {% endif %}
-            {% if child.vars.name == 'content_dark' %}
-                <h2 class="nowo-ui-card__title">{{ 'demo.section_themes'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_themes_hint'|trans({}, 'messages') }}</p>
-            {% endif %}
-            {% if child.vars.name == 'content_reading' %}
-                <h2 class="nowo-ui-card__title">{{ 'demo.section_misc'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_misc_hint'|trans({}, 'messages') }}</p>
-            {% endif %}
-            {{ form_row(child) }}
-        {% endif %}
-    {% endfor %}
-    {{ form_end(form) }}
+    {{ include('ckeditor_demo/_form_section.html.twig', {section_title: 'demo.editors_title'|trans({}, 'messages'), section_intro: null, groups: {content_compact: {title: 'demo.section_heights', hint: 'demo.section_heights_hint'}, content_dark: {title: 'demo.section_themes', hint: 'demo.section_themes_hint'}, content_reading: {title: 'demo.section_misc', hint: 'demo.section_misc_hint'}}}) }}
+    {{ include('ckeditor_demo/_preview.html.twig') }}
+    {{ include('ckeditor_demo/_snippet.html.twig', {snippet_title: 'demo.variants_yaml_note_title', snippet: 'demo.variants_yaml_snippet'}) }}
 {% endblock %}

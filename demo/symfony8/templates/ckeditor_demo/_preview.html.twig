@@ -1,0 +1,11 @@
+{#- The submitted HTML (escaped), and with rendered: true the HTML as the page would show it. -#}
+{% if saved_value is defined and saved_value != '' %}
+    {% if rendered|default(false) %}
+        {% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: 'demo.upload_images_rendered_preview'|trans({}, 'messages'), kind: 'detail', testid: 'demo-rendered-preview'} %}
+            {% block section_body %}<div class="ck-content">{{ saved_value|raw }}</div>{% endblock %}
+        {% endembed %}
+    {% endif %}
+    {% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: 'demo.saved_preview'|trans({}, 'messages'), kind: 'detail', testid: 'demo-submitted-html'} %}
+        {% block section_body %}{{ include(nowo_ui_partial('code_block'), {code: saved_value, language: 'HTML', code_id: 'demo-submitted-code', wrap: true}) }}{% endblock %}
+    {% endembed %}
+{% endif %}

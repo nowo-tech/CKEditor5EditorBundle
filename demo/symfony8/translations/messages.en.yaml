@@ -1,4 +1,9 @@
 demo:
+  nav_section: 'Demo pages'
+  about_title: 'About the editor'
+  explore_title: 'Explore the demo'
+  show_page_lead: 'One editor on a Symfony form: type, format and save to see the submitted HTML.'
+  editors_title: 'Editors'
   title: 'CKEditor 5 Demo'
   menu_toggle_aria: 'Toggle navigation menu'
   menu_home: 'Home'

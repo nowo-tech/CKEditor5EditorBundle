@@ -10,23 +10,7 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {% for child in form %}
-            {% if not child.rendered %}
-                {{ form_row(child) }}
-            {% endif %}
-        {% endfor %}
-    {{ form_end(form) }}
-
-    {% if saved_value is defined and saved_value != '' %}
-        <p class="nowo-ui-muted">{{ 'demo.upload_images_rendered_preview'|trans({}, 'messages') }}</p>
-        <div class="nowo-ui-card"><div class="nowo-ui-card__body ck-content">{{ saved_value|raw }}</div></div>
-        <p class="nowo-ui-muted">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
-        <pre class="nowo-ui-code-block">{{ saved_value|e }}</pre>
-    {% endif %}
-
-    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
-        <strong>{{ 'demo.upload_images_config_note_title'|trans({}, 'messages') }}</strong>
-        <pre class="nowo-ui-code-block">{{ 'demo.upload_images_config_snippet'|trans({}, 'messages') }}</pre>
-    </div>
+    {{ include('ckeditor_demo/_form_section.html.twig', {section_title: 'demo.editors_title'|trans({}, 'messages'), section_intro: null}) }}
+    {{ include('ckeditor_demo/_preview.html.twig', {rendered: true}) }}
+    {{ include('ckeditor_demo/_snippet.html.twig', {snippet_title: 'demo.upload_images_config_note_title', snippet: 'demo.upload_images_config_snippet'}) }}
 {% endblock %}

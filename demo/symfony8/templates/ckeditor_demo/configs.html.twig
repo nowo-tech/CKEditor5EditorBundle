@@ -10,23 +10,6 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {% for child in form %}
-            {% if not child.rendered %}
-                {% if child.vars.name == 'content_standard' %}
-                    <h2 class="nowo-ui-card__title">{{ 'demo.section_standard'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_standard_hint'|trans({}, 'messages') }}</p>
-                {% endif %}
-                {% if child.vars.name == 'content_simple' %}
-                    <h2 class="nowo-ui-card__title">{{ 'demo.section_simple'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_simple_hint'|trans({}, 'messages') }}</p>
-                {% endif %}
-                {% if child.vars.name == 'content_minimal' %}
-                    <h2 class="nowo-ui-card__title">{{ 'demo.section_minimal'|trans({}, 'messages') }}</h2>
-        <p class="nowo-ui-muted">{{ 'demo.section_minimal_hint'|trans({}, 'messages') }}</p>
-                {% endif %}
-                {{ form_row(child) }}
-            {% endif %}
-        {% endfor %}
-    {{ form_end(form) }}
+    {{ include('ckeditor_demo/_form_section.html.twig', {section_title: 'demo.editors_title'|trans({}, 'messages'), section_intro: null, groups: {content_standard: {title: 'demo.section_standard', hint: 'demo.section_standard_hint'}, content_simple: {title: 'demo.section_simple', hint: 'demo.section_simple_hint'}, content_minimal: {title: 'demo.section_minimal', hint: 'demo.section_minimal_hint'}}}) }}
+    {{ include('ckeditor_demo/_preview.html.twig') }}
 {% endblock %}

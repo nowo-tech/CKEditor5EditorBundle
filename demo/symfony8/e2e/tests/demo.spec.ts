@@ -22,7 +22,7 @@ test.describe('CKEditor 5 demo', () => {
     await expect(root.locator('strong')).toContainText('bold text');
     await page.getByRole('button', { name: 'Save', exact: true }).click();
     await expect(page.locator('.nowo-ui-flash--success')).toContainText('Content saved.');
-    await expect(page.locator('pre')).toContainText('<p>Plain and <strong>bold text</strong></p>');
+    await expect(page.locator('[data-testid="demo-submitted-html"] pre')).toContainText('<p>Plain and <strong>bold text</strong></p>');
   });
 
   test('presets page mounts one editor per YAML profile', async ({ page }) => {

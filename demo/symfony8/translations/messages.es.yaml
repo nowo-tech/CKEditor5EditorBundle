@@ -1,4 +1,9 @@
 demo:
+  nav_section: 'Páginas de la demo'
+  about_title: 'Sobre el editor'
+  explore_title: 'Explora la demo'
+  show_page_lead: 'Un editor en un formulario Symfony: escribe, da formato y guarda para ver el HTML enviado.'
+  editors_title: 'Editores'
   title: 'Demo CKEditor 5'
   menu_toggle_aria: 'Abrir o cerrar el menú'
   menu_home: 'Inicio'

@@ -5,50 +5,33 @@
 {% block ckeditor5_script %}{{ nowo_ckeditor5_editor_script({lazy: true}) }}{% endblock %}
 
 {% block nowo_ui_page_header %}
+    {% set _toolbar %}
+        <button type="button" class="nowo-ui-btn nowo-ui-btn--primary" id="ckeditor5-lazy-open" data-nowo-ui-dialog-open="ckeditor5-lazy-dialog">{{ 'demo.lazy_open'|trans({}, 'messages') }}</button>
+    {% endset %}
     {{ include(nowo_ui_partial('page_header'), {
         title: 'demo.lazy_page_title'|trans({}, 'messages'),
         intro: 'demo.lazy_page_lead'|trans({}, 'messages'),
+        toolbar: _toolbar,
     }) }}
 {% endblock %}
 
 {% block body %}
-    <p>
-        <button type="button" class="nowo-ui-btn nowo-ui-btn--primary" id="ckeditor5-lazy-open">{{ 'demo.lazy_open'|trans({}, 'messages') }}</button>
-        <span class="nowo-ui-muted" id="ckeditor5-lazy-status" data-loaded="{{ 'demo.lazy_status_loaded'|trans({}, 'messages') }}">{{ 'demo.lazy_status_waiting'|trans({}, 'messages') }}</span>
-    </p>
+    {{ include('ckeditor_demo/_preview.html.twig') }}
+    {{ include('ckeditor_demo/_snippet.html.twig', {snippet_title: 'demo.lazy_snippet_title', snippet_raw: '{{ nowo_ckeditor5_editor_script({lazy: true}) }}'}) }}
+{% endblock %}
 
-    <dialog id="ckeditor5-lazy-dialog" class="nowo-ui-dialog nowo-ui-dialog--lg">
-        {{ form_start(form) }}
-            {% for child in form %}
-                {% if not child.rendered %}
-                    {{ form_row(child) }}
-                {% endif %}
-            {% endfor %}
-            <button type="button" class="nowo-ui-btn nowo-ui-btn--outline" id="ckeditor5-lazy-close">{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
-        {{ form_end(form) }}
-    </dialog>
-
-    {% if saved_value is defined and saved_value != '' %}
-        <p class="nowo-ui-muted">{{ 'demo.saved_preview'|trans({}, 'messages') }}</p>
-        <pre class="nowo-ui-code-block">{{ saved_value|e }}</pre>
-    {% endif %}
-
-    <div class="nowo-ui-flash nowo-ui-flash--info" role="note">
-        <strong>{{ 'demo.lazy_snippet_title'|trans({}, 'messages') }}</strong>
-        <pre class="nowo-ui-code-block">{{ '{{ nowo_ckeditor5_editor_script({lazy: true}) }}' }}</pre>
-    </div>
-<script>
-(function () {
-    var dialog = document.getElementById('ckeditor5-lazy-dialog');
-    var status = document.getElementById('ckeditor5-lazy-status');
-    document.getElementById('ckeditor5-lazy-open').addEventListener('click', function () { dialog.showModal(); });
-    document.getElementById('ckeditor5-lazy-close').addEventListener('click', function () { dialog.close(); });
-    var timer = setInterval(function () {
-        if (window.NowoCkeditor5Editor) {
-            status.textContent = status.getAttribute('data-loaded');
-            clearInterval(timer);
-        }
-    }, 250);
-})();
-</script>
+{% block nowo_ui_modals %}
+    {% set _footer %}
+        <button type="button" class="nowo-ui-btn nowo-ui-btn--outline" id="ckeditor5-lazy-close" data-nowo-ui-dialog-close>{{ 'demo.lazy_close'|trans({}, 'messages') }}</button>
+        {{ form_widget(form.submit) }}
+    {% endset %}
+    {% embed nowo_ui_partial('dialog') with {id: 'ckeditor5-lazy-dialog', title: 'demo.lazy_page_title'|trans({}, 'messages'), size: 'wide', footer: _footer} %}
+        {% block nowo_ui_dialog_body %}
+            {{ form_start(form, {attr: {id: 'demo-editor-form', class: 'nowo-ui-form'}}) }}
+                {% for child in form %}
+                    {% if child.vars.name != 'submit' %}{{ form_row(child) }}{% endif %}
+                {% endfor %}
+            {{ form_end(form, {render_rest: false}) }}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
