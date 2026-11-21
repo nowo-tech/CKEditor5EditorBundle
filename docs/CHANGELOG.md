@@ -52,6 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Demo: runs in UiKit's demo platform shell (`nowo-tech/ui-kit-bundle` ^2.60); the demo's own header is gone and the pages use the shell page headers and section cards. The editors sit in form cards with the submit in the card footer; the lazy-loading dialog is UiKit's dialog (its inline script and load status line are gone); README screenshots are captured without the toolbar. Demo only, no bundle change.
+
 ## [1.13.0] - 2026-11-19
 
 ### Changed

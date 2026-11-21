@@ -1,0 +1,4 @@
+{#- A configuration snippet shown under a demo form. -#}
+{% embed '@NowoUiKit/demo_platform/_section.html.twig' with {title: snippet_title|trans({}, 'messages'), kind: 'detail', testid: 'demo-snippet'} %}
+    {% block section_body %}{{ include(nowo_ui_partial('code_block'), {code: snippet_raw is defined ? snippet_raw : snippet|trans({}, 'messages'), language: 'Config', wrap: true}) }}{% endblock %}
+{% endembed %}
