@@ -10,6 +10,13 @@
  * (rendered by the Twig function `nowo_ckeditor5_editor_script({ lazy: true })`). Its `nonce` is copied
  * onto the injected script. Escape hatch: `window.NowoCkeditor5EditorLoader.load()`.
  */
+import { createBundleLogger } from './logger';
+
+declare const __CKEDITOR5_EDITOR_BUILD_TIME__: string;
+
+createBundleLogger('ckeditor5-editor/loader', {
+  buildTime: typeof __CKEDITOR5_EDITOR_BUILD_TIME__ !== 'undefined' ? __CKEDITOR5_EDITOR_BUILD_TIME__ : undefined,
+}).scriptLoaded();
 
 /** Same selector as the full build (`ckeditor5-editor.ts`). */
 export const ROOT_SELECTOR = '[data-ckeditor5-root="1"]';

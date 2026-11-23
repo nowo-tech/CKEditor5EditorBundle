@@ -55,6 +55,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Demo: runs in UiKit's demo platform shell (`nowo-tech/ui-kit-bundle` ^2.60); the demo's own header is gone and the pages use the shell page headers and section cards. The editors sit in form cards with the submit in the card footer; the lazy-loading dialog is UiKit's dialog (its inline script and load status line are gone); README screenshots are captured without the toolbar. Demo only, no bundle change.
+- **Console**: the script-loaded line of `ckeditor5-editor.js` now reads `📦 [ckeditor5-editor] script loaded, build: 2026-11-23 14:05 UTC`: a readable UTC build time instead of the opaque source hash. The time comes from the committed `build-info.json` (`{sourceHash, builtAt}`): the source hash stays the change detector, `builtAt` is reused while the sources are unchanged and renewed only when they change, so rebuilding unchanged sources never rewrites the committed assets (no wall-clock stamp, no git date).
+
+### Added
+
+- **Console**: quiet switch for the script-loaded line: `<html data-nowo-console="quiet">` or `globalThis.NOWO_CONSOLE = 'quiet'` prints nothing. The default is unchanged.
 
 ## [1.13.0] - 2026-11-19
 
