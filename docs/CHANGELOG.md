@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Table of contents
 
 - [[Unreleased]](#unreleased)
+- [[1.14.0] - 2026-11-23](#1140---2026-11-23)
 - [[1.13.0] - 2026-11-19](#1130---2026-11-19)
 - [[1.12.1] - 2026-11-09](#1121---2026-11-09)
 - [[1.12.0] - 2026-11-09](#1120---2026-11-09)
@@ -52,6 +53,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.0] - 2026-11-23
+
 ### Changed
 
 - Demo: runs in UiKit's demo platform shell (`nowo-tech/ui-kit-bundle` ^2.60); the demo's own header is gone and the pages use the shell page headers and section cards. The editors sit in form cards with the submit in the card footer; the lazy-loading dialog is UiKit's dialog (its inline script and load status line are gone); README screenshots are captured without the toolbar. Demo only, no bundle change.
@@ -60,6 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Console**: quiet switch for the script-loaded line: `<html data-nowo-console="quiet">` or `globalThis.NOWO_CONSOLE = 'quiet'` prints nothing. The default is unchanged.
+
+[1.14.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/releases/tag/v1.14.0
 
 ## [1.13.0] - 2026-11-19
 
@@ -541,7 +546,7 @@ First semver release (documented stable line, CI and Packagist aligned with tag 
 - PHPUnit: integration suite + unit test for `upload_url` CSRF branch (**100%** PHP Clover on `src/`).
 - PHP-CS-Fixer finder excludes generated integration fixture cache and `tests/Fixtures/app/config/reference.php`.
 
-[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.13.0...HEAD
+[Unreleased]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.14.0...HEAD
 [1.4.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/nowo-tech/CKEditor5EditorBundle/compare/v1.2.3...v1.3.0
